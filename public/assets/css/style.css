@@ -1,0 +1,171 @@
+/* =======================================
+   styles.css → PedroMDominguez.com
+   Professional Dark Blue + White Theme
+   Author: Pedro M. Dominguez
+   ======================================= */
+
+/* === GLOBAL === */
+body {
+  background-color: #0a1a2f;
+  color: #ffffff;
+  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* === HERO SECTION === */
+section.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 8rem 1rem;
+}
+
+section.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* Overlay for contrast */
+  z-index: 0;
+}
+
+section.hero > div {
+  position: relative;
+  z-index: 1;
+}
+
+section.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  color: #facc15; /* Tailwind yellow-400 */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1rem;
+}
+
+section.hero p {
+  max-width: 48rem;
+  margin: 0 auto 2rem;
+  font-size: 1.125rem;
+  color: #e5e7eb; /* Tailwind gray-200 */
+}
+
+section.hero a {
+  display: inline-block;
+  background-color: #facc15;
+  color: #0a1a2f;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+section.hero a:hover {
+  background-color: #fde68a; /* yellow-300 */
+  transform: translateY(-2px);
+}
+
+/* === ABOUT ME SECTION === */
+#about {
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+#about h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+#about figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#about img {
+  border-radius: 9999px;
+  border: 4px solid #facc15;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+#about figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #9ca3af; /* Tailwind gray-400 */
+  font-style: italic;
+}
+
+#about p {
+  max-width: 42rem;
+  margin: 1rem auto;
+  color: #d1d5db; /* Tailwind gray-300 */
+  font-size: 1.05rem;
+}
+
+/* === CALL TO ACTION === */
+section.cta {
+  background-color: #091a2b;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+section.cta h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #facc15;
+}
+
+section.cta p {
+  max-width: 36rem;
+  margin: 0 auto 2rem;
+  font-size: 1.125rem;
+  color: #d1d5db;
+}
+
+section.cta a {
+  display: inline-block;
+  background-color: #facc15;
+  color: #0a1a2f;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+section.cta a:hover {
+  background-color: #fde68a;
+  transform: translateY(-2px);
+}
+
+/* === UTILITIES === */
+button {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  section.hero h1 {
+    font-size: 2.25rem;
+  }
+  
+  #about img {
+    width: 8rem;
+    height: 8rem;
+  }
+}
