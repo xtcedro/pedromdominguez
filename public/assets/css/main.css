@@ -1,18 +1,21 @@
-/* =======================================
-   Pedro M. Dominguez – Professional CSS
-   Dark Blue + White, Polished Look
-========================================= */
+/* ============================================
+   Pedro M. Dominguez – Signature Professional CSS
+   Refined Dark Blue, White, & Gold Accents
+   Polished, Trustworthy, Premium Client Feel
+============================================ */
 
 :root {
   --primary-color: #0a1a2f;
   --secondary-color: #ffffff;
-  --accent-color: #ffd700; /* gold accent for highlights */
+  --accent-color: #ffd700; /* Elegant gold accent */
+  --accent-hover: #ffec7a; /* Softer hover gold */
 }
 
 body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   font-family: 'Poppins', sans-serif;
+  font-weight: 400;
   line-height: 1.75;
   margin: 0;
 }
@@ -21,7 +24,7 @@ body {
 .hero {
   position: relative;
   text-align: center;
-  padding: 8rem 2rem 6rem;
+  padding: 9rem 2rem 7rem;
   overflow: hidden;
 }
 
@@ -31,7 +34,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.2;
+  opacity: 0.15;
   z-index: 0;
 }
 
@@ -40,26 +43,27 @@ body {
   z-index: 1;
   max-width: 960px;
   margin: 0 auto;
-  animation: fadeInUp 1.5s ease forwards;
+  animation: fadeInUp 1.4s ease forwards;
 }
 
 #hero-headline {
   font-size: 3.2rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(to right, var(--secondary-color), #ccc);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(to right, var(--secondary-color), #bbb);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: fadeInUp 1.8s ease forwards; /* 👈 Smooth fade in */
+  animation: fadeInUp 1.5s ease forwards;
 }
 
 .hero-subheading {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   max-width: 800px;
   margin: 0 auto 3rem;
-  color: #e0e0e0;
-  line-height: 1.6;
+  color: #e8e8e8;
+  line-height: 1.7;
   animation: fadeIn 2s ease forwards;
 }
 
@@ -67,50 +71,50 @@ body {
 .impact-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2.2rem;
   justify-content: center;
-  margin: 3rem 0;
+  margin: 3.5rem 0;
 }
 
 .impact-box {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  padding: 2.2rem;
+  border-radius: 16px;
   max-width: 400px;
   flex: 1 1 320px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeInUp 2s ease forwards;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: fadeInUp 1.8s ease forwards;
 }
 
 .impact-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(255, 255, 255, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 50px rgba(255, 255, 255, 0.1);
 }
 
 .impact-box h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.55rem;
+  margin-bottom: 0.8rem;
   color: var(--accent-color);
 }
 
 .impact-box p {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #ddd;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* === MISSION STATEMENT === */
 .mission-statement {
-  max-width: 800px;
+  max-width: 840px;
   margin: 0 auto 3rem;
-  font-size: 1.1rem;
-  line-height: 1.7;
+  font-size: 1.15rem;
+  line-height: 1.8;
   font-style: italic;
-  color: #ccc;
-  animation: fadeIn 2.5s ease forwards;
+  color: #d1d1d1;
+  animation: fadeIn 2.4s ease forwards;
 }
 
 /* === CTA BUTTON === */
@@ -118,29 +122,31 @@ body {
   display: inline-block;
   background: var(--accent-color);
   color: var(--primary-color);
-  padding: 0.9rem 2rem;
+  padding: 1rem 2.5rem;
   border-radius: 8px;
   font-weight: 700;
+  letter-spacing: 0.6px;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
   animation: fadeInUp 2.8s ease forwards;
 }
 
 .cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+  transform: translateY(-4px);
+  background: var(--accent-hover);
+  box-shadow: 0 10px 35px rgba(255, 215, 0, 0.6);
 }
 
 /* === ABOUT / CONTACT INFO === */
 .contact-info {
   background: #091a2b;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem;
   text-align: center;
 }
 
 .contact-info h2 {
-  font-size: 2rem;
+  font-size: 2.1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -150,7 +156,8 @@ body {
 }
 
 .contact-info li {
-  margin: 0.6rem 0;
+  margin: 0.7rem 0;
+  font-size: 1.05rem;
 }
 
 .contact-info a {
@@ -159,41 +166,42 @@ body {
 }
 
 .contact-info p {
-  max-width: 600px;
-  margin: 0 auto 1.5rem;
+  max-width: 640px;
+  margin: 0 auto 1.7rem;
   color: #ddd;
+  font-size: 1.05rem;
 }
 
 /* === Picture Frame === */
 .profile-frame {
   text-align: center;
-  margin: 2rem auto;
+  margin: 2.5rem auto;
 }
 
 .profile-photo {
-  width: 180px;
-  height: 180px;
+  width: 190px;
+  height: 190px;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid var(--accent-color);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .profile-photo:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 16px 40px rgba(255, 215, 0, 0.35);
 }
 
 .profile-caption {
-  margin-top: 0.75rem;
-  font-size: 1.1rem;
+  margin-top: 0.8rem;
+  font-size: 1.15rem;
   color: #ddd;
 }
 
 .caption-role {
   display: block;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #aaa;
   font-style: italic;
 }
@@ -220,7 +228,7 @@ body {
 
   .impact-container {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.8rem;
   }
 
   .impact-box {
