@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pedro M. Dominguez — Web Kernel Architect</title>
+  <meta name="description" content="Self-taught developer building sovereign web systems. Born in Ciudad Juárez, raised in Praxedis G. Guerrero, now empowering Oklahoma City and beyond."/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-[#0a1a2f] text-white font-sans">
+  <!-- ✅ Navbar (dynamically injected) -->
+  <nav class="navbar"></nav>
+
+  <!-- ✅ Hero Section -->
+  <section class="relative flex flex-col items-center justify-center h-[80vh] text-center px-4 bg-center bg-cover" style="background-image: url('/assets/images/okc-skyline.jpg');">
+    <!-- Overlay for accessibility contrast -->
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <div class="relative z-10">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-yellow-400 drop-shadow">Building Sovereign Web Systems</h1>
+      <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-200 mb-6">From Ciudad Juárez 🇲🇽 to Oklahoma City 🌆 — forging a new digital path where local businesses own their future.</p>
+      <a href="#about" class="inline-block px-6 py-3 bg-yellow-400 text-black font-bold rounded-lg shadow hover:bg-yellow-300 transition">Learn More</a>
+    </div>
+  </section>
+
+  <!-- ✅ About Me Section -->
+  <section id="about" class="py-16 px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">👨‍💻 My Story</h2>
+    <figure class="flex flex-col items-center">
+      <img src="/assets/images/profile.jpg" alt="Pedro M. Dominguez smiling with Oklahoma City skyline behind him." class="rounded-full border-4 border-yellow-400 w-40 h-40 object-cover shadow-lg" />
+      <figcaption class="mt-2 text-gray-400 italic">Pedro M. Dominguez, Web Kernel Architect</figcaption>
+    </figure>
+    <div class="max-w-3xl mx-auto mt-6 text-gray-200">
+      <p class="mb-4">
+        Born in Ciudad Juárez, Chihuahua, raised in Praxedis G. Guerrero — I was brought to Oklahoma City at five years old.
+      </p>
+      <p class="mb-4">
+        I’m not just a developer. I’m a systems architect with a gift for blending philosophy and code — crafting transparent, local-first frameworks that protect our communities.
+      </p>
+      <p>
+        I don’t use AI as a crutch. I use it as a thinking partner — amplifying human creativity while keeping local ownership front and center.
+      </p>
+    </div>
+  </section>
+
+  <!-- ✅ Call To Action -->
+  <section class="py-12 px-6 bg-[#091a2b] text-center">
+    <h3 class="text-2xl font-bold mb-4 text-yellow-400">Ready to reclaim your digital freedom?</h3>
+    <p class="max-w-2xl mx-auto mb-6 text-gray-300">If you’re a local business, entrepreneur, or agency who believes in sovereignty over your tech stack, let’s talk.</p>
+    <a href="/pages/contact/contact.html" class="inline-block px-6 py-3 bg-yellow-400 text-black font-bold rounded-lg shadow hover:bg-yellow-300 transition">Contact Me</a>
+  </section>
+
+  <!-- ✅ Footer (dynamically injected) -->
+  <footer id="footer"></footer>
+</body>
+</html>
