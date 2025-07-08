@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const subheading = document.querySelector(".hero-subheading");
   if (subheading) {
     const text = prepareTyping(subheading);
-    if (text) await typeLineByLine(text, subheading, 30);
+    if (text) await typeLineByLine(text, subheading, 15);
   }
 
   // Typing: Each Impact Box
@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (h2) {
       const textH2 = prepareTyping(h2);
-      if (textH2) await typeLineByLine(textH2, h2, 30);
+      if (textH2) await typeLineByLine(textH2, h2, 15);
     }
 
     if (p) {
       const textP = prepareTyping(p);
-      if (textP) await typeLineByLine(textP, p, 30);
+      if (textP) await typeLineByLine(textP, p, 15);
     }
   }
 
@@ -46,6 +46,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const mission = document.querySelector(".mission-statement");
   if (mission) {
     const text = prepareTyping(mission);
-    if (text) await typeLineByLine(text, mission, 30);
+    if (text) await typeLineByLine(text, mission, 15);
   }
 });
