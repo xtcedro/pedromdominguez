@@ -132,26 +132,6 @@ body {
   animation: fadeIn 2.4s ease forwards;
 }
 
-/* === CTA BUTTON === */
-.cta-button {
-  display: inline-block;
-  background: var(--accent-color);
-  color: var(--primary-color);
-  padding: 1rem 2.5rem;
-  border-radius: 8px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  text-decoration: none;
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
-  animation: fadeInUp 2.8s ease forwards;
-}
-
-.cta-button:hover {
-  transform: translateY(-4px);
-  background: var(--accent-hover);
-  box-shadow: 0 10px 35px rgba(255, 215, 0, 0.6);
-}
 
 /* === ABOUT / CONTACT INFO === */
 .contact-info {
