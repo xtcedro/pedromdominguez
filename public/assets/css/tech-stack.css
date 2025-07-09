@@ -1,25 +1,25 @@
-/* === Tech Stack Slider === */
 .tech-stack-slider {
-  overflow: hidden;
   width: 100%;
-  background: #091a2b;
   padding: 2rem 0;
+  background: #091a2b; /* Optional: subtle dark background */
+}
+
+.logo-slider {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .logo-track {
-  display: flex;
-  gap: 3rem;
+  display: inline-flex;
   align-items: center;
 }
 
 .logo-track img {
-  width: 60px;
-  height: auto;
-  filter: grayscale(100%) brightness(1.2);
+  height: 50px; /* Adjust as needed */
+  margin: 0 2rem;
   transition: transform 0.3s ease;
 }
 
 .logo-track img:hover {
   transform: scale(1.1);
-  filter: none;
 }
