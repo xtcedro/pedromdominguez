@@ -1,35 +1,43 @@
 import {
   loadFooter,
-//  loadChatbot,
-//  loadSearchWidget,
+  // loadChatbot,
+  // loadSearchWidget,
   loadNotifications,
   loadWebSocket,
   showNotification,
-  loadBootScreen
+  loadBootScreen,
+  loadTechStackSlider, // ✅ Tech stack slider
+  loadSystemInfoFAB    // ✅ System Info FAB
 } from './load-components.js';
 
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/+esm";
 import { setupNavigation } from './navigation.js';
 import { runBootSequence } from './boot-sequence.js';
-import { loadTechStackSlider } from './load-components.js'; // ✅ Added your slider loader
-
-// import { applySiteTheme } from './theme.js'; // ✅ Optional: custom theme logic
+// import { applySiteTheme } from './theme.js'; // ✅ Optional: your custom theming
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // ✅ 1️⃣ Run your cinematic Sovereign Kernel boot first
-  await runBootSequence();
+  try {
+    // ✅ 1️⃣ Cinematic Sovereign Kernel boot first
+    await runBootSequence();
 
-  // ✅ 2️⃣ Optionally apply your theme after boot
-  // await applySiteTheme();
+    // ✅ 2️⃣ Apply your theme if needed
+    // await applySiteTheme();
 
-  // ✅ 3️⃣ Then load your dynamic components
-  loadFooter();
-//  loadChatbot(marked);
- // loadSearchWidget();
-  loadNotifications();
-  loadWebSocket();
-  setupNavigation();
+    // ✅ 3️⃣ Load core dynamic components
+    loadFooter();
+    // loadChatbot(marked);
+    // loadSearchWidget();
+    loadNotifications();
+    loadWebSocket();
+    setupNavigation();
 
-  // ✅ 4️⃣ Finally, load your Tech Stack Slider component
-  loadTechStackSlider();
+    // ✅ 4️⃣ Load portfolio-specific components
+    loadTechStackSlider();
+    loadSystemInfoFAB();
+
+    showNotification('✅ All components loaded successfully.', 'success');
+  } catch (err) {
+    console.error('❌ Error during init:', err);
+    showNotification('❌ Error loading components. Please refresh.', 'error');
+  }
 });
