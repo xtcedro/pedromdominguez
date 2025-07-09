@@ -1,25 +1,61 @@
 .tech-stack-slider {
   width: 100%;
-  padding: 2rem 0;
-  background: #091a2b; /* Optional: subtle dark background */
+  padding: 3rem 0;
+  background: #0a1a2f; /* More consistent with your brand dark blue */
+  position: relative;
+  overflow: hidden;
 }
 
 .logo-slider {
   overflow: hidden;
   white-space: nowrap;
+  position: relative;
 }
 
 .logo-track {
   display: inline-flex;
   align-items: center;
+  gap: 4rem;
+  animation: scrollLogos 40s linear infinite;
 }
 
 .logo-track img {
-  height: 50px; /* Adjust as needed */
-  margin: 0 2rem;
-  transition: transform 0.3s ease;
+  height: 55px;
+  filter: grayscale(30%) brightness(1.2) contrast(1.1);
+  opacity: 0.85;
+  transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease;
 }
 
 .logo-track img:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  filter: grayscale(0%) brightness(1.4);
+  opacity: 1;
+}
+
+/* Optional: gradient fade on sides for a more elegant scroll effect */
+.tech-stack-slider::before,
+.tech-stack-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tech-stack-slider::before {
+  left: 0;
+  background: linear-gradient(to right, #0a1a2f, transparent);
+}
+
+.tech-stack-slider::after {
+  right: 0;
+  background: linear-gradient(to left, #0a1a2f, transparent);
+}
+
+/* Optional: fallback for non-anime.js version */
+@keyframes scrollLogos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
