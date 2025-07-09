@@ -1,7 +1,7 @@
 import {
   loadFooter,
-  loadChatbot,
-  loadSearchWidget,
+//  loadChatbot,
+//  loadSearchWidget,
   loadNotifications,
   loadWebSocket,
   showNotification,
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ✅ 3️⃣ Then load your dynamic components
   loadFooter();
-  loadChatbot(marked);
-  loadSearchWidget();
+//  loadChatbot(marked);
+ // loadSearchWidget();
   loadNotifications();
   loadWebSocket();
   setupNavigation();
