@@ -2,7 +2,6 @@
 // ============================================
 // 🗂️ Main Router Registry for Dominguez Tech Solutions (DenoGenesis)
 // ============================================
-// ✅ This file registers all modular API routes
 // ✅ Each module is self-contained: controller, service, model, types
 // ✅ Keep this clean — new features should plug in without clutter
 // ============================================
@@ -24,12 +23,12 @@ import projectsRoutes from "./projectsRoutes.ts";
 import roadmapRoutes from "./roadmapRoutes.ts";
 import searchRoutes from "./searchRoutes.ts";
 import notificationsRoutes from "./notificationsRoutes.ts";
+import systemRoutes from "./systemRoutes.ts"; // ✅ NEW: System Info
 
 // === Initialize Master Router ===
 const router = new Router();
 
 // === Serve Static Homepage ===
-// This keeps your root / request returning the homepage
 router.get("/", async (ctx) => {
   await send(ctx, "/public/pages/home/index.html", {
     root: Deno.cwd(),
@@ -41,7 +40,6 @@ router.get("/", async (ctx) => {
 console.log("\x1b[32m%s\x1b[0m", "\n🔗 Registering API Routes...\n");
 
 // === Register All Routes ===
-// Always use routes() + allowedMethods() for correct HTTP method handling
 
 router.use("/api/auth", authRoutes.routes(), authRoutes.allowedMethods());
 console.log("\x1b[36m%s\x1b[0m", "➡️  Auth routes loaded at /api/auth");
@@ -76,22 +74,17 @@ console.log("\x1b[36m%s\x1b[0m", "➡️  Projects routes loaded at /api/project
 router.use("/api/roadmap", roadmapRoutes.routes(), roadmapRoutes.allowedMethods());
 console.log("\x1b[36m%s\x1b[0m", "➡️  Roadmap routes loaded at /api/roadmap");
 
-// ✅ FIXED: Correctly register search with routes() + allowedMethods()
 router.use("/api/search", searchRoutes.routes(), searchRoutes.allowedMethods());
 console.log("\x1b[36m%s\x1b[0m", "➡️  Search routes loaded at /api/search");
 
-router.use(
-  "/api/notifications",
-  notificationsRoutes.routes(),
-  notificationsRoutes.allowedMethods(),
-);
-console.log(
-  "\x1b[36m%s\x1b[0m",
-  "➡️  Notifications routes loaded at /api/notifications",
-);
+router.use("/api/notifications", notificationsRoutes.routes(), notificationsRoutes.allowedMethods());
+console.log("\x1b[36m%s\x1b[0m", "➡️  Notifications routes loaded at /api/notifications");
+
+router.use("/api/system", systemRoutes.routes(), systemRoutes.allowedMethods());
+console.log("\x1b[36m%s\x1b[0m", "➡️  System routes loaded at /api/system");
 
 // === Final Confirmation ===
 console.log("\x1b[32m%s\x1b[0m", "\n✅ All API routes successfully registered.");
-console.log("\x1b[33m%s\x1b[0m", "🚀 Your framework is modular, future-ready, and thriving.\n");
+console.log("\x1b[33m%s\x1b[0m", "🚀 Your framework is modular, transparent, and ready for scale.\n");
 
 export default router;
