@@ -1,9 +1,10 @@
-// load-components.js → v1.4 → Elite architecture
+// load-components.js → v1.5 → Elite architecture
 
 import { initializeChatbot } from './chatbot.js';
 import { initializeFloatingSearch } from './search-widget.js';
 import { initializeWebSocket, sendWebSocketMessage } from './wsClient.js';
 import { showNotification } from './notifications.js'; // 🧠 Global notification utility
+import { initializeTechStackSlider } from './techStackSlider.js'; // ✅ NEW: Tech stack slider animation
 
 // 🧠 Load Footer component
 export function loadFooter() {
@@ -51,7 +52,7 @@ export function loadNotifications() {
   }
 }
 
-// 🧠 Load Tech Stack Slider component (loads from reusable HTML partial)
+// 🧠 Load Tech Stack Slider component and initialize animation
 export function loadTechStackSlider() {
   fetch('../../components/tech-stack-slider.html')
     .then(res => res.text())
@@ -59,6 +60,7 @@ export function loadTechStackSlider() {
       const container = document.createElement('section');
       container.innerHTML = data;
       document.body.appendChild(container);
+      initializeTechStackSlider(); // ✅ Initialize after adding to DOM
     });
 }
 
