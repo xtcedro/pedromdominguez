@@ -1,0 +1,317 @@
+/* === Dominguez Boot Terminal v2.4 — Cinematic Identity Boot === */
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
+
+:root {
+  --boot-bg: #050607;
+  --terminal-border: #33ff99;
+  --terminal-glow: rgba(51, 255, 153, 0.35);
+  --text-glow: #33ff99;
+  --font-terminal: "Fira Code", monospace;
+  --crt-scanline: rgba(255, 255, 255, 0.015);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.boot-active {
+  overflow: hidden;
+  background: var(--boot-bg);
+}
+
+/* ---------- MODAL BOOT OVERLAY ---------- */
+.boot-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+  background: radial-gradient(circle at center, #000 0%, var(--boot-bg) 100%);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  animation: bootFadeIn 0.6s ease-out forwards;
+}
+
+.boot-container.hide {
+  animation: bootFadeOut 0.5s ease-in forwards;
+}
+
+.boot-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--crt-scanline) 0 1px,
+    transparent 1px 2px
+  );
+  animation: scanlines 12s linear infinite;
+}
+
+@keyframes bootFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes bootFadeOut {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(20px); }
+}
+
+@keyframes scanlines {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* ---------- TERMINAL FRAME ---------- */
+.boot-terminal {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  max-height: 85vh;
+  padding: clamp(1rem, 4vw, 2rem);
+  background: #000;
+  color: var(--text-glow);
+  font-family: var(--font-terminal);
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 2px solid var(--terminal-border);
+  border-radius: 10px;
+  box-shadow: 0 0 48px var(--terminal-glow),
+              inset 0 0 12px rgba(51, 255, 153, 0.2),
+              0 0 4px rgba(0, 255, 128, 0.4);
+  z-index: 2;
+}
+
+.boot-terminal::before {
+  content: "⇨ SYSTEM BOOT";
+  position: absolute;
+  top: -1.7rem;
+  left: 1.3rem;
+  padding: 0 0.8rem;
+  background: var(--boot-bg);
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--terminal-border);
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.boot-text::after {
+  content: "▍";
+  margin-left: 6px;
+  color: var(--terminal-border);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink { to { opacity: 0; } }
+
+/* ---------- Scrollbars ---------- */
+.boot-terminal::-webkit-scrollbar { width: 8px; }
+.boot-terminal::-webkit-scrollbar-track { background: #000; }
+.boot-terminal::-webkit-scrollbar-thumb {
+  background: var(--terminal-border);
+  border-radius: 4px;
+}
+
+/* ---------- MATRIX GLYPH RAIN ---------- */
+.cmatrix-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cmatrix-char {
+  position: absolute;
+  top: -1em;
+  color: #00ff88;
+  font-family: var(--font-terminal);
+  font-size: 1rem;
+  opacity: 0.85;
+  user-select: none;
+  animation: fall linear forwards;
+  text-shadow: 0 0 6px #00ff88, 0 0 10px #00ff88;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}
+
+/* ---------- FINAL MOTTO / CLOSING MESSAGE ---------- */
+.final-msg {
+  font-size: clamp(0.85rem, 2vw, 1.2rem);
+  text-align: left;
+  margin-top: 2rem;
+  padding-left: 1rem;
+  color: #00ff88;
+  text-shadow: 0 0 6px #00ff88, 0 0 10px #00ff88;
+  font-family: var(--font-terminal);
+  white-space: pre-wrap;
+  z-index: 3;
+}
+
+.matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* ---------- Syntax Highlight / Status ---------- */
+.ok { color: #00ff00; font-weight: bold; }
+.error { color: #ff4d4d; font-weight: bold; }
+.module { color: #00bfff; font-style: italic; }
+.boot-frame-title,
+.section-title {
+  color: #ffd700;
+  font-weight: bold;
+  display: block;
+  margin: 1em 0 0.5em 0;
+  font-size: 1.1em;
+}
+.flicker {
+  animation: flickerAnim 1.2s infinite alternate;
+  color: #0f0;
+  font-weight: bold;
+}
+@keyframes flickerAnim {
+  0% { opacity: 1; }
+  50% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+.motto {
+  font-style: italic;
+  color: #ccc;
+  text-shadow: 0 0 5px #444;
+}
+.ascii-logo {
+  font-family: var(--font-terminal);
+  color: #00ff88;
+  white-space: pre;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: clamp(9px, 3vw, 14px);
+}
+
+/* ---------- Output / Frame Wrappers ---------- */
+#boot-output,
+.ascii-logo,
+.terminal-wrapper {
+  font-family: var(--font-terminal);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  line-height: 1.4;
+  font-size: clamp(11px, 2.5vw, 16px);
+  text-align: center;
+  padding: 1rem;
+}
+
+#boot-output {
+  border: 2px solid #00ffcc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, inset 0 0 10px #00ffcc;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.boot-bar {
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(90deg, #00ffcc 20%, transparent 0%);
+  background-size: 20px 100%;
+  animation: scan 1s linear infinite;
+  margin: 1rem auto;
+}
+
+@keyframes scan {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 0; }
+}
+
+.boot-active::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 204, 0.03),
+    rgba(0, 255, 204, 0.03) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+#boot-progress-bar {
+  width: 85%;
+  height: 14px;
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid lime;
+  margin: 20px auto;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, lime, #00ffcc);
+  transition: width 0.4s ease-in-out;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+/* === Fluid Text for Mobile / Tablet / Desktop === */
+.boot-text {
+  font-size: clamp(11px, 2.5vw, 16px);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  text-shadow: 0 0 2px var(--text-glow), 0 0 4px rgba(0, 255, 128, 0.3);
+}
+
+#boot-progress-fill {
+  background: linear-gradient(to right, lime 25%, #00ffcc 50%, lime 75%);
+  background-size: 200% 100%;
+  animation: scanBar 1s linear infinite;
+}
+
+@keyframes scanBar {
+  0% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.flicker {
+  animation: flickerAnim 1.2s infinite alternate;
+}
+
+@keyframes flickerAnim {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
