@@ -1,6 +1,6 @@
 // controllers/system.controller.ts
 import { RouterContext } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { getSystemInfo } from "../services/system.service.ts";
+import { getSystemInfo } from "../services/systemService.ts";
 
 export const getSystemInfoController = async (ctx: RouterContext) => {
   const info = await getSystemInfo();
