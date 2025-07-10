@@ -1,7 +1,9 @@
-// initTypingEffects.js
+// File: /assets/js/initTypingEffects.js
+
 import { typeLineByLine } from './typingengine.js';
 
-document.addEventListener("DOMContentLoaded", async () => {
+// ✅ Export as a reusable async function
+export async function initializeTypingEffects() {
   // Helper: clear text + hide initially
   function prepareTyping(el) {
     if (!el) return null;
@@ -48,4 +50,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     const text = prepareTyping(mission);
     if (text) await typeLineByLine(text, mission, 15);
   }
-});
+}
