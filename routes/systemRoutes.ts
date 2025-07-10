@@ -1,8 +1,7 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
-import { getSystemInfo } from "../controllers/systemController.ts";
+import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
+import { getSystemInfoController } from "../controllers/systemController.ts";
 
-const router = new Router();
+const systemRouter = new Router();
+systemRouter.get("/info", getSystemInfoController);
 
-router.get("/info", getSystemInfo);
-
-export default router;
+export default systemRouter;
