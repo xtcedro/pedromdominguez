@@ -1,10 +1,15 @@
 // types/system.d.ts
 
 export interface SystemInfo {
-  framework: string;
-  frameworkVersion: string;
   denoVersion: string;
-  typescriptVersion: string;
   v8Version: string;
-  environment?: Record<string, string>;
+  tsVersion: string;
+  appVersion: string;
+  memoryUsage: {
+    heapUsed: number;
+    heapTotal: number;
+    rss: number;
+    external: number;
+  };
+  uptime: number;
 }
