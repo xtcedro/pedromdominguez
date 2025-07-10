@@ -3,7 +3,7 @@
 // 🗂️ Main Router Registry for Dominguez Tech Solutions (DenoGenesis)
 // ============================================
 // ✅ Each module is self-contained: controller, service, model, types
-// ✅ Keep this clean — new features should plug in without clutter
+// ✅ Keep this file clean — plug in new features without clutter
 // ============================================
 
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
@@ -40,6 +40,7 @@ router.get("/", async (ctx) => {
 console.log("\x1b[32m%s\x1b[0m", "\n🔗 Registering API Routes...\n");
 
 // === Register All Routes ===
+// Always use routes() + allowedMethods() for proper method handling
 
 router.use("/api/auth", authRoutes.routes(), authRoutes.allowedMethods());
 console.log("\x1b[36m%s\x1b[0m", "➡️  Auth routes loaded at /api/auth");
@@ -85,6 +86,6 @@ console.log("\x1b[36m%s\x1b[0m", "➡️  System routes loaded at /api/system");
 
 // === Final Confirmation ===
 console.log("\x1b[32m%s\x1b[0m", "\n✅ All API routes successfully registered.");
-console.log("\x1b[33m%s\x1b[0m", "🚀 Your framework is modular, transparent, and ready for scale.\n");
+console.log("\x1b[33m%s\x1b[0m", "🚀 Your DenoGenesis framework is modular, transparent, and ready to scale.\n");
 
 export default router;
