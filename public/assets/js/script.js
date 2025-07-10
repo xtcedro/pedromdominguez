@@ -1,3 +1,4 @@
+
 import {
   loadFooter,
   // loadChatbot,
@@ -13,14 +14,16 @@ import {
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/+esm";
 import { setupNavigation } from './navigation.js';
 import { runBootSequence } from './boot-sequence.js';
-// import { applySiteTheme } from './theme.js'; // ✅ Optional: your custom theming
+import { initTypingEffects } from './initTypingEffects.js'; // ✅ Import your typing engine
+
+// import { applySiteTheme } from './theme.js'; // ✅ Optional: custom theming
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // ✅ 1️⃣ Cinematic Sovereign Kernel boot first
+    // ✅ 1️⃣ Sovereign Kernel boot
     await runBootSequence();
 
-    // ✅ 2️⃣ Apply your theme if needed
+    // ✅ 2️⃣ Optionally apply your theme
     // await applySiteTheme();
 
     // ✅ 3️⃣ Load core dynamic components
@@ -31,13 +34,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadWebSocket();
     setupNavigation();
 
-    // ✅ 4️⃣ Load portfolio-specific components
+    // ✅ 4️⃣ Portfolio-specific features
     loadTechStackSlider();
     loadSystemInfoFAB();
 
-    showNotification('✅ All components loaded successfully.', 'success');
+    // ✅ 5️⃣ Typing effects
+    await initTypingEffects();
+
+    showNotification('✅ All components loaded for PedroMDominguez.com', 'success');
   } catch (err) {
-    console.error('❌ Error during init:', err);
-    showNotification('❌ Error loading components. Please refresh.', 'error');
+    console.error('❌ Error during initialization:', err);
+    showNotification('❌ Something went wrong. Please refresh.', 'error');
   }
 });
