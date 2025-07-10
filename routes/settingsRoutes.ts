@@ -1,7 +1,18 @@
 import { Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { getSystemInfoController } from "../controllers/systemController.ts";
+import {
+  getSiteSettings,
+  updateSiteSettings,
+} from "../controllers/settingsController.ts";
+import { verifyAdminToken } from "../middleware/authMiddleware.ts";
 
-const systemRouter = new Router();
-systemRouter.get("/info", getSystemInfoController);
+const router = new Router();
 
-export default systemRouter;
+// === ROUTES ===
+
+// 🔓 Public: Get site settings
+router.get("/", getSiteSettings);
+
+// 🔒 Admin: Update site settings
+router.post("/", verifyAdminToken, updateSiteSettings);
+
+export default router;
