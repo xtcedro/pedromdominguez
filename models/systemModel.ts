@@ -1,21 +1,32 @@
-// models/systemModel.ts
-
 import { SystemInfo } from "../types/system.d.ts";
 
+const startTime = Date.now();
+
 export class SystemModel {
-  static async fetchSystemInfo(): Promise<SystemInfo> {
-    const versionFile = await Deno.readTextFile("./VERSION");
-    const denoVersion = Deno.version.deno;
-    const typescriptVersion = Deno.version.typescript;
-    const v8Version = Deno.version.v8;
+  static async getInfo(): Promise<SystemInfo> {
+    let frameworkVersion = "unknown";
+    try {
+      const text = await Deno.readTextFile("./VERSION");
+      frameworkVersion = text.trim();
+    } catch (err) {
+      console.error("❌ Could not read VERSION file:", err);
+    }
+
+    const mem = Deno.memoryUsage();
 
     return {
       framework: "DenoGenesis",
-      frameworkVersion: versionFile.trim(),
-      denoVersion,
-      typescriptVersion,
-      v8Version,
-      environment: Deno.env.toObject(), // Optional: for debugging — remove in prod if needed
+      frameworkVersion,
+      denoVersion: Deno.version.deno,
+      typescriptVersion: Deno.version.typescript,
+      v8Version: Deno.version.v8,
+      memoryUsage: {
+        heapUsed: mem.heapUsed,
+        heapTotal: mem.heapTotal,
+        rss: mem.rss,
+        external: mem.external,
+      },
+      uptime: Math.floor((Date.now() - startTime) / 1000),
     };
   }
 }
