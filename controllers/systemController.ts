@@ -1,11 +1,9 @@
-// controllers/system.controller.ts
 import { RouterContext } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { getSystemInfo } from "../services/systemService.ts";
+import { getSystemInfo as fetchSystemInfo } from "../services/systemService.ts";
 
 export const getSystemInfo = async (ctx: RouterContext) => {
-  const info = await getSystemInfo();
+  const info = await fetchSystemInfo();
   ctx.response.status = 200;
-  ctx.response.body = info;
-  // Setting the response type to JSON is optional; Oak will infer JSON for objects
   ctx.response.type = "application/json";
+  ctx.response.body = info;
 };
