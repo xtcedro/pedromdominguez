@@ -4,122 +4,197 @@ import anime from 'https://cdn.skypack.dev/animejs@3.2.1';
 import { showNotification } from './notifications.js';
 
 export function setupNavigation() {
-  // Inject the nav HTML directly
   const navbar = document.querySelector('.navbar');
   if (!navbar) {
     showNotification('❗ Navbar element not found.', 'warning');
     return;
   }
 
-  navbar.innerHTML = `
-    <button id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-      <span class="bar bar1"></span>
-      <span class="bar bar2"></span>
-      <span class="bar bar3"></span>
-    </button>
-    <nav id="drawer" hidden>
-      <ul>
-        <li><a href="/index.html">🏠 Home</a></li>
-        <li><a href="/about.html">👨‍💻 About</a></li>
-        <li><a href="/contact.html">📬 Contact</a></li>
-      </ul>
-    </nav>
+  const isAdmin = !!localStorage.getItem('adminToken');
+
+  // === Templates ===
+  const guestNav = `
+    <div class="nav-left">
+      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <span class="nav-title">Pedro M. Dominguez</span>
+    </div>
+    <div class="menu-container">
+      <nav class="sidebar hidden" id="drawer">
+        <div class="sidebar-header">
+          <h2>📌 Menu</h2>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../../pages/home/index.html">🏠 Home</a></li>
+          <li><a href="../../pages/about/about.html">👨‍💻 About Us</a></li>
+          <li><a href="../../pages/services/services.html">🛠️ Services</a></li>
+          <li><a href="../../pages/contact/contact.html">📬 Contact</a></li>
+          <li><a href="../../pages/payment/payment.html">💵 Make A Payment</a></li>
+          <li><a href="../../pages/appointments/appointment-booker.html">🗓️ Book an Appointment</a></li>
+          <li><a href="../../pages/blogs/blogs.html">📝 Blogs</a></li>
+          <li><a href="../../pages/projects/projects.html">📑 Projects</a></li>
+          <li><a href="../../pages/roadmap/roadmap.html">🛣️ Roadmap</a></li>
+        </ul>
+        <div class="nav-container">
+          <a href="../../pages/auth/login.html" class="nav-button">🫅 Admin Login</a>
+        </div>
+      </nav>
+      <div class="overlay hidden" id="menu-overlay"></div>
+    </div>
   `;
 
-  const hamburgerBtn = document.getElementById('hamburger');
-  const drawerNav = document.getElementById('drawer');
-  const firstNavLink = drawerNav.querySelector('a');
+  const adminNav = `
+    <div class="nav-left">
+      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <span class="nav-title">Admin Panel - Pedro M. Dominguez</span>
+    </div>
+    <div class="menu-container">
+      <nav class="sidebar hidden" id="drawer">
+        <div class="sidebar-header">
+          <h2>🛠️ Admin Menu</h2>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../../pages/admin/dashboard.html">📊 Dashboard</a></li>
+          <li><a href="../../pages/admin/manage-blogs.html">📝 Manage Blogs</a></li>
+          <li><a href="../../pages/admin/public-appointments.html">📋 Manage Appointments</a></li>
+          <li><a href="../../pages/admin/manage-projects.html">📑 Manage Projects</a></li>
+          <li><a href="../../pages/admin/manage-roadmap.html">🛣️ Manage Roadmap</a></li>
+          <li><a href="../../pages/admin/transactions.html">💳 Transactions</a></li>
+          <li><a href="../../pages/admin/user-messages.html">📫 Inbox</a></li>
+          <li><a href="../../pages/admin/settings.html">⚙️ Settings</a></li>
+        </ul>
+        <div class="nav-container">
+          <a href="#" class="nav-button" id="logout-link">🚪 Logout</a>
+        </div>
+      </nav>
+      <div class="overlay hidden" id="menu-overlay"></div>
+    </div>
+  `;
 
-  let menuOpen = false;
+  navbar.innerHTML = isAdmin ? adminNav : guestNav;
 
-  function openMenu() {
-    drawerNav.removeAttribute('hidden');
+  const menuButton = document.getElementById('menu-toggle');
+  const sidebarMenu = document.getElementById('drawer');
+  const overlay = document.getElementById('menu-overlay');
+
+  if (!menuButton || !sidebarMenu || !overlay) {
+    showNotification('❗ Missing sidebar elements.', 'warning');
+    return;
+  }
+
+  const bars = menuButton.querySelectorAll('.bar');
+
+  const openMenu = () => {
+    menuButton.classList.add('open');
+
     anime({
-      targets: '#drawer',
-      translateX: '0%',
-      duration: 500,
-      easing: 'easeOutQuad',
-      begin: () => {
-        drawerNav.style.transform = 'translateX(-100%)';
-      },
-    });
-
-    anime({
-      targets: '#hamburger .bar1',
+      targets: bars[0],
       rotate: 45,
       translateY: 8,
-      duration: 500,
-      easing: 'easeOutQuad',
+      duration: 300,
+      easing: 'easeInOutQuad',
     });
     anime({
-      targets: '#hamburger .bar3',
+      targets: bars[1],
+      opacity: 0,
+      duration: 200,
+      easing: 'easeInOutQuad',
+    });
+    anime({
+      targets: bars[2],
       rotate: -45,
       translateY: -8,
-      duration: 500,
-      easing: 'easeOutQuad',
-    });
-    anime({
-      targets: '#hamburger .bar2',
-      opacity: 0,
       duration: 300,
-      easing: 'easeOutQuad',
+      easing: 'easeInOutQuad',
     });
 
-    hamburgerBtn.setAttribute('aria-expanded', 'true');
-    menuOpen = true;
-    if (firstNavLink) firstNavLink.focus();
+    sidebarMenu.classList.add('visible');
+    sidebarMenu.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+    document.body.classList.add('no-scroll');
     showNotification('📂 Menu opened.', 'info');
-  }
+  };
 
-  function closeMenu() {
-    anime({
-      targets: '#drawer',
-      translateX: '-100%',
-      duration: 500,
-      easing: 'easeOutQuad',
-      complete: () => {
-        drawerNav.setAttribute('hidden', '');
-        drawerNav.style.transform = 'translateX(-100%)';
-      },
-    });
+  const closeMenu = () => {
+    menuButton.classList.remove('open');
 
     anime({
-      targets: '#hamburger .bar1',
+      targets: bars[0],
       rotate: 0,
       translateY: 0,
-      duration: 500,
-      easing: 'easeOutQuad',
-    });
-    anime({
-      targets: '#hamburger .bar3',
-      rotate: 0,
-      translateY: 0,
-      duration: 500,
-      easing: 'easeOutQuad',
-    });
-    anime({
-      targets: '#hamburger .bar2',
-      opacity: 1,
       duration: 300,
-      easing: 'easeOutQuad',
-      delay: 200,
+      easing: 'easeInOutQuad',
+    });
+    anime({
+      targets: bars[1],
+      opacity: 1,
+      duration: 200,
+      easing: 'easeInOutQuad',
+    });
+    anime({
+      targets: bars[2],
+      rotate: 0,
+      translateY: 0,
+      duration: 300,
+      easing: 'easeInOutQuad',
     });
 
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-    menuOpen = false;
-    hamburgerBtn.focus();
+    sidebarMenu.classList.remove('visible');
+    sidebarMenu.classList.add('hidden');
+    overlay.classList.add('hidden');
+    document.body.classList.remove('no-scroll');
     showNotification('📁 Menu closed.', 'info');
-  }
+  };
 
-  hamburgerBtn.addEventListener('click', () => {
-    menuOpen ? closeMenu() : openMenu();
-  });
+  const toggleMenu = () => {
+    if (menuButton.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuOpen) {
+  menuButton.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebarMenu.classList.contains('visible')) {
       closeMenu();
     }
   });
 
-  showNotification('✅ Navigation initialized with side drawer.', 'success');
+  document.addEventListener('click', (event) => {
+    const isInsideSidebar = sidebarMenu.contains(event.target);
+    const isToggleButton = menuButton.contains(event.target);
+    if (!isInsideSidebar && !isToggleButton && sidebarMenu.classList.contains('visible')) {
+      closeMenu();
+    }
+  });
+
+  const currentPage = window.location.pathname.split('/').pop().toLowerCase();
+  sidebarMenu.querySelectorAll('.nav-links a').forEach(link => {
+    const linkPage = link.getAttribute('href').split('/').pop().toLowerCase();
+    if (currentPage === linkPage) {
+      link.classList.add('active');
+    }
+  });
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('adminToken');
+      showNotification('🚪 You have been logged out.', 'success');
+      location.href = '../../pages/auth/login.html';
+    });
+  }
+
+  showNotification('✅ Navigation initialized successfully.', 'success');
 }
