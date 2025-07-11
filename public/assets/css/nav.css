@@ -1,28 +1,40 @@
-/* === Navbar Container === */
+/* === NAVBAR CONTAINER === */
 .navbar {
   position: sticky;
   top: 0;
   width: 100%;
-  background: linear-gradient(135deg, #0a1a2f, #122b4a); /* Polished dark blue gradient */
+  background: linear-gradient(135deg, #0a1a2f, #122b4a);
   padding: 1rem 2rem;
   z-index: 1000;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(10, 26, 47, 0.25);
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(10, 26, 47, 0.35);
+  transition: background 0.4s ease;
 }
 
-/* === Hamburger Button === */
+.navbar:hover {
+  background: linear-gradient(135deg, #0c2134, #163d62);
+}
+
+.nav-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: gold;
+}
+
+/* === HAMBURGER BUTTON === */
 #hamburger {
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1100;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 32px;
   height: 24px;
+  z-index: 1100;
 }
 
 #hamburger span {
@@ -34,12 +46,16 @@
   transition: all 0.35s ease;
 }
 
-#hamburger:focus {
+#hamburger:hover span {
+  background: #ffd700;
+}
+
+#hamburger:focus-visible {
   outline: 2px solid gold;
   outline-offset: 4px;
 }
 
-/* === Drawer (Side Nav) === */
+/* === SIDE DRAWER === */
 #drawer {
   position: fixed;
   top: 0;
@@ -52,7 +68,7 @@
   transform: translateX(-100%);
   padding: 3rem 2rem;
   z-index: 1000;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 6px 0 30px rgba(0, 0, 0, 0.25);
 }
 
 #drawer ul {
@@ -62,7 +78,7 @@
 }
 
 #drawer li {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.25rem;
 }
 
 #drawer a {
@@ -70,38 +86,34 @@
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.1rem;
-  letter-spacing: 0.3px;
+  font-size: 1.05rem;
+  letter-spacing: 0.4px;
   padding: 0.75rem 1rem;
   border-radius: 4px;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition: all 0.3s ease;
 }
 
 #drawer a:hover,
 #drawer a:focus {
-  background: rgba(255, 215, 0, 0.1);
+  background: rgba(255, 215, 0, 0.15);
   color: #ffd700;
+  transform: translateX(5px);
   outline: none;
 }
 
 #drawer a.active {
-  background: rgba(255, 215, 0, 0.15);
+  background: rgba(255, 215, 0, 0.25);
   color: #ffd700;
 }
 
 #drawer a::before {
-  content: "› ";
+  content: "» ";
   color: gold;
   font-weight: bold;
-  margin-right: 0.25rem;
+  margin-right: 0.35rem;
 }
 
-/* === Smooth Fallback (anime.js handles primary anim) === */
-#drawer {
-  transition: transform 0.4s ease-out;
-}
-
-/* === Responsive: Optional for larger screens === */
+/* === RESPONSIVE: Horizontal on Large Screens === */
 @media (min-width: 768px) {
   #drawer {
     position: static;
@@ -110,9 +122,8 @@
     height: auto;
     display: flex !important;
     background: none;
-    color: inherit;
-    padding: 0;
     box-shadow: none;
+    padding: 0;
   }
 
   #drawer ul {
@@ -130,12 +141,7 @@
   }
 }
 
-/* === Accessibility Enhancements === */
-#hamburger:focus-visible {
-  outline: 3px solid gold;
-  outline-offset: 3px;
-}
-
+/* === ACCESSIBILITY === */
 #drawer a:focus-visible {
   outline: 2px dashed gold;
   outline-offset: 3px;
