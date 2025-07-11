@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadSystemInfoFAB();
 
     // ✅ 5️⃣ Typing effects
-    await initTypingEffects();
+    initTypingEffects();
 
     showNotification('✅ All components loaded for PedroMDominguez.com', 'success');
   } catch (err) {
