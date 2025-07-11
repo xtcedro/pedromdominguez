@@ -1,9 +1,45 @@
+/* === Dominguez Tech Solutions — Tech Stack Slider Elite === */
+
 .tech-stack-slider {
   width: 100%;
-  padding: 3rem 0;
-  background: #0a1a2f; /* More consistent with your brand dark blue */
+  padding: 3.5rem 1rem;
+  background: radial-gradient(ellipse at center, #0a1a2f 0%, #050f1f 100%);
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: inset 0 4px 30px rgba(255, 215, 0, 0.05);
+}
+
+.slider-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.slider-header h2 {
+  font-size: 1.8rem;
+  color: gold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+}
+
+.slider-header h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: gold;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.slider-header p {
+  color: #cfcfcf;
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-top: 0.5rem;
 }
 
 .logo-slider {
@@ -16,29 +52,31 @@
   display: inline-flex;
   align-items: center;
   gap: 4rem;
-  animation: scrollLogos 40s linear infinite;
+  animation: scrollLogos 35s linear infinite;
 }
 
 .logo-track img {
   height: 55px;
-  filter: grayscale(30%) brightness(1.2) contrast(1.1);
   opacity: 0.85;
-  transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease;
+  filter: grayscale(30%) brightness(1.15) contrast(1.1)
+    drop-shadow(0 0 4px rgba(255, 215, 0, 0.15));
+  transition: transform 0.5s ease, filter 0.4s ease, opacity 0.4s ease;
+  will-change: transform;
 }
 
 .logo-track img:hover {
-  transform: scale(1.15);
-  filter: grayscale(0%) brightness(1.4);
+  transform: scale(1.12) translateY(-3px) rotateZ(-2deg);
+  filter: grayscale(0%) brightness(1.3)
+    drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
   opacity: 1;
 }
 
-/* Optional: gradient fade on sides for a more elegant scroll effect */
 .tech-stack-slider::before,
 .tech-stack-slider::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 80px;
+  width: 120px;
   height: 100%;
   z-index: 2;
   pointer-events: none;
@@ -46,16 +84,19 @@
 
 .tech-stack-slider::before {
   left: 0;
-  background: linear-gradient(to right, #0a1a2f, transparent);
+  background: linear-gradient(to right, #0a1a2f 30%, transparent);
 }
 
 .tech-stack-slider::after {
   right: 0;
-  background: linear-gradient(to left, #0a1a2f, transparent);
+  background: linear-gradient(to left, #0a1a2f 30%, transparent);
 }
 
-/* Optional: fallback for non-anime.js version */
 @keyframes scrollLogos {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
