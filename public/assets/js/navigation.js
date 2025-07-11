@@ -1,5 +1,3 @@
-// File: /assets/js/navigation.js
-
 import anime from 'https://cdn.skypack.dev/animejs@3.2.1';
 import { showNotification } from './notifications.js';
 
@@ -12,15 +10,20 @@ export function setupNavigation() {
 
   const isAdmin = !!localStorage.getItem('adminToken');
 
-  // === Templates with header fix ===
+  // === Templates with correct navbar and sidebar header ===
   const guestNav = `
     <div class="nav-left">
+      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
       <span class="nav-title">Dominguez Tech Solutions</span>
     </div>
     <div class="menu-container">
       <div class="sidebar hidden" id="sidebar-menu">
         <div class="sidebar-header">
-          <button class="hamburger-menu close-menu" id="menu-toggle" aria-label="Toggle menu">
+          <button class="hamburger-menu close-menu" id="sidebar-toggle" aria-label="Toggle menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -42,12 +45,17 @@ export function setupNavigation() {
 
   const adminNav = `
     <div class="nav-left">
+      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
       <span class="nav-title">Admin Panel - Dominguez Tech Solutions</span>
     </div>
     <div class="menu-container">
       <div class="sidebar hidden" id="sidebar-menu">
         <div class="sidebar-header">
-          <button class="hamburger-menu close-menu" id="menu-toggle" aria-label="Toggle menu">
+          <button class="hamburger-menu close-menu" id="sidebar-toggle" aria-label="Toggle menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
@@ -75,19 +83,16 @@ export function setupNavigation() {
   navbar.innerHTML = isAdmin ? adminNav : guestNav;
 
   const menuButton = document.getElementById('menu-toggle');
+  const sidebarButton = document.getElementById('sidebar-toggle');
   const sidebarMenu = document.getElementById('sidebar-menu');
   const overlay = document.getElementById('menu-overlay');
 
-  if (!menuButton || !sidebarMenu || !overlay) {
+  if (!menuButton || !sidebarButton || !sidebarMenu || !overlay) {
     showNotification('❗ Missing sidebar elements.', 'warning');
     return;
   }
 
-  const bars = menuButton.querySelectorAll('.bar');
-
-  const openMenu = () => {
-    menuButton.classList.add('open');
-
+  const animateOpen = (bars) => {
     anime({
       targets: bars[0],
       rotate: 45,
@@ -108,17 +113,9 @@ export function setupNavigation() {
       duration: 300,
       easing: 'easeInOutQuad',
     });
-
-    sidebarMenu.classList.add('visible');
-    sidebarMenu.classList.remove('hidden');
-    overlay.classList.remove('hidden');
-    document.body.classList.add('no-scroll');
-    showNotification('📂 Menu opened.', 'info');
   };
 
-  const closeMenu = () => {
-    menuButton.classList.remove('open');
-
+  const animateClose = (bars) => {
     anime({
       targets: bars[0],
       rotate: 0,
@@ -139,7 +136,25 @@ export function setupNavigation() {
       duration: 300,
       easing: 'easeInOutQuad',
     });
+  };
 
+  const openMenu = () => {
+    menuButton.classList.add('open');
+    sidebarButton.classList.add('open');
+    animateOpen(menuButton.querySelectorAll('.bar'));
+    animateOpen(sidebarButton.querySelectorAll('.bar'));
+    sidebarMenu.classList.add('visible');
+    sidebarMenu.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+    document.body.classList.add('no-scroll');
+    showNotification('📂 Menu opened.', 'info');
+  };
+
+  const closeMenu = () => {
+    menuButton.classList.remove('open');
+    sidebarButton.classList.remove('open');
+    animateClose(menuButton.querySelectorAll('.bar'));
+    animateClose(sidebarButton.querySelectorAll('.bar'));
     sidebarMenu.classList.remove('visible');
     sidebarMenu.classList.add('hidden');
     overlay.classList.add('hidden');
@@ -148,7 +163,7 @@ export function setupNavigation() {
   };
 
   const toggleMenu = () => {
-    if (menuButton.classList.contains('open')) {
+    if (sidebarMenu.classList.contains('visible')) {
       closeMenu();
     } else {
       openMenu();
@@ -156,6 +171,7 @@ export function setupNavigation() {
   };
 
   menuButton.addEventListener('click', toggleMenu);
+  sidebarButton.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', closeMenu);
 
   document.addEventListener('keydown', (e) => {
@@ -164,10 +180,9 @@ export function setupNavigation() {
     }
   });
 
-  // Click outside the sidebar closes it
   document.addEventListener('click', (event) => {
     const isInsideSidebar = sidebarMenu.contains(event.target);
-    const isToggleButton = menuButton.contains(event.target);
+    const isToggleButton = menuButton.contains(event.target) || sidebarButton.contains(event.target);
     if (!isInsideSidebar && !isToggleButton && sidebarMenu.classList.contains('visible')) {
       closeMenu();
     }
