@@ -61,7 +61,7 @@ export function loadTechStackSlider() {
       const container = document.createElement('section');
       container.innerHTML = data;
 
-      const heroSection = document.getElementById('hero');
+      const heroSection = document.getElementById('footer');
       if (heroSection && heroSection.parentNode) {
         heroSection.parentNode.insertBefore(container, heroSection);
       } else {
