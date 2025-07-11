@@ -1,11 +1,12 @@
-/* === Floating Action Button === */
+/* === Floating Action Button Container === */
 .system-info-fab-container {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 999;
+  z-index: 9999;
 }
 
+/* === Floating Action Button === */
 #system-info-fab {
   background: linear-gradient(135deg, #0a1a2f, #122b4a);
   color: #ffd700;
@@ -20,30 +21,33 @@
 }
 
 #system-info-fab:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
 }
 
-/* === Info Panel === */
+/* === System Info Panel === */
 .system-info-panel {
   position: fixed;
-  bottom: 80px;
+  bottom: 85px; /* position above the FAB */
   right: 2rem;
+  z-index: 9998;
   background: #091a2b;
   color: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 1.5rem;
-  width: 250px;
+  width: 260px;
   max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .system-info-panel.visible {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .system-info-panel h3 {
@@ -56,9 +60,9 @@
   list-style: none;
   padding: 0;
   font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .system-info-panel li {
   margin: 0.3rem 0;
-  line-height: 1.4;
 }
