@@ -64,11 +64,9 @@ export function loadTechStackSlider() {
       const heroSection = document.getElementById('hero');
       if (heroSection && heroSection.parentNode) {
         heroSection.parentNode.insertBefore(container, heroSection);
-        showNotification('🚀 Tech stack slider injected above hero.', 'success');
       } else {
         // fallback if no hero
         document.body.prepend(container);
-        showNotification('⚡ Tech stack slider injected at top.', 'info');
       }
 
       initializeTechStackSlider(); // ✅ After DOM injection
