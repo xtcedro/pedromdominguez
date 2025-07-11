@@ -12,19 +12,19 @@ export function setupNavigation() {
 
   const isAdmin = !!localStorage.getItem('adminToken');
 
-  // === Templates ===
+  // === Templates with header fix ===
   const guestNav = `
     <div class="nav-left">
-      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
       <span class="nav-title">Dominguez Tech Solutions</span>
     </div>
     <div class="menu-container">
       <div class="sidebar hidden" id="sidebar-menu">
         <div class="sidebar-header">
+          <button class="hamburger-menu close-menu" id="menu-toggle" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
           <h2>📌 Menu</h2>
         </div>
         <ul class="nav-links">
@@ -42,16 +42,16 @@ export function setupNavigation() {
 
   const adminNav = `
     <div class="nav-left">
-      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
       <span class="nav-title">Admin Panel - Dominguez Tech Solutions</span>
     </div>
     <div class="menu-container">
       <div class="sidebar hidden" id="sidebar-menu">
         <div class="sidebar-header">
+          <button class="hamburger-menu close-menu" id="menu-toggle" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
           <h2>🛠️ Admin Menu</h2>
         </div>
         <ul class="nav-links">
