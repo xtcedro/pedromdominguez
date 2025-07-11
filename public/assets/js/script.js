@@ -14,7 +14,7 @@ import {
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/+esm";
 import { setupNavigation } from './navigation.js';
 import { runBootSequence } from './boot-sequence.js';
-import { initTypingEffects } from './initTypingEffects.js'; // ✅ Import your typing engine
+import { initializeTypingEffects } from './initTypingEffects.js'; // ✅ Import your typing engine
 
 // import { applySiteTheme } from './theme.js'; // ✅ Optional: custom theming
 
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadSystemInfoFAB();
 
     // ✅ 5️⃣ Typing effects
-    initTypingEffects();
+    initializeTypingEffects();
 
     showNotification('✅ All components loaded for PedroMDominguez.com', 'success');
   } catch (err) {
