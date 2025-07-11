@@ -1,148 +1,214 @@
-/* === NAVBAR CONTAINER === */
+/* ============================================
+   Elite Navigation — Dark Blue & Gold
+   Built for Impressive, Professional Client UX
+   ============================================ */
+
+:root {
+  --nav-bg: #0a1a2f;          /* Deep dark blue */
+  --nav-accent: #ffd700;      /* Gold */
+  --nav-text: #ffffff;        /* White */
+  --nav-hover-bg: rgba(255, 215, 0, 0.1); /* Gold tint */
+  --nav-shadow: rgba(0, 0, 0, 0.4);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --transition: 0.35s ease;
+}
+
+/* ========== Navbar Core ========== */
 .navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(135deg, #0a1a2f, #122b4a);
-  padding: 1rem 2rem;
+  position: relative;
   z-index: 1000;
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 20px rgba(10, 26, 47, 0.35);
-  transition: background 0.4s ease;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 12px var(--nav-shadow);
 }
 
-.navbar:hover {
-  background: linear-gradient(135deg, #0c2134, #163d62);
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav-title {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: gold;
+  color: var(--nav-accent);
+  user-select: none;
 }
 
-/* === HAMBURGER BUTTON === */
-#hamburger {
+/* ========== Hamburger Menu ========== */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 32px;
-  height: 24px;
-  z-index: 1100;
+  padding: 0.3rem;
+  transition: transform var(--transition);
 }
 
-#hamburger span {
-  display: block;
+.hamburger-menu .bar {
+  width: 28px;
   height: 3px;
-  width: 100%;
-  background: gold;
+  background-color: var(--nav-text);
   border-radius: 2px;
-  transition: all 0.35s ease;
+  transition: all var(--transition);
 }
 
-#hamburger:hover span {
-  background: #ffd700;
+.hamburger-menu:hover {
+  transform: scale(1.05);
 }
 
-#hamburger:focus-visible {
-  outline: 2px solid gold;
-  outline-offset: 4px;
+/* ========== Sidebar Drawer ========== */
+.menu-container {
+  position: relative;
 }
 
-/* === SIDE DRAWER === */
-#drawer {
+#drawer.sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 260px;
   height: 100%;
-  background: #0a1a2f;
-  color: #fff;
-  overflow-y: auto;
+  width: 280px;
+  background-color: var(--nav-bg);
+  box-shadow: 4px 0 12px var(--nav-shadow);
   transform: translateX(-100%);
-  padding: 3rem 2rem;
-  z-index: 1000;
-  box-shadow: 6px 0 30px rgba(0, 0, 0, 0.25);
+  transition: transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
 }
 
-#drawer ul {
-  list-style: none;
-  padding: 0;
+#drawer.visible {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+}
+
+.sidebar-header h2 {
+  color: var(--nav-accent);
+  font-size: 1.4rem;
+  font-weight: 700;
   margin: 0;
 }
 
-#drawer li {
-  margin-bottom: 1.25rem;
+/* ========== Navigation Links ========== */
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
 }
 
-#drawer a {
+.nav-links li {
+  margin-bottom: 1rem;
+}
+
+.nav-links a {
   display: block;
-  color: #fff;
+  color: var(--nav-text);
   text-decoration: none;
+  font-size: 1rem;
   font-weight: 500;
-  font-size: 1.05rem;
-  letter-spacing: 0.4px;
-  padding: 0.75rem 1rem;
+  padding: 0.4rem 0.5rem;
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: background-color var(--transition), color var(--transition);
 }
 
-#drawer a:hover,
-#drawer a:focus {
-  background: rgba(255, 215, 0, 0.15);
-  color: #ffd700;
-  transform: translateX(5px);
-  outline: none;
+.nav-links a:hover {
+  background-color: var(--nav-hover-bg);
+  color: var(--nav-accent);
 }
 
-#drawer a.active {
-  background: rgba(255, 215, 0, 0.25);
-  color: #ffd700;
+.nav-links a.active {
+  color: var(--nav-accent);
+  font-weight: 700;
 }
 
-#drawer a::before {
-  content: "» ";
-  color: gold;
-  font-weight: bold;
-  margin-right: 0.35rem;
+/* ========== Call-to-Action Button ========== */
+.nav-container {
+  margin-top: auto;
 }
 
-/* === RESPONSIVE: Horizontal on Large Screens === */
+.nav-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--nav-accent);
+  color: #000;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 6px var(--nav-shadow);
+}
+
+.nav-button:hover {
+  background-color: #e6c200;
+  box-shadow: 0 4px 12px var(--nav-shadow);
+}
+
+/* ========== Overlay ========== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+/* ========== Body Lock ========== */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* ========== Responsive Enhancements ========== */
 @media (min-width: 768px) {
-  #drawer {
+  .hamburger-menu {
+    display: none;
+  }
+
+  #drawer.sidebar {
     position: static;
-    transform: none !important;
-    width: auto;
+    transform: translateX(0);
     height: auto;
-    display: flex !important;
-    background: none;
+    width: auto;
+    background: transparent;
     box-shadow: none;
+    flex-direction: row;
+    align-items: center;
     padding: 0;
   }
 
-  #drawer ul {
+  .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
-  #drawer a {
-    color: gold;
-    padding: 0.5rem 1rem;
+  .nav-links li {
+    margin-bottom: 0;
   }
 
-  #hamburger {
-    display: none;
+  .nav-links a {
+    padding: 0.3rem 0.5rem;
   }
-}
 
-/* === ACCESSIBILITY === */
-#drawer a:focus-visible {
-  outline: 2px dashed gold;
-  outline-offset: 3px;
+  .nav-container {
+    margin-top: 0;
+    margin-left: 2rem;
+  }
+
+  .overlay {
+    display: none !important;
+  }
 }
