@@ -1,211 +1,142 @@
+/* === Navbar Container === */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #0a1a2f, #122b4a); /* Polished dark blue gradient */
+  padding: 1rem 2rem;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(10, 26, 47, 0.25);
+}
 
-/* nav.css - Dominguez Tech Solutions Navigation */    
-  
-.navbar {    
-  position: sticky;    
-  top: 0;    
-  z-index: 1000;    
-  background-color: #0a1a2f;    
-  color: gold;    
-  padding: 1rem 2rem;    
-  display: flex;    
-  align-items: center;    
-  justify-content: space-between;    
-  font-weight: 600;    
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);    
-}    
-  
-.nav-left {    
-  display: flex;    
-  align-items: center;    
-  gap: 1rem;    
-}    
-  
-.nav-title {    
-  font-size: 1.25rem;    
-  color: gold;    
-}    
-  
-.menu-container {    
-  position: relative;    
-}    
-  
-.sidebar {    
-  position: fixed;    
-  top: 0;    
-  left: 0;    
-  height: 100%;    
-  width: 250px;    
-  background-color: #111b2e;    
-  color: gold;    
-  padding: 1rem;    
-  box-shadow: 3px 0 10px rgba(255, 215, 0, 0.2);    
-  z-index: 999;    
-  transform: translateX(-100%);    
-  transition: transform 0.3s ease-in-out;    
-}    
-  
-.sidebar.visible {    
-  transform: translateX(0);    
-}    
-  
-.sidebar-header {    
-  display: flex;    
-  justify-content: space-between;    
-  align-items: center;    
-  margin-bottom: 2rem;    
-}    
-  
-.sidebar-header h2 {    
-  font-size: 1.25rem;    
-  color: gold;    
-}    
-  
-.close-menu {    
-  font-size: 1.2rem;    
-  background: none;    
-  border: none;    
-  color: gold;    
-  cursor: pointer;    
-}    
-  
-.nav-links {    
-  list-style: none;    
-  padding: 0;    
-  margin: 0;    
-}    
-  
-.nav-links li {    
-  margin-bottom: 1rem;    
-}    
-  
-.nav-links a {    
-  color: gold;    
-  text-decoration: none;    
-  font-size: 1.1rem;    
-  display: block;    
-  transition: all 0.2s ease-in-out;    
-}    
-  
-.nav-links a:hover,    
-.nav-links a.active {    
-  color: #ffd700;    
-  background-color: rgba(255, 215, 0, 0.1);    
-  border-left: 4px solid gold;    
-  padding-left: 0.5rem;    
-}    
-  
-.nav-button {    
-  display: inline-block;    
-  margin-top: 1.5rem;    
-  padding: 0.6rem 1.2rem;    
-  background-color: gold;    
-  color: #0a1a2f;    
-  font-weight: bold;    
-  border: none;    
-  border-radius: 5px;    
-  text-align: center;    
-  cursor: pointer;    
-  text-decoration: none;    
-}    
-  
-.nav-button:hover {    
-  background-color: #ffd700;    
-}    
-  
-.overlay {    
-  position: fixed;    
-  top: 0;    
-  left: 0;    
-  background: rgba(0, 0, 0, 0.5);    
-  height: 100%;    
-  width: 100%;    
-  z-index: 998;    
-  display: none;    
-}    
-  
-.overlay.visible {    
-  display: block;    
-}    
-  
-body.no-scroll {    
-  overflow: hidden;    
-}    
-  
-  
-  
-  
-@media (max-width: 768px) {    
-  .nav-title {    
-    font-size: 1rem;    
-  }    
-  
-  .hamburger-menu {    
-    font-size: 1.2rem;    
-  }    
-}    
-  
-  
-/* Basic bar styles */    
-.hamburger-menu {    
-  display: flex;    
-  flex-direction: column;    
-  justify-content: space-between;    
-  width: 28px;    
-  height: 22px;    
-  background: none;    
-  border: none;    
-  cursor: pointer;    
-}    
-  
-.hamburger-menu .bar {    
-  height: 3px;    
-  width: 100%;    
-  background: gold;    
-  border-radius: 2px;    
-  transition: 0.4s ease;    
-}    
-  
-/* Animate into X */    
-.hamburger-menu.open .bar:nth-child(1) {    
-  transform: rotate(45deg) translateY(8px);    
-}    
-  
-.hamburger-menu.open .bar:nth-child(2) {    
-  opacity: 0;    
-}    
-  
-.hamburger-menu.open .bar:nth-child(3) {    
-  transform: rotate(-45deg) translateY(-8px);    
-}    
-  
-/* navbar container stays on top */    
-.navbar {    
-  position: sticky;    
-  top: 0;    
-  z-index: 2000;  /* 👈 Make sure this is higher than sidebar (999) */    
-}    
-  
-/* make sure hamburger stays on top too */    
-.hamburger-menu {    
-  z-index: 3000; /* 👈 Definitely above the sidebar */    
-  position: relative; /* needed for z-index to work properly */    
-}    
-  
-.sidebar-header {    
-  display: flex;    
-  align-items: center;    
-  justify-content: space-between;  /* Pushes items to edges */    
-  margin-bottom: 2rem;    
-  padding-right: 0.5rem; /* Optional: give the X some breathing room */    
-}    
-  
-.sidebar-header h2 {    
-  font-size: 1.25rem;    
-  color: gold;    
-  margin-right: auto;   /* Ensures it stays to the left */    
-}    
-  
-.hamburger-menu {    
-  z-index: 1001; /* Make sure it's above sidebar */    
+/* === Hamburger Button === */
+#hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 24px;
+}
+
+#hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: gold;
+  border-radius: 2px;
+  transition: all 0.35s ease;
+}
+
+#hamburger:focus {
+  outline: 2px solid gold;
+  outline-offset: 4px;
+}
+
+/* === Drawer (Side Nav) === */
+#drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100%;
+  background: #0a1a2f;
+  color: #fff;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  padding: 3rem 2rem;
+  z-index: 1000;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+}
+
+#drawer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#drawer li {
+  margin-bottom: 1.2rem;
+}
+
+#drawer a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+#drawer a:hover,
+#drawer a:focus {
+  background: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  outline: none;
+}
+
+#drawer a.active {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+}
+
+#drawer a::before {
+  content: "› ";
+  color: gold;
+  font-weight: bold;
+  margin-right: 0.25rem;
+}
+
+/* === Smooth Fallback (anime.js handles primary anim) === */
+#drawer {
+  transition: transform 0.4s ease-out;
+}
+
+/* === Responsive: Optional for larger screens === */
+@media (min-width: 768px) {
+  #drawer {
+    position: static;
+    transform: none !important;
+    width: auto;
+    height: auto;
+    display: flex !important;
+    background: none;
+    color: inherit;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  #drawer ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  #drawer a {
+    color: gold;
+    padding: 0.5rem 1rem;
+  }
+
+  #hamburger {
+    display: none;
+  }
+}
+
+/* === Accessibility Enhancements === */
+#hamburger:focus-visible {
+  outline: 3px solid gold;
+  outline-offset: 3px;
+}
+
+#drawer a:focus-visible {
+  outline: 2px dashed gold;
+  outline-offset: 3px;
 }
