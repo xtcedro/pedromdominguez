@@ -41,11 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ✅ 5️⃣ Typing effects
     initializeTypingEffects();
 
-    // ✅ 6️⃣ Initialize Sovereign Animations
-    initAnimations.setupScrollTrigger('.scroll-trigger');
-    // initAnimations.runSovereignTimeline();
-    // initAnimations.animatePulse('#cta-button'); 
-    // Use any other you want
+    initAnimations()
 
     showNotification('✅ All components & animations loaded for PedroMDominguez.com', 'success');
   } catch (err) {
