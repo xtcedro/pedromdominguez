@@ -34,6 +34,7 @@
   background: linear-gradient(90deg, #ffd700 0%, #fffacd 100%);
   margin: 0.7rem auto 0;
   border-radius: 2px;
+  box-shadow: 0 0 2px rgba(255, 215, 0, 0.5);
 }
 
 .slider-header p {
