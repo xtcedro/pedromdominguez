@@ -1,87 +1,71 @@
-/* === Dominguez Tech Solutions — Tech Stack Slider Elite === */
+/* === Dominguez Tech Solutions — Premium Tech Stack Slider === */
 
 .tech-stack-slider {
   width: 100%;
-  padding: 3.5rem 1rem;
-  background: radial-gradient(ellipse at center, #0a1a2f 0%, #050f1f 100%);
+  background: radial-gradient(ellipse at center, #071523 0%, #020d1a 100%);
+  padding: 5rem 1rem;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 215, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-  box-shadow: inset 0 4px 30px rgba(255, 215, 0, 0.05);
-  transition: box-shadow 0.4s ease;
-}
-
-.tech-stack-slider:hover {
-  box-shadow: inset 0 4px 40px rgba(255, 215, 0, 0.08);
+  border-top: 1px solid rgba(255, 215, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: inset 0 12px 60px rgba(255, 215, 0, 0.04);
 }
 
 .slider-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.5rem;
 }
 
 .slider-header h2 {
-  font-size: 1.8rem;
-  color: gold;
+  color: #ffd700;
+  font-size: 2.2rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   position: relative;
   display: inline-block;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5),    /* Subtle base depth */
-0 2px 4px rgba(255, 215, 0, 0.2); /* Soft outer glow */
+  font-weight: 700;
 }
 
 .slider-header h2::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 70px;
   height: 3px;
-  background: gold;
-  margin: 0.5rem auto 0;
+  background: linear-gradient(90deg, #ffd700 0%, #fffacd 100%);
+  margin: 0.7rem auto 0;
   border-radius: 2px;
-}
-
-.slider-header h2 .icon {
-  margin-right: 0.4rem;
-  vertical-align: middle;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .slider-header p {
-  color: #cfcfcf;
-  font-size: 1rem;
-  font-weight: 300;
-  opacity: 0.85;
-  margin-top: 0.5rem;
-}
-
-.logo-slider {
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
+  color: #d6d6d6;
+  font-size: 1.05rem;
+  max-width: 750px;
+  margin: 0.75rem auto 0;
+  line-height: 1.7;
+  opacity: 0.9;
 }
 
 .logo-track {
   display: inline-flex;
   align-items: center;
-  gap: 4rem;
-  animation: scrollLogos 35s linear infinite;
+  gap: 3.5rem;
+  animation: scrollLogos 38s linear infinite;
 }
 
 .logo-track img {
-  height: 55px;
-  opacity: 0.85;
-  filter: grayscale(30%) brightness(1.15) contrast(1.1)
-    drop-shadow(0 0 4px rgba(255, 215, 0, 0.15));
-  transition: transform 0.5s ease, filter 0.4s ease, opacity 0.4s ease;
-  will-change: transform;
+  height: 60px;
+  filter: grayscale(40%) brightness(1.1) contrast(1.05);
+  opacity: 0.8;
+  transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform, filter, opacity;
 }
 
 .logo-track img:hover {
-  transform: scale(1.12) translateY(-3px) rotateZ(-2deg);
-  filter: grayscale(0%) brightness(1.3)
-    drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+  transform: scale(1.18) translateY(-4px) rotateZ(-2deg);
+  filter: grayscale(0%) brightness(1.25);
   opacity: 1;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .tech-stack-slider::before,
@@ -89,7 +73,7 @@
   content: "";
   position: absolute;
   top: 0;
-  width: 120px;
+  width: 140px;
   height: 100%;
   z-index: 2;
   pointer-events: none;
@@ -97,12 +81,12 @@
 
 .tech-stack-slider::before {
   left: 0;
-  background: linear-gradient(to right, #0a1a2f 30%, transparent);
+  background: linear-gradient(to right, #071523 30%, transparent);
 }
 
 .tech-stack-slider::after {
   right: 0;
-  background: linear-gradient(to left, #0a1a2f 30%, transparent);
+  background: linear-gradient(to left, #071523 30%, transparent);
 }
 
 @keyframes scrollLogos {
@@ -111,5 +95,24 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .slider-header p {
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+
+  .logo-track {
+    gap: 2rem;
+  }
+
+  .logo-track img {
+    height: 50px;
   }
 }
