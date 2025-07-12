@@ -1,4 +1,4 @@
-// animations.js → v1.0 → Sovereign Animation Utility
+// animations.js → v1.1 → Sovereign Animation Utility (Wrapped)
 import anime from 'https://cdn.skypack.dev/animejs@3.2.1';
 
 /* === 1️⃣ Reusable Timeline Example === */
@@ -27,7 +27,6 @@ function runSovereignTimeline() {
     }, '-=400');
 }
 
-/* === 2️⃣ Basic Stagger Animation === */
 function animateStaggerGrid(selector) {
   anime({
     targets: selector,
@@ -39,7 +38,6 @@ function animateStaggerGrid(selector) {
   });
 }
 
-/* === 3️⃣ Keyframes Example === */
 function animateKeyframes(target) {
   anime({
     targets: target,
@@ -54,7 +52,6 @@ function animateKeyframes(target) {
   });
 }
 
-/* === 4️⃣ Infinite Loop Example === */
 function animatePulse(target) {
   anime({
     targets: target,
@@ -66,7 +63,6 @@ function animatePulse(target) {
   });
 }
 
-/* === 5️⃣ Scroll Trigger Utility === */
 function setupScrollTrigger(selector) {
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -86,7 +82,6 @@ function setupScrollTrigger(selector) {
   document.querySelectorAll(selector).forEach(el => observer.observe(el));
 }
 
-/* === 6️⃣ Matrix Flicker Trail === */
 function animateMatrixChar(target) {
   anime({
     targets: target,
@@ -99,12 +94,15 @@ function animateMatrixChar(target) {
   });
 }
 
-/* ✅ Unified Export — Professional Module Style */
-export const initAnimations = {
-  runSovereignTimeline,
-  animateStaggerGrid,
-  animateKeyframes,
-  animatePulse,
-  setupScrollTrigger,
-  animateMatrixChar
-};
+/* ✅ Single wrapped initAnimations() */
+export function initAnimations() {
+  // Run the parts you want globally:
+  runSovereignTimeline();
+  setupScrollTrigger('.scroll-trigger');
+
+  // Optionally call these on specific selectors
+  // animateStaggerGrid('.grid-item');
+  // animatePulse('#cta-button');
+  // animateKeyframes('.hero-logo');
+  // animateMatrixChar('.matrix-char');
+}
