@@ -18,7 +18,7 @@ export function setupNavigation() {
         <span class="bar"></span>
         <span class="bar"></span>
       </button>
-      <span class="nav-title">Dominguez Tech Solutions</span>
+      <span class="nav-title">Pedro M. Dominguez</span>
     </div>
     <div class="menu-container">
       <div class="sidebar hidden" id="sidebar-menu">
