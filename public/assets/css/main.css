@@ -43,7 +43,7 @@ body {
   z-index: 0;
 }
 
-.hero-banner {
+/*.hero-banner {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -51,7 +51,7 @@ body {
   object-fit: cover;
   opacity: 0.15;
   z-index: 0;
-}
+}*/
 
 .hero-content {
   position: relative;
