@@ -1,0 +1,118 @@
+/* === Dominguez Tech Solutions — About Page === */
+
+.about-story,
+.about-denogenesis,
+.cta {
+  background: radial-gradient(circle at top, #071523 0%, #020d1a 100%);
+  color: #eaeaea;
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto 4rem auto;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.about-story h2,
+.about-denogenesis h2,
+.cta h2 {
+  color: #ffd700;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  font-weight: 800;
+  text-align: center;
+}
+
+.about-story h2::after,
+.about-denogenesis h2::after,
+.cta h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700 0%, #fffacd 100%);
+  margin: 0.7rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
+}
+
+.about-story p,
+.about-denogenesis p,
+.cta p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+.about-story strong,
+.about-denogenesis strong {
+  color: #ffd700;
+}
+
+.cta {
+  text-align: center;
+  background: radial-gradient(circle at center, #0a1a2f 0%, #020d1a 100%);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+}
+
+.cta .cta-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.9rem 2rem;
+  background: #ffd700;
+  color: #071523;
+  font-weight: 800;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+}
+
+.cta .cta-button:hover {
+  background: #fffacd;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(255, 215, 0, 0.6);
+}
+
+.scroll-trigger {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.scroll-trigger.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .about-story,
+  .about-denogenesis,
+  .cta {
+    padding: 3rem 1.5rem;
+  }
+
+  .about-story h2,
+  .about-denogenesis h2,
+  .cta h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-story p,
+  .about-denogenesis p,
+  .cta p {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .cta .cta-button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
