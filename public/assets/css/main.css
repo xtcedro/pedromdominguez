@@ -43,7 +43,7 @@ body {
   z-index: 0;
 }
 
-/*.hero-banner {
+.hero-banner {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -51,7 +51,7 @@ body {
   object-fit: cover;
   opacity: 0.15;
   z-index: 0;
-}*/
+}
 
 .hero-content {
   position: relative;
@@ -232,28 +232,6 @@ body {
 
   .impact-box {
     max-width: 100%;
-  }
-}
-
-.hero-banner {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom; /* focus skyline by default */
-  opacity: 0.15;
-  z-index: 0;
-}
-
-@media (max-width: 768px) {
-  .hero-banner {
-    object-position: center center; /* re-center for mobile */
-    height: 120%; /* zoom slightly to avoid gaps */
-  }
-
-  .hero {
-    padding: 8rem 1.5rem 6rem; /* adjust hero spacing if needed */
   }
 }
 
