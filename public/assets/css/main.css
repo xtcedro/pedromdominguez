@@ -24,7 +24,7 @@ body {
 .hero {
   position: relative;
   text-align: center;
-  padding:  6rem 8rem;
+  padding:  2rem 8rem;
   overflow: hidden;
 
   /* Subtle background gradient overlay for extra polish */
