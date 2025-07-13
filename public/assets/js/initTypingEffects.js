@@ -14,9 +14,9 @@ export async function initializeTypingEffects() {
   }
 
   // Typing: Headline
-  const headline = document.getElementById("hero");
-  if (headline) {
-    const text = prepareTyping(headline);
+  const hero = document.getElementById("hero");
+  if (hero) {
+    const text = prepareTyping(hero);
     if (text) await typeLineByLine(text, headline, 30);
   }
 
