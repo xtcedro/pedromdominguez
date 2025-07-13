@@ -14,14 +14,14 @@ export async function initializeTypingEffects() {
   }
 
   // Typing: Headline
-  const hero = document.getElementById("hero");
+  const hero = document.getElementById(".hero");
   if (hero) {
     const text = prepareTyping(hero);
     if (text) await typeLineByLine(text, headline, 30);
   }
 
   // Typing: Headline
-  const headline = document.getElementById("hero-headline");
+  const headline = document.getElementById(".hero-headline");
   if (headline) {
     const text = prepareTyping(headline);
     if (text) await typeLineByLine(text, headline, 30);
