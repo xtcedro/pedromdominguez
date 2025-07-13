@@ -101,8 +101,8 @@ export function initAnimations() {
   setupScrollTrigger('.scroll-trigger');
 
   // Optionally call these on specific selectors
-  // animateStaggerGrid('.grid-item');
-  // animatePulse('#cta-button');
-  // animateKeyframes('.hero-logo');
-  // animateMatrixChar('.matrix-char');
+  animateStaggerGrid('.grid-item');
+  animatePulse('#cta-button');
+  animateKeyframes('.hero-logo');
+  animateMatrixChar('.matrix-char');
 }
