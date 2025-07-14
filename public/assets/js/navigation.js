@@ -65,11 +65,7 @@ export function setupNavigation() {
         </div>
         <ul class="nav-links">
           <li><a href="../../pages/admin/dashboard.html">📊 Dashboard</a></li>
-          <li><a href="../../pages/admin/manage-blogs.html">📝 Manage Blogs</a></li>
-          <li><a href="../../pages/admin/public-appointments.html">📋 Manage Appointments</a></li>
-          <li><a href="../../pages/admin/manage-projects.html">📑 Manage Projects</a></li>
-          <li><a href="../../pages/admin/manage-roadmap.html">🛣️ Manage Roadmap</a></li>
-          <li><a href="../../pages/admin/transactions.html">💳 Transactions</a></li>
+          <li><a href="../../pages/admin/manage-appointments.html">📋 Manage Appointments</a></li>
           <li><a href="../../pages/admin/user-messages.html">📫 Inbox</a></li>
           <li><a href="../../pages/admin/settings.html">⚙️ Settings</a></li>
         </ul>
