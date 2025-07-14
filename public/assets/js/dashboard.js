@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const toolsList = document.getElementById("dashboard-tools");
 
   try {
-    const token = localStorage.getItem("adminToken"); // Retrieve token from storage
+    const token = localStorage.getItem("adminToken");
     if (!token) {
       throw new Error("Missing admin token.");
     }
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}` // Attach token
+        Authorization: `Bearer ${token}`
       }
     });
 
@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data = await res.json();
 
-    if (data.welcomeMessage) {
+    // ✅ Safely skip welcomeMessage if it doesn’t exist
+    if (data.welcomeMessage && welcome) {
       welcome.textContent = data.welcomeMessage;
     }
 
@@ -51,13 +52,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-    // ✅ Success notification
     showNotification("✅ Dashboard data loaded successfully!", "success");
 
   } catch (err) {
-    // Replace console with notification
     showNotification(`❌ Failed to load dashboard data: ${err.message}`, "error");
-
-    welcome.textContent = "⚠️ Error loading dashboard.";
+    if (welcome) {
+      welcome.textContent = "⚠️ Error loading dashboard.";
+    }
   }
 });
