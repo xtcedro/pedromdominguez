@@ -52,4 +52,19 @@ export async function initializeTypingEffects() {
     const text = prepareTyping(mission);
     if (text) await typeLineByLine(text, mission, 15);
   }
+
+// ✅ New: Login Heading & Subtext
+  const loginTitle = document.querySelector(".login-title");
+  if (loginTitle) {
+    const text = prepareTyping(loginTitle);
+    if (text) await typeLineByLine(text, loginTitle, 30);
+  }
+
+  const loginSubtext = document.querySelector(".login-subtext");
+  if (loginSubtext) {
+    const text = prepareTyping(loginSubtext);
+    if (text) await typeLineByLine(text, loginSubtext, 15);
+  }
+}
+
 }
