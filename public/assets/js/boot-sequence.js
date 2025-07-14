@@ -1,3 +1,5 @@
+// File: /assets/js/boot-sequence.js
+
 import { asciiLogo } from './asciiLogo.js';
 import { loadBootScreen } from './load-components.js';
 import { typeLineByLine } from './typingengine.js';
@@ -8,26 +10,26 @@ const FRAMEWORK_VERSION = "DenoGenesis v1.6.0";
 
 // 🖥️ System Diagnostics
 const systemInfo = [
-  '[ <span class="ok">OK</span> ] <span class="module">Web Kernel Runtime</span>: <span class="module">Deno + TypeScript</span>',
+  '[ <span class="ok">OK</span> ] <span class="module">Meta Framework Runtime</span>: <span class="module">Deno + TypeScript</span>',
   '[ <span class="ok">OK</span> ] Core Architecture: <span class="module">Sovereign-First, Local-First</span>',
-  `[ <span class="ok">OK</span> ] Framework: <span class="module">${FRAMEWORK_VERSION}</span>`,
+  `[ <span class="ok">OK</span> ] Meta Framework: <span class="module">${FRAMEWORK_VERSION}</span>`,
   `[ <span class="ok">OK</span> ] Portfolio Client: <span class="module">${CLIENT_NAME}</span>`,
   '[ <span class="ok">OK</span> ] Infrastructure: <span class="module">Debian Hardened</span>',
 ];
 
-// 🧭 Founder Identity & Vision
+// 🧭 Founder Identity & Mission
 const missionInfo = [
   '[ <span class="ok">OK</span> ] Founder: <span class="module">Pedro M. Dominguez</span>',
   '[ <span class="ok">OK</span> ] Birthplace: <span class="module">Ciudad Juárez, México 🇲🇽</span>',
   '[ <span class="ok">OK</span> ] Home Base: <span class="module">Oklahoma City, Oklahoma</span>',
-  '[ <span class="ok">OK</span> ] Mission: <span class="module">Empowering businesses with transparent, auditable systems</span>',
-  '[ <span class="ok">OK</span> ] Specialization: <span class="module">Web Kernel Architecture & Automation</span>',
-  '<span class="success">✅ Systems Online — Access Granted</span>',
+  '[ <span class="ok">OK</span> ] Mission: <span class="module">Empowering businesses with transparent, sovereign-first systems</span>',
+  '[ <span class="ok">OK</span> ] Specialization: <span class="module">Meta Framework Design & Automation</span>',
+  '<span class="success">✅ DenoGenesis Boot Complete — Access Granted</span>',
 ];
 
 // ✅ Final Signature
 const finalLine = `
-<span class="ok flicker">✨ Sovereign Tech Begins Here — Freedom by Design. ✨</span>
+<span class="ok flicker">✨ Sovereign Tech Begins Here — Powered by DenoGenesis ✨</span>
 `;
 
 // 📊 Progress Helper
@@ -59,7 +61,7 @@ export async function runBootSequence() {
   let step = 0;
   const totalSteps = asciiLogo.length + systemInfo.length + missionInfo.length + 6;
 
-  // 🧬 ASCII Logo w/ flicker effect
+  // 🧬 ASCII Logo with flicker effect
   for (const line of asciiLogo) {
     await typeLineByLine(line, output, 5);
     if (Math.random() < 0.2) output.lastChild.classList.add('flicker');
@@ -71,7 +73,7 @@ export async function runBootSequence() {
   await typeLineByLine('<span class="section-title">🖥️ SYSTEM CHECKS:</span>', output, 25);
   updateProgressBar(++step / totalSteps * 100);
 
-  await typeLineByLine('<span class="flicker">[ VERIFYING KERNEL MODULES... ]</span>', output, 30);
+  await typeLineByLine('<span class="flicker">[ VERIFYING META FRAMEWORK MODULES... ]</span>', output, 30);
   await new Promise(r => setTimeout(r, 350));
   updateProgressBar(++step / totalSteps * 100);
 
