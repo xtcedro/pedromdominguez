@@ -1,12 +1,9 @@
-import { Context } from "https://deno.land/x/oak/mod.ts";
-import { DashboardOverview } from "../types/dashboard.d.ts";
-
 export const getDashboardOverview = async (ctx: Context) => {
   console.log("📡 [Dashboard] Admin overview request received.");
   console.log("🔐 Verifying dashboard access...");
 
   const overviewPayload: DashboardOverview = {
-    welcomeMessage: "Welcome to the Admin Dashboard!",
+    // 🚫 No more welcomeMessage
     contentSections: [
       { label: "📅 Manage Appointments", link: "public-appointments.html" },
     ],
