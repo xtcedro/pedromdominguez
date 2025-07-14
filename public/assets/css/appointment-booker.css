@@ -1,23 +1,25 @@
-/* =============================================
-   Appointment Booker Form Styling
-   Dominguez Tech Solutions | Gold + Navy Theme
-============================================= */
+/* ==============================================
+   Appointment Booker — Signature Premium Style
+   Dominguez Tech Solutions | Dark Navy & Gold
+   Elegant, Trustworthy, Responsive
+================================================ */
 
 .appointment-booker {
-  background: linear-gradient(145deg, #0b0f1c, #0d1322);
+  background: linear-gradient(135deg, #081424 0%, #0a1f35 100%);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 20px;
   padding: 3rem 2rem;
-  border-radius: 16px;
-  max-width: 800px;
-  margin: 2rem auto;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  transition: all 0.3s ease-in-out;
+  max-width: 820px;
+  margin: 4rem auto;
+  box-shadow: 0 0 60px rgba(255, 215, 0, 0.12);
+  backdrop-filter: blur(14px);
+  transition: all 0.4s ease;
 }
 
 .appointment-form {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  gap: 2rem;
 }
 
 .form-group {
@@ -28,98 +30,98 @@
 .form-group label {
   font-weight: 600;
   color: #ffd700;
-  margin-bottom: 0.4rem;
-  font-size: 1.05rem;
-  letter-spacing: 0.3px;
-  text-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
+  margin-bottom: 0.35rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
 }
 
-input[type="text"],
-input[type="tel"],
-input[type="email"],
-input[type="date"],
-input[type="time"],
-select,
-textarea {
-  background-color: #162234;
+.appointment-form input,
+.appointment-form select,
+.appointment-form textarea {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 215, 0, 0.35);
   color: #ffffff;
-  border: 1.8px solid #ffd700;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-size: 1.05rem;
+  transition: border-color 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
+  backdrop-filter: blur(4px);
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: #b8b8b8;
+.appointment-form input::placeholder,
+.appointment-form textarea::placeholder {
+  color: #b0b8c5;
   font-style: italic;
 }
 
-/* Calendar & Time Picker Icons */
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
+.appointment-form input:focus,
+.appointment-form select:focus,
+.appointment-form textarea:focus {
+  outline: none;
+  border-color: #ffe680;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+}
+
+.appointment-form input:hover,
+.appointment-form select:hover,
+.appointment-form textarea:hover {
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+}
+
+/* Calendar & Time Picker */
+.appointment-form input[type="date"]::-webkit-calendar-picker-indicator,
+.appointment-form input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }
 
-input:focus,
-select:focus,
-textarea:focus,
-input[type="date"]:focus,
-input[type="time"]:focus {
-  outline: none;
-  border-color: #ffec99;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
-  transform: scale(1.01);
-}
-
-input[type="date"]:hover,
-input[type="time"]:hover {
-  box-shadow: 0 0 6px rgba(255, 215, 0, 0.2);
-}
-
-/* CTA Button */
-.appointment-form button.cta-button {
-  background-color: #ffd700;
-  color: #0b0f1c;
-  padding: 0.95rem 2rem;
+/* CTA Button — Professional Finish */
+.appointment-form .cta-button {
+  background: linear-gradient(145deg, #ffd700, #ffea8a);
+  color: #0a1a2f;
+  padding: 1rem 2.2rem;
   font-size: 1.1rem;
   font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  margin-top: 1rem;
   align-self: flex-start;
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
-.appointment-form button.cta-button:hover {
-  background-color: #ffe066;
-  transform: scale(1.05);
-  box-shadow: 0 0 16px gold;
+.appointment-form .cta-button:hover {
+  background: linear-gradient(145deg, #ffec7a, #fff5b2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5);
 }
 
-/* Response Message */
+.appointment-form .cta-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.25);
+}
+
+/* Response Message — Consistent Feel */
 .response-message {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.8rem 1rem;
-  border-radius: 8px;
-  background-color: #122438;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
   color: #ffd700;
   border: 2px solid #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
 }
 
-/* Responsive */
+/* Responsive — Always Polished */
 @media (max-width: 600px) {
   .appointment-booker {
     padding: 2rem 1rem;
   }
 
-  .appointment-form button.cta-button {
+  .appointment-form .cta-button {
     width: 100%;
     text-align: center;
   }
