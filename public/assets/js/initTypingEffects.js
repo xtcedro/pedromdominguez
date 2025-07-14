@@ -1,5 +1,3 @@
-// File: /assets/js/initTypingEffects.js
-
 import { typeLineByLine } from './typingengine.js';
 
 // ✅ Export as a reusable async function
@@ -7,34 +5,20 @@ export async function initializeTypingEffects() {
   // Helper: clear text + hide initially
   function prepareTyping(el) {
     if (!el) return null;
-    const text = el.textContent.trim();
-    el.textContent = "";
+    const text = el.innerHTML.trim();
+    el.innerHTML = "";
     el.style.visibility = "visible";
     return text;
   }
 
-  // Typing: Headline
-  const hero = document.getElementById(".hero");
-  if (hero) {
-    const text = prepareTyping(hero);
-    if (text) await typeLineByLine(text, headline, 30);
+  // ✅ Typing: Whole Hero Section
+  const heroSection = document.querySelector(".hero");
+  if (heroSection) {
+    const text = prepareTyping(heroSection);
+    if (text) await typeLineByLine(text, heroSection, 15);
   }
 
-  // Typing: Headline
-  const headline = document.getElementById(".hero-headline");
-  if (headline) {
-    const text = prepareTyping(headline);
-    if (text) await typeLineByLine(text, headline, 30);
-  }
-
-  // Typing: Subheading
-  const subheading = document.querySelector(".hero-subheading");
-  if (subheading) {
-    const text = prepareTyping(subheading);
-    if (text) await typeLineByLine(text, subheading, 15);
-  }
-
-  // Typing: Each Impact Box
+  // ✅ Typing: Each Impact Box
   const impactBoxes = document.querySelectorAll(".impact-box");
   for (const box of impactBoxes) {
     const h2 = box.querySelector("h2");
@@ -51,7 +35,7 @@ export async function initializeTypingEffects() {
     }
   }
 
-  // Typing: Mission Statement
+  // ✅ Typing: Mission Statement
   const mission = document.querySelector(".mission-statement");
   if (mission) {
     const text = prepareTyping(mission);
