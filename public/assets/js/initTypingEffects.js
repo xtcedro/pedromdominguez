@@ -1,4 +1,3 @@
-
 // File: /assets/js/initTypingEffects.js
 
 import { typeLineByLine } from './typingengine.js';
@@ -13,7 +12,6 @@ export async function initializeTypingEffects() {
     el.style.visibility = "visible";
     return text;
   }
-
 
   // Typing: Headline
   const headline = document.getElementById("hero-headline");
@@ -53,7 +51,7 @@ export async function initializeTypingEffects() {
     if (text) await typeLineByLine(text, mission, 15);
   }
 
-// ✅ New: Login Heading & Subtext
+  // ✅ New: Login Heading & Subtext
   const loginTitle = document.querySelector(".login-title");
   if (loginTitle) {
     const text = prepareTyping(loginTitle);
@@ -65,6 +63,4 @@ export async function initializeTypingEffects() {
     const text = prepareTyping(loginSubtext);
     if (text) await typeLineByLine(text, loginSubtext, 15);
   }
-}
-
 }
