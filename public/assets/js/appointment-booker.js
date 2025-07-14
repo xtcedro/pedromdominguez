@@ -14,7 +14,7 @@ const API_BASE = window.location.origin.includes("localhost")
   : "https://www.pedromdominguez.com";
 
 // ✅ Identify your site key
-const SITE_KEY = "domtech";
+const SITE_KEY = "pedromd";
 
 // 🧼 Format phone input to 10 digits only
 phoneInput.addEventListener("input", () => {
