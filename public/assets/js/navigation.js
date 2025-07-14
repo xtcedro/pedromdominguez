@@ -34,6 +34,7 @@ export function setupNavigation() {
           <li><a href="../../pages/home/index.html">🏠 Home</a></li>
           <li><a href="../../pages/about/about.html">👨‍💻 About Me</a></li>
           <li><a href="../../pages/contact/contact.html">📬 Contact Me</a></li>
+          <li><a href="../../pages/appointments/appointment-booker.html">📬 Book a Consultation</a></li>
         </ul>
         <div class="nav-container">
           <a href="../../pages/auth/login.html" class="nav-button">🫅 Admin Login</a>
