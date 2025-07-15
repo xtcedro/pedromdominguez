@@ -213,3 +213,30 @@ body.no-scroll {
 .hamburger-menu {
   z-index: 1001; /* Make sure it's above sidebar */
 }
+
+.has-submenu .submenu {
+  display: none;
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.has-submenu .submenu.open {
+  display: block;
+}
+
+.has-submenu .submenu-toggle {
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  color: gold;
+}
+
+.has-submenu .submenu-toggle.open::after {
+  content: " ▲";
+}
+
+.has-submenu .submenu-toggle::after {
+  content: " ▼";
+  margin-left: 0.3rem;
+}
