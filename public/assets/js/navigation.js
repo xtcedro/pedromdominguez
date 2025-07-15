@@ -1,9 +1,7 @@
-// File: /assets/js/navigation.js
-
 import anime from 'https://cdn.skypack.dev/animejs@3.2.1';
 import { showNotification } from './notifications.js';
 
-export function setupNavigation() {
+export async function setupNavigation() {
   const navbar = document.querySelector('.navbar');
   if (!navbar) {
     showNotification('❗ Navbar element not found.', 'warning');
@@ -11,67 +9,33 @@ export function setupNavigation() {
   }
 
   const isAdmin = !!localStorage.getItem('adminToken');
+  const navURL = isAdmin ? '/components/admin-nav.html' : '/components/guest-nav.html';
 
-  // === Add submenus in guestNav ===
-  const guestNav = `
-    <div class="nav-left">
-      <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-      <span class="nav-title">Pedro M. Dominguez</span>
-    </div>
-    <div class="menu-container">
-      <div class="sidebar hidden" id="sidebar-menu">
-        <div class="sidebar-header">
-          <button class="hamburger-menu close-menu" id="sidebar-toggle" aria-label="Toggle menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </button>
-          <h2>📌 Menu</h2>
-        </div>
-        <ul class="nav-links">
-          <li><a href="../../pages/home/index.html">🏠 Home</a></li>
-          <li class="has-submenu">
-            <span class="submenu-toggle">👨‍💻 About ▼</span>
-            <ul class="submenu">
-              <li><a href="../../pages/about/about.html">My Story</a></li>
-              <li><a href="../../pages/about/skills.html">Skills & Tools</a></li>
-            </ul>
-          </li>
-          <li class="has-submenu">
-            <span class="submenu-toggle">🚀 Projects ▼</span>
-            <ul class="submenu">
-              <li><a href="../../pages/projects/websites.html">Websites</a></li>
-              <li><a href="../../pages/projects/meta-framework.html">Meta Framework</a></li>
-            </ul>
-          </li>
-          <li><a href="../../pages/contact/contact.html">📬 Contact</a></li>
-          <li><a href="../../pages/appointments/appointment-booker.html">🗓️ Book Consultation</a></li>
-        </ul>
-        <div class="nav-container">
-          <a href="../../pages/auth/login.html" class="nav-button">🫅 Admin Login</a>
-        </div>
-      </div>
-      <div class="overlay hidden" id="menu-overlay"></div>
-    </div>
-  `;
+  try {
+    const res = await fetch(navURL);
+    const navHTML = await res.text();
+    navbar.innerHTML = navHTML;
 
-  const adminNav = `
-    <!-- Your existing adminNav stays the same -->
-    ...
-  `;
+    showNotification(`✅ Loaded ${isAdmin ? 'Admin' : 'Guest'} Navigation.`, 'success');
 
-  navbar.innerHTML = isAdmin ? adminNav : guestNav;
+    initializeNavEvents();
+  } catch (err) {
+    console.error(err);
+    showNotification('❌ Failed to load navigation component.', 'error');
+  }
+}
 
+function initializeNavEvents() {
   const menuButton = document.getElementById('menu-toggle');
   const sidebarButton = document.getElementById('sidebar-toggle');
   const sidebarMenu = document.getElementById('sidebar-menu');
   const overlay = document.getElementById('menu-overlay');
 
-  // === Animate hamburger
+  if (!menuButton || !sidebarButton || !sidebarMenu || !overlay) {
+    showNotification('❗ Missing sidebar elements.', 'warning');
+    return;
+  }
+
   const animateOpen = (bars) => {
     anime({ targets: bars[0], rotate: 45, translateY: 8, duration: 300 });
     anime({ targets: bars[1], opacity: 0, duration: 200 });
@@ -93,6 +57,7 @@ export function setupNavigation() {
     overlay.classList.remove('hidden');
     document.body.classList.add('no-scroll');
   };
+
   const closeMenu = () => {
     menuButton.classList.remove('open');
     sidebarButton.classList.remove('open');
@@ -103,18 +68,16 @@ export function setupNavigation() {
     overlay.classList.add('hidden');
     document.body.classList.remove('no-scroll');
   };
+
   const toggleMenu = () => {
-    if (sidebarMenu.classList.contains('visible')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    sidebarMenu.classList.contains('visible') ? closeMenu() : openMenu();
   };
+
   menuButton.addEventListener('click', toggleMenu);
   sidebarButton.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', closeMenu);
 
-  // === Submenu toggle logic ===
+  // ✅ Submenu toggles
   sidebarMenu.querySelectorAll('.has-submenu .submenu-toggle').forEach(toggle => {
     toggle.addEventListener('click', () => {
       const submenu = toggle.nextElementSibling;
@@ -123,7 +86,7 @@ export function setupNavigation() {
     });
   });
 
-  // === Highlight active
+  // ✅ Highlight active link
   const currentPage = window.location.pathname.split('/').pop().toLowerCase();
   sidebarMenu.querySelectorAll('.nav-links a').forEach(link => {
     const linkPage = link.getAttribute('href').split('/').pop().toLowerCase();
@@ -132,5 +95,14 @@ export function setupNavigation() {
     }
   });
 
-  showNotification('✅ Navigation with submenus initialized!', 'success');
+  // ✅ Logout
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('adminToken');
+      showNotification('🚪 You have been logged out.', 'success');
+      location.href = '../../pages/auth/login.html';
+    });
+  }
 }
