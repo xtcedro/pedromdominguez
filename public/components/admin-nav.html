@@ -1,0 +1,42 @@
+<!-- admin-nav.html -->
+<div class="nav-left">
+  <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <span class="nav-title">Admin Panel - Dominguez Tech Solutions</span>
+</div>
+<div class="menu-container">
+  <div class="sidebar hidden" id="sidebar-menu">
+    <div class="sidebar-header">
+      <button class="hamburger-menu close-menu" id="sidebar-toggle" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <h2>🛠️ Admin Menu</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../../pages/admin/dashboard.html">📊 Dashboard</a></li>
+      <li class="has-submenu">
+        <span class="submenu-toggle">📋 Manage ▼</span>
+        <ul class="submenu">
+          <li><a href="../../pages/admin/manage-appointments.html">Appointments</a></li>
+          <li><a href="../../pages/admin/user-messages.html">User Messages</a></li>
+        </ul>
+      </li>
+      <li class="has-submenu">
+        <span class="submenu-toggle">⚙️ System ▼</span>
+        <ul class="submenu">
+          <li><a href="../../pages/admin/settings.html">Settings</a></li>
+          <li><a href="../../pages/admin/system-info.html">System Info</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="nav-container">
+      <a href="#" class="nav-button" id="logout-link">🚪 Logout</a>
+    </div>
+  </div>
+  <div class="overlay hidden" id="menu-overlay"></div>
+</div>
