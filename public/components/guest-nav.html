@@ -1,0 +1,44 @@
+<!-- guest-nav.html -->
+<div class="nav-left">
+  <button class="hamburger-menu" id="menu-toggle" aria-label="Toggle navigation">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <span class="nav-title">Pedro M. Dominguez</span>
+</div>
+<div class="menu-container">
+  <div class="sidebar hidden" id="sidebar-menu">
+    <div class="sidebar-header">
+      <button class="hamburger-menu close-menu" id="sidebar-toggle" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <h2>📌 Menu</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../../pages/home/index.html">🏠 Home</a></li>
+      <li class="has-submenu">
+        <span class="submenu-toggle">👨‍💻 About ▼</span>
+        <ul class="submenu">
+          <li><a href="../../pages/about/about.html">My Story</a></li>
+          <li><a href="../../pages/about/skills.html">Skills & Tools</a></li>
+        </ul>
+      </li>
+      <li class="has-submenu">
+        <span class="submenu-toggle">🚀 Projects ▼</span>
+        <ul class="submenu">
+          <li><a href="../../pages/projects/websites.html">Websites</a></li>
+          <li><a href="../../pages/projects/meta-framework.html">Meta Framework</a></li>
+        </ul>
+      </li>
+      <li><a href="../../pages/contact/contact.html">📬 Contact</a></li>
+      <li><a href="../../pages/appointments/appointment-booker.html">🗓️ Book Consultation</a></li>
+    </ul>
+    <div class="nav-container">
+      <a href="../../pages/auth/login.html" class="nav-button">🫅 Admin Login</a>
+    </div>
+  </div>
+  <div class="overlay hidden" id="menu-overlay"></div>
+</div>
