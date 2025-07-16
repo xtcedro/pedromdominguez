@@ -1,59 +1,113 @@
-/* === ABOUT CONTENT SECTION === */
+/* ========================================================
+   === ABOUT CONTENT SECTION: Elevating Professionalism ===
+   ======================================================== */
+
+/* Root variables for consistent theming. 
+   These are often defined globally in a main style.css or theme.css */
 :root {
-  --primary-bg: #0a1a2f;           /* Deep navy base */
-  --section-bg: #0c2644;           /* Rich gradient navy */
-  --text-color: #ffffff;           /* Crisp white text */
-  --text-accent: #e0e0e0;          /* Light gray accent text */
-  --highlight: #ffffff;            /* Strong highlight */
-  --cta-bg: #ffffff;               /* CTA background */
-  --cta-text: #0a1a2f;             /* CTA text */
-  --cta-hover-bg: #e6e6e6;         /* CTA hover background */
-  --border-glow: rgba(255, 255, 255, 0.2);
+  --primary-bg: #0a1a2f;           /* Deep navy base for overall page */
+  --section-bg-gradient-start: #0c2644; /* Start of rich gradient navy */
+  --section-bg-gradient-end: #09203f;   /* End of rich gradient navy */
+  --text-color: #ffffff;           /* Crisp white for primary text */
+  --text-accent: #e0e0e0;          /* Light gray accent for body text */
+  --highlight: #ffffff;            /* Strong highlight for headings/key info */
+  --cta-bg: #ffffff;               /* CTA button background */
+  --cta-text: #0a1a2f;             /* CTA button text */
+  --cta-hover-bg: #e6e6e6;         /* CTA button hover state */
+  --border-glow: rgba(255, 255, 255, 0.15); /* Subtle border glow */
+  --subtle-radial-gradient: rgba(255, 255, 255, 0.03); /* Light internal radial pattern */
+  --dot-grid-color: rgba(255, 255, 255, 0.02); /* Very subtle dot grid */
+  --blur-effect-color: rgba(255, 255, 255, 0.06); /* For a more pronounced internal blur effect */
 }
 
 .content-section {
-  background: linear-gradient(135deg, var(--section-bg) 0%, #09203f 100%);
+  /* Enhanced Background: Deeper gradient with subtle radial texture */
+  background: linear-gradient(135deg, var(--section-bg-gradient-start) 0%, var(--section-bg-gradient-end) 100%);
+  background-image: radial-gradient(circle at top left, var(--subtle-radial-gradient), transparent 70%),
+                    repeating-conic-gradient(from 0deg at 2px 2px, var(--dot-grid-color) 0deg 90deg, transparent 90deg 180deg); /* Subtle dot grid */
+  background-size: 100%, 4px 4px; /* Adjust dot grid size */
   color: var(--text-color);
-  padding: 6rem 2rem;
+  padding: 6rem 0; /* Padding handled by container, reset horizontal to 0 */
   text-align: center;
-  border-top: 2px solid var(--border-glow);
-  background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%);
+  border-top: 1px solid var(--border-glow); /* Finer border for more sleek look */
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Contains pseudo-elements and ensures no scroll issues */
+  box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+}
+
+/* Subtle Glowing Orb / Noise Effect */
+.content-section::before,
+.content-section::after {
+  content: "";
+  position: absolute;
+  background: radial-gradient(circle, var(--blur-effect-color) 0%, transparent 80%);
+  filter: blur(60px); /* Slightly increased blur for softness */
+  z-index: 0; /* Ensures it's behind content */
+  pointer-events: none; /* Allows clicks/interactions through */
 }
 
 .content-section::before {
-  content: "";
-  position: absolute;
-  top: -50px; left: -50px;
-  width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 80%);
-  filter: blur(50px);
-  z-index: 0;
+  top: -80px; /* Adjusted position */
+  left: -80px; /* Adjusted position */
+  width: 250px; height: 250px; /* Larger for broader effect */
+  animation: floatEffect 15s ease-in-out infinite alternate-reverse; /* Subtle animation */
 }
 
-.content-section h2 {
-  font-size: 2.5rem;
+.content-section::after { /* New: Second glowing orb for more dynamic background */
+  bottom: -100px;
+  right: -100px;
+  width: 300px; height: 300px;
+  animation: floatEffect 18s ease-in-out infinite alternate; /* Different animation for variation */
+}
+
+@keyframes floatEffect {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, 20px); }
+}
+
+
+/* === Container for content width management === */
+.content-section .container {
+  max-width: 1000px; /* Optimal reading width for professional content */
+  margin: 0 auto;    /* Center the container */
+  padding: 0 2rem;   /* Internal padding for content, especially on smaller screens */
+  position: relative; /* For z-index of content above pseudo-elements */
+  z-index: 1;         /* Ensures content is above background effects */
+}
+
+.content-section h2.section-title { /* Explicit class for main section titles */
+  font-size: 2.8rem; /* Slightly larger for more presence */
+  margin-bottom: 1.5rem; /* Increased spacing */
+  color: var(--highlight);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 5px rgba(255, 255, 255, 0.1); /* Stronger, layered text shadow */
+  letter-spacing: 0.75px; /* Slightly wider for modern feel */
+  font-weight: 600; /* Often looks more professional than boldest */
+  position: relative; /* Keep z-index for content */
+}
+
+/* Specific styling for the hero section h2 if it exists, otherwise use general */
+.hero .hero-content h2 { /* Targeting h2 elements within the hero content specifically */
+  font-size: 2.5rem; /* Maintain original size or adjust for hero */
   margin-bottom: 1.2rem;
   color: var(--highlight);
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
   letter-spacing: 0.5px;
-  position: relative;
-  z-index: 1;
 }
 
+
 .content-section p {
-  max-width: 860px;
-  margin: 0 auto 3rem;
-  font-size: 1.2rem;
-  line-height: 1.85;
+  max-width: 800px; /* Slightly reduced max-width for better readability on long paragraphs */
+  margin: 0 auto 2.5rem; /* Reduced bottom margin for tighter grouping */
+  font-size: 1.15rem; /* Slightly reduced for better body text flow */
+  line-height: 1.9; /* Increased line-height for better readability */
   color: var(--text-accent);
   position: relative;
   z-index: 1;
+  text-rendering: optimizeLegibility; /* Improved text rendering */
 }
 
 .content-section strong {
-  color: #ffffff;
+  color: var(--highlight); /* Use --highlight for consistency */
   font-weight: 700;
 }
 
@@ -62,37 +116,72 @@
   background: var(--cta-bg);
   color: var(--cta-text);
   font-weight: 700;
-  font-size: 1.2rem;
-  padding: 1rem 2.5rem;
-  border-radius: 8px;
+  font-size: 1.25rem; /* Slightly larger CTA text */
+  padding: 1.1rem 3rem; /* More generous padding */
+  border-radius: 50px; /* More modern, pill-shaped button */
   text-decoration: none;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease; /* More refined transform ease */
+  box-shadow: 0 5px 25px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.15); /* More subtle, deeper shadow */
   position: relative;
   z-index: 1;
+  border: none; /* Ensure no default border */
+  text-transform: uppercase; /* Professional touch */
+  letter-spacing: 0.5px;
 }
 
 .content-section .cta-button:hover {
   background: var(--cta-hover-bg);
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.35);
+  transform: translateY(-7px) scale(1.05); /* More pronounced hover lift */
+  box-shadow: 0 8px 45px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.45); /* Enhanced hover shadow */
+  cursor: pointer; /* Explicit cursor change */
+}
+
+/* === Responsive Adjustments for Professional Presentation === */
+@media (max-width: 1024px) {
+  .content-section .container {
+    padding: 0 1.5rem;
+  }
+  .content-section h2.section-title {
+    font-size: 2.4rem;
+  }
 }
 
 @media (max-width: 768px) {
   .content-section {
-    padding: 4rem 1.5rem;
+    padding: 4rem 0; /* Reset horizontal padding for container to manage */
   }
 
-  .content-section h2 {
+  .content-section h2.section-title {
     font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
   .content-section p {
     font-size: 1.05rem;
+    margin-bottom: 2rem;
+    line-height: 1.75; /* Slightly less line height for smaller screens */
   }
 
   .content-section .cta-button {
     font-size: 1.05rem;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .content-section h2.section-title {
+    font-size: 1.75rem;
+    letter-spacing: 0.25px;
+  }
+
+  .content-section p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content-section .cta-button {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+  }
+}
+
