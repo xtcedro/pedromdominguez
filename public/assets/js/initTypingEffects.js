@@ -21,28 +21,28 @@ export async function initializeTypingEffects() {
   }
 
   // Typing: Subheading
-  const subheading = document.querySelector(".hero-subheading");
-  if (subheading) {
-    const text = prepareTyping(subheading);
-    if (text) await typeLineByLine(text, subheading, 15);
-  }
+//  const subheading = document.querySelector(".hero-subheading");
+//  if (subheading) {
+//    const text = prepareTyping(subheading);
+//    if (text) await typeLineByLine(text, subheading, 15);
+//  }
 
   // Typing: Each Impact Box
-  const impactBoxes = document.querySelectorAll(".impact-box");
-  for (const box of impactBoxes) {
-    const h2 = box.querySelector("h2");
-    const p = box.querySelector("p");
-
-    if (h2) {
-      const textH2 = prepareTyping(h2);
-      if (textH2) await typeLineByLine(textH2, h2, 15);
-    }
-
-    if (p) {
-      const textP = prepareTyping(p);
-      if (textP) await typeLineByLine(textP, p, 15);
-    }
-  }
+//  const impactBoxes = document.querySelectorAll(".impact-box");
+//  for (const box of impactBoxes) {
+//    const h2 = box.querySelector("h2");
+//    const p = box.querySelector("p");
+//
+//    if (h2) {
+//      const textH2 = prepareTyping(h2);
+//      if (textH2) await typeLineByLine(textH2, h2, 15);
+//    }
+//
+//    if (p) {
+//      const textP = prepareTyping(p);
+//      if (textP) await typeLineByLine(textP, p, 15);
+//    }
+//  }
 
   // Typing: Mission Statement
   const mission = document.querySelector(".mission-statement");
