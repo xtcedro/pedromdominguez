@@ -17,7 +17,7 @@ export async function initializeTypingEffects() {
   const headline = document.getElementById("hero-headline");
   if (headline) {
     const text = prepareTyping(headline);
-    if (text) await typeLineByLine(text, headline, 30);
+    if (text) await typeLineByLine(text, headline, 50);
   }
 
   // Typing: Subheading
