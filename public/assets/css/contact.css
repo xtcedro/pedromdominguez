@@ -113,3 +113,55 @@
     font-size: 1rem;
   }
 }
+
+.cta {
+  background-color: #1a2b3c; /* Deep, professional dark blue */
+  color: #ffffff; /* Crisp white text */
+  padding: 60px 30px; /* Increased padding for more breathing room */
+  text-align: center;
+  border-radius: 12px; /* Slightly rounded corners for a modern touch */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth and professionalism */
+  margin: 40px auto; /* Center the section with some vertical margin */
+  max-width: 1000px; /* Limit width for better readability and design control */
+}
+
+.cta h2 {
+  font-size: 3em; /* Larger, more impactful heading */
+  margin-bottom: 25px;
+  font-weight: 700; /* Bolder font for emphasis */
+  letter-spacing: -0.02em; /* Tighter letter spacing for a refined look */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft text shadow for subtle depth */
+}
+
+.cta p {
+  font-size: 1.35em; /* Slightly larger paragraph text for improved readability */
+  line-height: 1.7; /* Increased line height for better legibility [1] */
+  margin-bottom: 40px;
+  max-width: 850px; /* Optimized max-width for comfortable reading [1] */
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9; /* Slightly reduced opacity for a softer appearance */
+}
+
+.cta.cta-button { /* Scoped within the.cta parent class for clear hierarchy */
+  display: inline-block;
+  background-color: #ffffff; /* White button for strong contrast [2] */
+  color: #1a2b3c; /* Dark blue text on button, maintaining color scheme */
+  padding: 18px 35px; /* Generous padding for a more prominent and clickable area [3] */
+  border-radius: 50px; /* More rounded, pill-like shape for a modern feel */
+  text-decoration: none;
+  font-size: 1.25em; /* Larger font size for button text [4] */
+  font-weight: bold; /* Bold text for clear call to action */
+  letter-spacing: 0.03em; /* Slight letter spacing for a polished look */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for all interactive elements */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* More pronounced shadow for a lifted effect [5] */
+  min-width: 200px; /* Ensure a minimum width for consistent appearance */
+  min-height: 50px; /* Ensure a minimum height for touch accessibility [6] */
+}
+
+.cta.cta-button:hover {
+  background-color: #e0e0e0; /* Slightly darker white on hover */
+  color: #0d1a25; /* Even darker blue on hover */
+  transform: translateY(-3px); /* Subtle lift effect on hover [5] */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35); /* Enhanced shadow on hover for more depth */
+}
