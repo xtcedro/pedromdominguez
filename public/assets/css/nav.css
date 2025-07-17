@@ -6,52 +6,52 @@
   position: sticky;
   top: 0;
   z-index: 2000;
-  
+
   /* Premium Glass Morphism Background */
-  background: 
-    linear-gradient(135deg, 
-      rgba(10, 26, 47, 0.95) 0%, 
-      rgba(17, 35, 62, 0.92) 50%, 
+  background:
+    linear-gradient(135deg,
+      rgba(10, 26, 47, 0.95) 0%,
+      rgba(17, 35, 62, 0.92) 50%,
       rgba(10, 26, 47, 0.95) 100%
     );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  
+
   /* Enhanced Styling */
   color: #ffd700;
   padding: 1.25rem 2.5rem;
-  
+
   /* Layout */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   /* Typography */
   font-weight: 600;
-  
+
   /* Premium Shadows and Effects */
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     0 2px 8px rgba(255, 215, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  
+
   /* Subtle border */
   border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-  
+
   /* Smooth transitions */
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Enhanced navbar on scroll */
 .navbar.scrolled {
-  background: 
-    linear-gradient(135deg, 
-      rgba(10, 26, 47, 0.98) 0%, 
-      rgba(17, 35, 62, 0.96) 50%, 
+  background:
+    linear-gradient(135deg,
+      rgba(10, 26, 47, 0.98) 0%,
+      rgba(17, 35, 62, 0.96) 50%,
       rgba(10, 26, 47, 0.98) 100%
     );
   backdrop-filter: blur(25px);
-  box-shadow: 
+  box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.4),
     0 4px 12px rgba(255, 215, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
@@ -71,7 +71,7 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   position: relative;
-  
+
   /* Premium gradient text */
   background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
   -webkit-background-clip: text;
@@ -79,10 +79,10 @@
   background-clip: text;
   background-size: 200% 200%;
   animation: textShimmer 4s ease-in-out infinite;
-  
+
   /* Text shadow for depth */
   filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
-  
+
   /* Smooth transitions */
   transition: all 0.3s ease;
 }
@@ -106,7 +106,7 @@
   position: relative;
   padding: 4px;
   border-radius: 8px;
-  
+
   /* Enhanced interaction */
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -127,10 +127,10 @@
   background: linear-gradient(90deg, #ffd700, #ffed4e);
   border-radius: 3px;
   position: relative;
-  
+
   /* Premium effects */
   box-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
-  
+
   /* Smooth transitions with advanced easing */
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -171,34 +171,34 @@
   height: 100vh;
   width: 320px;
   z-index: 1500;
-  
+
   /* Premium Glass Morphism */
-  background: 
-    linear-gradient(135deg, 
-      rgba(17, 27, 46, 0.95) 0%, 
-      rgba(10, 26, 47, 0.92) 50%, 
+  background:
+    linear-gradient(135deg,
+      rgba(17, 27, 46, 0.95) 0%,
+      rgba(10, 26, 47, 0.92) 50%,
       rgba(15, 30, 52, 0.95) 100%
     );
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  
+
   /* Enhanced styling */
   color: #ffd700;
   padding: 2rem;
-  
+
   /* Premium shadows */
-  box-shadow: 
+  box-shadow:
     8px 0 32px rgba(0, 0, 0, 0.4),
     4px 0 16px rgba(255, 215, 0, 0.1),
     inset -1px 0 0 rgba(255, 215, 0, 0.1);
-  
+
   /* Border accent */
   border-right: 1px solid rgba(255, 215, 0, 0.2);
-  
+
   /* Initial hidden state */
   transform: translateX(-100%);
   opacity: 0;
-  
+
   /* Smooth transitions */
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -237,13 +237,13 @@
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  
+
   /* Premium gradient text */
   background: linear-gradient(135deg, #ffd700, #ffed4e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  
+
   /* Text shadow */
   filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
 }
@@ -262,7 +262,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  
+
   /* Staggered entrance animation */
   opacity: 0;
   transform: translateX(-30px);
@@ -286,15 +286,15 @@
   padding: 1rem 1.5rem;
   border-radius: 12px;
   position: relative;
-  
+
   /* Premium effects */
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 215, 0, 0.1);
   backdrop-filter: blur(8px);
-  
+
   /* Smooth transitions */
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  
+
   /* Icon spacing */
   display: flex;
   align-items: center;
@@ -306,8 +306,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, 
-    rgba(255, 215, 0, 0.1) 0%, 
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.1) 0%,
     rgba(255, 215, 0, 0.05) 100%
   );
   border-radius: inherit;
@@ -322,9 +322,9 @@
   background: rgba(255, 215, 0, 0.15);
   border-color: rgba(255, 215, 0, 0.4);
   transform: translateX(8px) scale(1.02);
-  
+
   /* Enhanced shadows */
-  box-shadow: 
+  box-shadow:
     0 8px 24px rgba(255, 215, 0, 0.2),
     0 4px 8px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -359,31 +359,31 @@
   display: inline-block;
   width: 100%;
   padding: 1rem 1.5rem;
-  
+
   /* Premium gradient background */
   background: linear-gradient(135deg, #ffd700, #ffed4e);
   color: #0a1a2f;
-  
+
   /* Typography */
   font-weight: 700;
   font-size: 1rem;
   text-align: center;
   text-decoration: none;
   letter-spacing: 0.5px;
-  
+
   /* Styling */
   border: none;
   border-radius: 12px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  
+
   /* Premium effects */
-  box-shadow: 
+  box-shadow:
     0 8px 24px rgba(255, 215, 0, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  
+
   /* Smooth transitions */
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -396,9 +396,9 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.4) 50%, 
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
     transparent 100%
   );
   transition: left 0.6s ease;
@@ -407,8 +407,8 @@
 .nav-button:hover {
   background: linear-gradient(135deg, #ffed4e, #fff5a0);
   transform: translateY(-2px) scale(1.02);
-  
-  box-shadow: 
+
+  box-shadow:
     0 12px 32px rgba(255, 215, 0, 0.4),
     0 6px 12px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -426,9 +426,9 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: 
-    radial-gradient(circle at center, 
-      rgba(0, 0, 0, 0.6) 0%, 
+  background:
+    radial-gradient(circle at center,
+      rgba(0, 0, 0, 0.6) 0%,
       rgba(0, 0, 0, 0.8) 100%
     );
   backdrop-filter: blur(4px);
@@ -488,25 +488,25 @@ body.no-scroll {
   .navbar {
     padding: 1rem 1.5rem;
   }
-  
+
   .nav-title {
     font-size: 1.2rem;
   }
-  
+
   .hamburger-menu {
     width: 28px;
     height: 22px;
   }
-  
+
   .sidebar {
     width: 280px;
     padding: 1.5rem;
   }
-  
+
   .sidebar-header h2 {
     font-size: 1.2rem;
   }
-  
+
   .nav-links a {
     font-size: 1rem;
     padding: 0.875rem 1.25rem;
@@ -518,31 +518,31 @@ body.no-scroll {
   .navbar {
     padding: 0.875rem 1rem;
   }
-  
+
   .nav-title {
     font-size: 1rem;
   }
-  
+
   .hamburger-menu {
     width: 24px;
     height: 20px;
   }
-  
+
   .sidebar {
     width: calc(100vw - 2rem);
     max-width: 280px;
     padding: 1.25rem;
   }
-  
+
   .sidebar-header {
     margin-bottom: 2rem;
   }
-  
+
   .nav-links a {
     font-size: 0.95rem;
     padding: 0.75rem 1rem;
   }
-  
+
   .nav-button {
     padding: 0.875rem 1.25rem;
     font-size: 0.95rem;
@@ -556,34 +556,16 @@ body.no-scroll {
     background: #000000;
     border-color: #ffffff;
   }
-  
+
   .nav-title,
   .sidebar-header h2,
   .nav-links a {
     color: #ffffff;
     -webkit-text-fill-color: #ffffff;
   }
-  
+
   .nav-button {
     background: #ffffff;
     color: #000000;
-  }
-}
-
-/* === Reduced Motion === */
-@media (prefers-reduced-motion: reduce) {
-  .navbar,
-  .sidebar,
-  .nav-links li,
-  .nav-links a,
-  .nav-button,
-  .hamburger-menu .bar,
-  .nav-title {
-    animation: none !important;
-    transition: opacity 0.2s ease, transform 0.2s ease !important;
-  }
-  
-  .nav-links a:hover {
-    transform: none !important;
   }
 }
