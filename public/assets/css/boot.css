@@ -1,703 +1,507 @@
-/* === PREMIUM ENTERPRISE BOOT TERMINAL - ELITE DESIGN === */
-/* DenoGenesis Framework v3.0 - Cinematic System Initialization */
+/* === MOBILE-OPTIMIZED BOOT TERMINAL - RESPONSIVE DESIGN === */
+/* DenoGenesis Framework - Mobile-First Premium Experience */
 
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap");
-
+/* === Base Mobile-First Approach === */
 :root {
-  /* Enhanced Color Palette */
-  --boot-bg: linear-gradient(135deg, #000506 0%, #0a0f1a 50%, #000211 100%);
-  --terminal-primary: #00ff88;
-  --terminal-secondary: #00bfff;
-  --terminal-accent: #ffd700;
-  --terminal-danger: #ff4757;
-  --terminal-success: #2ed573;
+  /* Mobile-optimized sizing */
+  --mobile-padding: 0.75rem;
+  --mobile-font-size: 11px;
+  --mobile-line-height: 1.4;
+  --mobile-border-radius: 12px;
   
-  /* Premium Effects */
-  --glow-primary: rgba(0, 255, 136, 0.4);
-  --glow-secondary: rgba(0, 191, 255, 0.3);
-  --glow-accent: rgba(255, 215, 0, 0.3);
-  
-  /* Advanced Typography */
-  --font-primary: "JetBrains Mono", "Fira Code", monospace;
-  --font-display: "Orbitron", "JetBrains Mono", monospace;
-  
-  /* CRT Effects */
-  --scanline-opacity: rgba(0, 255, 136, 0.02);
-  --pixel-size: 1px;
+  /* Enhanced mobile colors */
+  --mobile-glow-intensity: 0.6;
+  --mobile-bg-opacity: 0.98;
 }
 
-/* === Enhanced Base Styles === */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body.boot-active {
-  overflow: hidden;
-  background: var(--boot-bg);
-  font-family: var(--font-primary);
-  cursor: none;
-}
-
-/* === Premium Boot Container === */
+/* === Enhanced Mobile Container === */
 .boot-container {
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 4vw, 2rem);
   z-index: 9999;
   
-  /* Enhanced Background */
+  /* Mobile-optimized padding */
+  padding: 0.5rem;
+  
+  /* Enhanced mobile background */
   background: 
-    radial-gradient(ellipse at 30% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(0, 191, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 30%, rgba(0, 255, 136, 0.12) 0%, transparent 60%),
     linear-gradient(135deg, #000506 0%, #0a0f1a 50%, #000211 100%);
   
-  /* Advanced Backdrop */
-  backdrop-filter: blur(12px) brightness(0.3) contrast(1.2);
-  -webkit-backdrop-filter: blur(12px) brightness(0.3) contrast(1.2);
-  
-  /* Cinematic Entrance */
-  opacity: 0;
-  transform: scale(0.9) translateY(50px);
-  animation: cinematicEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  /* Improved backdrop for mobile */
+  backdrop-filter: blur(8px) brightness(0.4);
+  -webkit-backdrop-filter: blur(8px) brightness(0.4);
 }
 
-.boot-container.hide {
-  animation: cinematicExit 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-/* Advanced CRT Scanlines */
-.boot-container::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: 
-    repeating-linear-gradient(
-      to bottom,
-      var(--scanline-opacity) 0 var(--pixel-size),
-      transparent var(--pixel-size) calc(var(--pixel-size) * 2)
-    );
-  animation: advancedScanlines 8s linear infinite;
-  z-index: 10;
-}
-
-/* === Elite Terminal Frame === */
+/* === Mobile-First Terminal Design === */
 .boot-terminal {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  max-height: 90vh;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  height: 100%;
+  max-height: none; /* Remove height restrictions */
   
-  /* Advanced Background */
+  /* Mobile-optimized padding */
+  padding: var(--mobile-padding);
+  
+  /* Enhanced mobile background */
   background: 
     linear-gradient(135deg, 
-      rgba(0, 0, 0, 0.95) 0%, 
-      rgba(5, 10, 15, 0.9) 50%, 
-      rgba(0, 0, 0, 0.95) 100%
+      rgba(0, 0, 0, var(--mobile-bg-opacity)) 0%, 
+      rgba(5, 10, 15, 0.95) 50%, 
+      rgba(0, 0, 0, var(--mobile-bg-opacity)) 100%
     );
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
   
-  /* Premium Border System */
-  border: 2px solid transparent;
-  border-radius: 16px;
-  background-clip: padding-box;
+  /* Mobile-optimized borders */
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  border-radius: var(--mobile-border-radius);
   
-  /* Multiple Layer Glow Effects */
+  /* Reduced glow for mobile performance */
   box-shadow: 
-    0 0 60px var(--glow-primary),
-    0 0 120px rgba(0, 255, 136, 0.2),
-    inset 0 0 30px rgba(0, 255, 136, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.4);
+    0 0 30px rgba(0, 255, 136, var(--mobile-glow-intensity)),
+    inset 0 0 20px rgba(0, 255, 136, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.3);
   
-  /* Enhanced Typography */
-  color: var(--terminal-primary);
-  font-family: var(--font-primary);
-  font-weight: 400;
-  font-size: clamp(12px, 2.5vw, 16px);
-  line-height: 1.6;
+  /* Mobile typography */
+  color: #00ff88;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: var(--mobile-font-size);
+  line-height: var(--mobile-line-height);
   
-  /* Scrolling */
+  /* Mobile scrolling */
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
   
-  /* Smooth Entrance */
-  opacity: 0;
-  transform: scale(0.95) rotateX(5deg);
-  animation: terminalMaterialize 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  /* Remove complex animations on mobile */
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 
-/* Animated Border Glow */
-.boot-terminal::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: 
-    linear-gradient(45deg, 
-      var(--terminal-primary) 0%, 
-      var(--terminal-secondary) 25%, 
-      var(--terminal-accent) 50%, 
-      var(--terminal-secondary) 75%, 
-      var(--terminal-primary) 100%
-    );
-  background-size: 200% 200%;
-  border-radius: 18px;
-  z-index: -1;
-  animation: borderFlow 4s ease-in-out infinite;
-}
-
-/* Enhanced Terminal Header */
+/* === Mobile-Optimized Header === */
 .boot-terminal::after {
-  content: "⚡ DENOGENESIS FRAMEWORK v3.0 - SYSTEM INITIALIZATION";
+  content: "⚡ DENOGENESIS v3.0";
   position: absolute;
-  top: -2rem;
-  left: 2rem;
-  right: 2rem;
-  padding: 0.5rem 1.5rem;
-  background: 
-    linear-gradient(135deg, 
-      rgba(0, 255, 136, 0.9) 0%, 
-      rgba(0, 191, 255, 0.9) 100%
-    );
+  top: -1.5rem;
+  left: 1rem;
+  right: 1rem;
+  padding: 0.4rem 1rem;
   
-  /* Typography */
-  font-family: var(--font-display);
-  font-size: clamp(10px, 2vw, 14px);
+  /* Mobile background */
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 136, 0.9) 0%, 
+    rgba(0, 191, 255, 0.9) 100%
+  );
+  
+  /* Mobile typography */
+  font-family: "Orbitron", monospace;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: #000;
   text-align: center;
   
-  /* Styling */
-  border-radius: 8px;
+  /* Mobile styling */
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    0 4px 16px rgba(0, 255, 136, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 255, 136, 0.3);
   
-  /* Animation */
-  animation: headerPulse 3s ease-in-out infinite;
+  /* Simplified animation */
+  animation: none;
 }
 
-/* === Premium Text Styles === */
+/* === Mobile Text Optimization === */
 .boot-text {
-  font-family: var(--font-primary);
-  font-size: clamp(12px, 2.5vw, 16px);
-  line-height: 1.7;
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--mobile-font-size);
+  line-height: var(--mobile-line-height);
   white-space: pre-wrap;
   word-break: break-word;
   
-  /* Enhanced Glow */
+  /* Optimized mobile glow */
   text-shadow: 
-    0 0 8px var(--glow-primary),
-    0 0 16px rgba(0, 255, 136, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.5);
+    0 0 4px rgba(0, 255, 136, 0.6),
+    0 1px 2px rgba(0, 0, 0, 0.5);
   
-  /* Smooth Appearance */
-  opacity: 0;
-  transform: translateY(10px);
-  animation: textReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  /* Simplified mobile animation */
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 
-/* Enhanced Cursor */
+/* === Mobile Cursor Optimization === */
 .boot-text::after {
   content: "█";
-  margin-left: 4px;
-  color: var(--terminal-primary);
-  font-weight: 400;
-  animation: 
-    advancedCursor 1.2s steps(2, start) infinite,
-    cursorGlow 2s ease-in-out infinite alternate;
+  margin-left: 2px;
+  color: #00ff88;
+  animation: mobileCursor 1s steps(2) infinite;
 }
 
-/* === Advanced Syntax Highlighting === */
-.ok { 
-  color: var(--terminal-success); 
-  font-weight: 600;
-  text-shadow: 0 0 8px var(--terminal-success);
-}
-
-.error { 
-  color: var(--terminal-danger); 
-  font-weight: 600;
-  text-shadow: 0 0 8px var(--terminal-danger);
-  animation: errorFlicker 0.5s ease-in-out 3;
-}
-
-.module { 
-  color: var(--terminal-secondary); 
-  font-style: italic;
-  font-weight: 500;
-  text-shadow: 0 0 6px var(--glow-secondary);
-}
-
+/* === Mobile Syntax Highlighting === */
 .boot-frame-title,
 .section-title {
-  color: var(--terminal-accent);
-  font-family: var(--font-display);
+  color: #ffd700;
+  font-family: "Orbitron", monospace;
   font-weight: 700;
-  font-size: clamp(14px, 3vw, 20px);
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin: 2rem 0 1rem 0;
-  text-shadow: 0 0 12px var(--glow-accent);
-  position: relative;
+  letter-spacing: 1px;
+  margin: 1rem 0 0.5rem 0;
+  
+  /* Mobile glow */
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+  
+  /* Simplified mobile animation */
+  animation: none;
 }
 
 .boot-frame-title::after,
 .section-title::after {
   content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    var(--terminal-accent) 0%, 
-    transparent 100%
-  );
-  animation: underlineExpand 1s ease-out forwards;
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, #ffd700 0%, transparent 100%);
+  margin-top: 4px;
 }
 
-.flicker {
-  animation: 
-    premiumFlicker 1.5s infinite alternate,
-    flickerGlow 2s ease-in-out infinite;
-  color: var(--terminal-success);
-  font-weight: 600;
-}
-
-.motto {
-  font-family: var(--font-display);
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: clamp(11px, 2vw, 14px);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-  text-align: center;
-  margin: 2rem 0;
-  letter-spacing: 1px;
-}
-
-/* === Enhanced ASCII Logo === */
-.ascii-logo {
-  font-family: var(--font-primary);
-  font-weight: 500;
-  color: var(--terminal-primary);
-  white-space: pre;
-  text-align: center;
-  font-size: clamp(8px, 2.5vw, 12px);
-  line-height: 1.2;
-  margin-bottom: 2rem;
-  
-  /* Advanced Glow */
-  text-shadow: 
-    0 0 10px var(--glow-primary),
-    0 0 20px rgba(0, 255, 136, 0.4),
-    0 0 30px rgba(0, 255, 136, 0.2);
-  
-  /* Animation */
-  opacity: 0;
-  transform: scale(0.9);
-  animation: logoReveal 2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
-}
-
-/* === Premium Progress System === */
-#boot-output {
-  border: 2px solid var(--terminal-primary);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1rem 0;
-  
-  /* Advanced Background */
-  background: 
-    linear-gradient(135deg, 
-      rgba(0, 0, 0, 0.8) 0%, 
-      rgba(5, 15, 25, 0.6) 100%
-    );
-  backdrop-filter: blur(8px);
-  
-  /* Enhanced Glow */
-  box-shadow: 
-    0 0 24px var(--glow-primary),
-    inset 0 0 16px rgba(0, 255, 136, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
+/* === Mobile Progress Bar === */
 #boot-progress-bar {
-  width: 90%;
-  height: 16px;
-  background: rgba(0, 255, 136, 0.1);
-  border: 2px solid var(--terminal-primary);
-  border-radius: 8px;
-  margin: 1.5rem auto;
+  width: 95%;
+  height: 12px;
+  background: rgba(0, 255, 136, 0.15);
+  border: 1px solid #00ff88;
+  border-radius: 6px;
+  margin: 1rem auto;
   overflow: hidden;
-  position: relative;
   
-  /* Enhanced Glow */
-  box-shadow: 
-    0 0 16px var(--glow-primary),
-    inset 0 0 8px rgba(0, 0, 0, 0.5);
+  /* Mobile shadow */
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
 #boot-progress-fill {
   height: 100%;
   width: 0%;
-  background: 
-    linear-gradient(90deg, 
-      var(--terminal-success) 0%, 
-      var(--terminal-primary) 50%, 
-      var(--terminal-secondary) 100%
-    );
-  background-size: 200% 100%;
-  border-radius: 6px;
+  background: linear-gradient(90deg, 
+    #2ed573 0%, 
+    #00ff88 50%, 
+    #00bfff 100%
+  );
+  border-radius: 5px;
   
-  /* Enhanced Effects */
-  box-shadow: 
-    0 0 12px var(--glow-primary),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  
-  /* Smooth Transition */
-  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  animation: progressFlow 2s linear infinite;
+  /* Simplified mobile animation */
+  transition: width 0.4s ease;
+  animation: mobileProgressFlow 1.5s linear infinite;
 }
 
-.boot-bar {
-  width: 100%;
-  height: 12px;
-  background: 
-    repeating-linear-gradient(90deg, 
-      var(--terminal-primary) 0%, 
-      var(--terminal-primary) 20%, 
-      transparent 20%, 
-      transparent 40%
-    );
-  background-size: 40px 100%;
-  border-radius: 6px;
-  margin: 1rem auto;
-  animation: scannerBar 1.5s linear infinite;
+/* === Mobile ASCII Logo === */
+.ascii-logo {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
+  line-height: 1.1;
+  color: #00ff88;
+  text-align: center;
+  margin-bottom: 1rem;
   
-  /* Enhanced Glow */
-  box-shadow: 0 0 12px var(--glow-primary);
+  /* Mobile glow */
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+  
+  /* Simplified animation */
+  animation: none;
+  opacity: 1;
 }
 
-/* === Final Message Enhancement === */
+/* === Mobile Final Message === */
 .final-msg {
-  font-family: var(--font-display);
-  font-size: clamp(14px, 3vw, 18px);
+  font-family: "Orbitron", monospace;
+  font-size: 11px;
   font-weight: 600;
   text-align: center;
-  margin-top: 3rem;
-  padding: 2rem;
-  color: var(--terminal-accent);
+  margin-top: 1.5rem;
+  padding: 1rem;
+  color: #ffd700;
   
-  /* Premium Background */
-  background: 
-    linear-gradient(135deg, 
-      rgba(255, 215, 0, 0.1) 0%, 
-      rgba(0, 255, 136, 0.05) 100%
-    );
+  /* Mobile background */
+  background: rgba(255, 215, 0, 0.08);
   border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
+  border-radius: 8px;
   
-  /* Enhanced Glow */
-  text-shadow: 
-    0 0 12px var(--glow-accent),
-    0 0 24px rgba(255, 215, 0, 0.3);
-  box-shadow: 
-    0 0 20px var(--glow-accent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Mobile glow */
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
   
-  /* Animation */
-  opacity: 0;
-  transform: scale(0.95);
-  animation: finalReveal 1.5s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+  /* Simplified animation */
+  animation: none;
+  opacity: 1;
 }
 
-/* === Premium Scrollbar === */
+/* === Mobile Scrollbar === */
 .boot-terminal::-webkit-scrollbar { 
-  width: 12px; 
+  width: 8px; 
 }
 
 .boot-terminal::-webkit-scrollbar-track { 
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
 }
 
 .boot-terminal::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, 
-    var(--terminal-primary) 0%, 
-    var(--terminal-secondary) 100%
-  );
-  border-radius: 6px;
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 8px var(--glow-primary);
+  background: linear-gradient(180deg, #00ff88 0%, #00bfff 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.boot-terminal::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, 
-    var(--terminal-secondary) 0%, 
-    var(--terminal-accent) 100%
-  );
-}
-
-/* === Advanced Matrix Effects === */
-.matrix-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-.cmatrix-char {
-  position: absolute;
-  top: -2em;
-  color: var(--terminal-primary);
-  font-family: var(--font-primary);
-  font-size: clamp(10px, 1.5vw, 14px);
-  font-weight: 400;
-  user-select: none;
-  
-  /* Enhanced Glow */
-  text-shadow: 
-    0 0 8px var(--glow-primary),
-    0 0 16px rgba(0, 255, 136, 0.4);
-  
-  animation: matrixFall linear forwards;
-}
-
-/* === Premium Animations === */
-
-@keyframes cinematicEntrance {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) translateY(50px);
-    filter: blur(10px);
-  }
-  60% {
-    opacity: 0.8;
-    transform: scale(1.02) translateY(-5px);
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes cinematicExit {
-  0% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.8) translateY(30px);
-    filter: blur(8px);
-  }
-}
-
-@keyframes terminalMaterialize {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) rotateX(10deg);
-    filter: blur(5px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotateX(0deg);
-    filter: blur(0);
-  }
-}
-
-@keyframes borderFlow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes headerPulse {
-  0%, 100% {
-    box-shadow: 
-      0 4px 16px rgba(0, 255, 136, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    box-shadow: 
-      0 6px 24px rgba(0, 255, 136, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-}
-
-@keyframes advancedScanlines {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100vh); }
-}
-
-@keyframes advancedCursor {
+/* === Simplified Mobile Animations === */
+@keyframes mobileCursor {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
 
-@keyframes cursorGlow {
-  0% { text-shadow: 0 0 8px var(--glow-primary); }
-  100% { text-shadow: 0 0 16px var(--glow-primary); }
-}
-
-@keyframes textReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes logoReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes finalReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes underlineExpand {
-  0% { width: 0; }
-  100% { width: 60%; }
-}
-
-@keyframes premiumFlicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes flickerGlow {
-  0% { text-shadow: 0 0 8px var(--terminal-success); }
-  100% { text-shadow: 0 0 16px var(--terminal-success); }
-}
-
-@keyframes errorFlicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-@keyframes progressFlow {
+@keyframes mobileProgressFlow {
   0% { background-position: 0% 0; }
-  100% { background-position: 200% 0; }
+  100% { background-position: 100% 0; }
 }
 
-@keyframes scannerBar {
-  0% { background-position: 0 0; }
-  100% { background-position: 40px 0; }
-}
+/* === Mobile-Specific Responsive Breakpoints === */
 
-@keyframes matrixFall {
-  to {
-    transform: translateY(120vh);
-    opacity: 0;
+/* Large Mobile (414px and up) */
+@media (min-width: 414px) and (max-width: 768px) {
+  :root {
+    --mobile-font-size: 12px;
+    --mobile-padding: 1rem;
+  }
+  
+  .boot-terminal::after {
+    font-size: 10px;
+    content: "⚡ DENOGENESIS FRAMEWORK v3.0";
+  }
+  
+  .boot-frame-title,
+  .section-title {
+    font-size: 13px;
+  }
+  
+  .final-msg {
+    font-size: 12px;
+    padding: 1.25rem;
   }
 }
 
-/* === Responsive Design === */
-
-/* Tablet */
-@media (max-width: 1024px) {
+/* Standard Mobile (375px - 414px) */
+@media (min-width: 375px) and (max-width: 413px) {
+  .boot-container {
+    padding: 0.5rem;
+  }
+  
   .boot-terminal {
-    max-width: 95vw;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: 0.75rem;
   }
   
   .boot-text {
-    font-size: clamp(11px, 2.2vw, 14px);
+    font-size: 11px;
   }
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+/* Small Mobile (320px - 374px) */
+@media (max-width: 374px) {
+  :root {
+    --mobile-font-size: 10px;
+    --mobile-padding: 0.5rem;
+    --mobile-border-radius: 8px;
+  }
+  
   .boot-container {
-    padding: 1rem;
+    padding: 0.25rem;
+  }
+  
+  .boot-terminal {
+    padding: var(--mobile-padding);
+    border-radius: var(--mobile-border-radius);
+  }
+  
+  .boot-terminal::after {
+    content: "⚡ DG v3.0";
+    font-size: 8px;
+    padding: 0.3rem 0.8rem;
+  }
+  
+  .boot-frame-title,
+  .section-title {
+    font-size: 11px;
+    margin: 0.75rem 0 0.25rem 0;
+  }
+  
+  .ascii-logo {
+    font-size: 7px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .final-msg {
+    font-size: 10px;
+    padding: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  #boot-progress-bar {
+    height: 10px;
+    margin: 0.75rem auto;
+  }
+}
+
+/* === Touch Optimization === */
+@media (hover: none) and (pointer: coarse) {
+  .boot-terminal {
+    /* Better touch scrolling */
+    -webkit-overflow-scrolling: touch;
+    
+    /* Reduce effects for touch devices */
+    backdrop-filter: blur(8px);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 136, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Larger touch targets */
+  .boot-terminal::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .boot-terminal::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+  }
+}
+
+/* === Landscape Mobile === */
+@media (max-width: 768px) and (orientation: landscape) {
+  .boot-container {
+    padding: 0.5rem;
   }
   
   .boot-terminal {
     max-height: 95vh;
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 0.75rem;
   }
   
   .boot-text {
-    font-size: clamp(10px, 2vw, 13px);
-    line-height: 1.5;
+    line-height: 1.3;
   }
   
   .ascii-logo {
-    font-size: clamp(7px, 2vw, 10px);
-  }
-}
-
-/* === High Contrast Mode === */
-@media (prefers-contrast: high) {
-  :root {
-    --terminal-primary: #ffffff;
-    --terminal-secondary: #ffffff;
-    --glow-primary: rgba(255, 255, 255, 0.5);
+    font-size: 7px;
+    margin-bottom: 0.5rem;
   }
   
-  .boot-terminal {
-    background: #000000;
-    border-color: #ffffff;
+  .final-msg {
+    margin-top: 1rem;
+    padding: 0.75rem;
   }
 }
 
-/* === Reduced Motion === */
-@media (prefers-reduced-motion: reduce) {
+/* === Performance Optimizations for Mobile === */
+@media (max-width: 768px) {
+  /* Disable complex animations on mobile */
   .boot-container,
   .boot-terminal,
   .boot-text,
   .ascii-logo,
   .final-msg,
-  #boot-progress-fill,
-  .boot-bar {
+  .boot-frame-title,
+  .section-title {
     animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
   
+  /* Reduce backdrop blur for performance */
   .boot-container {
-    opacity: 1 !important;
-    transform: none !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
+  
+  .boot-terminal {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Disable scanlines on mobile for performance */
+  .boot-container::after {
+    display: none;
+  }
+  
+  /* Simplified shadows for better performance */
+  .boot-text {
+    text-shadow: 0 0 4px rgba(0, 255, 136, 0.6);
+  }
+}
+
+/* === Dark Mode Enhancements for Mobile === */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .boot-terminal {
+    background: 
+      linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.98) 0%, 
+        rgba(5, 10, 15, 0.96) 50%, 
+        rgba(0, 0, 0, 0.98) 100%
+      );
+  }
+}
+
+/* === High Contrast Mobile === */
+@media (prefers-contrast: high) and (max-width: 768px) {
+  .boot-terminal {
+    background: #000000;
+    border: 2px solid #ffffff;
+  }
+  
+  .boot-text,
+  .ascii-logo {
+    color: #ffffff;
+    text-shadow: none;
+  }
+  
+  .boot-frame-title,
+  .section-title {
+    color: #ffffff;
+    text-shadow: none;
+  }
+}
+
+/* === Mobile Content Adjustments === */
+@media (max-width: 768px) {
+  /* Make text more readable on mobile */
+  .ok { 
+    color: #2ed573; 
+    font-weight: 600;
+  }
+  
+  .error { 
+    color: #ff4757; 
+    font-weight: 600;
+  }
+  
+  .module { 
+    color: #00bfff; 
+    font-weight: 500;
+  }
+  
+  /* Optimize spacing for mobile */
+  .flicker {
+    animation: mobileFlicker 1s infinite alternate;
+  }
+  
+  .motto {
+    font-size: 10px;
+    margin: 1rem 0;
+    line-height: 1.4;
+  }
+}
+
+@keyframes mobileFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
