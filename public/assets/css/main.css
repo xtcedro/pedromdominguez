@@ -608,3 +608,167 @@ body {
     box-shadow: none !important;
   }
 }
+
+/* === MOBILE LINK OVERFLOW PREVENTION === */
+
+/* Universal link overflow protection */
+a, 
+.contact-info a,
+.nav-links a,
+.email-link,
+.phone-link {
+  /* Prevent text overflow */
+  word-wrap: break-word;
+  word-break: break-all; /* Forces breaking of long strings */
+  overflow-wrap: break-word;
+  hyphens: auto;
+  
+  /* Ensure links don't exceed container */
+  max-width: 100%;
+  display: inline-block;
+  
+  /* Allow text to wrap naturally */
+  white-space: normal;
+}
+
+/* Special handling for email addresses */
+.contact-info li a[href^="mailto:"],
+.email-display {
+  /* More aggressive breaking for emails */
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+  
+  /* Ensure mobile-friendly spacing */
+  padding: 0.5rem 0;
+}
+
+/* Phone number protection */
+.contact-info li a[href^="tel:"],
+.phone-display {
+  /* Allow phone numbers to break if needed */
+  word-spacing: 0.1em;
+  letter-spacing: 0.05em;
+}
+
+/* Enhanced contact info cards for mobile */
+.contact-info li {
+  /* Ensure container can handle overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  /* Add more padding for touch targets */
+  padding: 1rem 1.25rem;
+  
+  /* Ensure proper line height for wrapped text */
+  line-height: 1.5;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  .contact-info li {
+    /* Smaller padding on mobile for more text space */
+    padding: 0.875rem 1rem;
+    
+    /* Better text wrapping */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Force long email addresses to break */
+  .contact-info a {
+    font-size: 0.95rem; /* Slightly smaller on mobile */
+    line-height: 1.4;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .contact-info li {
+    padding: 0.75rem 0.875rem;
+  }
+  
+  .contact-info a {
+    font-size: 0.9rem;
+    /* More aggressive text breaking on very small screens */
+    word-break: break-all;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+  }
+  
+  /* Ensure email addresses break properly */
+  .contact-info a[href^="mailto:"] {
+    /* Break email at logical points */
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    line-break: anywhere;
+  }
+}
+
+/* Alternative approach: Truncate with ellipsis on very long links */
+.contact-info .truncate-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Show full text on hover/focus (desktop) */
+@media (min-width: 769px) {
+  .contact-info .truncate-link:hover,
+  .contact-info .truncate-link:focus {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+}
+
+/* Responsive email display helper */
+.responsive-email {
+  display: inline-block;
+  max-width: 100%;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Mobile-first approach for very long domains */
+@media (max-width: 375px) {
+  .contact-info a {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  /* For extremely long email domains */
+  .contact-info a[href^="mailto:"] {
+    /* Use smallest readable font size */
+    font-size: 0.8rem;
+    word-spacing: -0.1em;
+  }
+}
+
+/* Prevent horizontal scroll caused by overflow */
+.contact-info,
+.contact-info ul,
+.contact-info li {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 768px) {
+  .contact-info a {
+    /* Ensure minimum touch target size */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    /* Better spacing for touch */
+    padding: 0.5rem;
+  }
+}
