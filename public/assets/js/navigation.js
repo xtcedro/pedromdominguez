@@ -8,8 +8,8 @@ import { showNotification } from './notifications.js';
 
 // 🔧 Component paths registry
 const NAVBAR_COMPONENTS = {
-  guest: '/components/guest-navbar.html',
-  admin: '/components/admin-navbar.html'
+  guest: '../../components/guest-navbar.html',
+  admin: '../../components/admin-navbar.html'
 };
 
 // 📊 Performance tracking
@@ -24,7 +24,7 @@ let navigationMetrics = {
  */
 export async function setupNavigation() {
   const startTime = performance.now();
-  
+
   try {
     const navbar = document.querySelector('.navbar');
     if (!navbar) {
@@ -34,25 +34,25 @@ export async function setupNavigation() {
     // 🔐 Determine user role
     const isAdmin = !!localStorage.getItem('adminToken');
     const componentType = isAdmin ? 'admin' : 'guest';
-    
+
     console.log(`🔄 Loading ${componentType} navigation component...`);
 
     // 📥 Load appropriate navbar component
     await loadNavbarComponent(navbar, componentType);
-    
+
     // ⚙️ Initialize navigation functionality
     initializeNavigation();
-    
+
     // 📊 Track performance
     navigationMetrics.loadTime = performance.now() - startTime;
     console.log(`✅ Navigation loaded in ${navigationMetrics.loadTime.toFixed(2)}ms`);
-    
+
     showNotification(`✅ ${componentType} navigation initialized successfully.`, 'success');
-    
+
   } catch (error) {
     console.error('❌ Navigation setup failed:', error);
     showNotification(`❗ Navigation setup failed: ${error.message}`, 'error');
-    
+
     // 🛡️ Fallback to basic navigation
     setupFallbackNavigation();
   }
@@ -64,22 +64,22 @@ export async function setupNavigation() {
 async function loadNavbarComponent(navbar, componentType) {
   try {
     const componentPath = NAVBAR_COMPONENTS[componentType];
-    
+
     if (!componentPath) {
       throw new Error(`Unknown component type: ${componentType}`);
     }
 
     const response = await fetch(componentPath);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to load component: ${response.status} ${response.statusText}`);
     }
-    
+
     const htmlContent = await response.text();
     navbar.innerHTML = htmlContent;
-    
+
     console.log(`📦 ${componentType} navbar component loaded successfully`);
-    
+
   } catch (error) {
     console.error(`❌ Failed to load ${componentType} navbar:`, error);
     throw new Error(`Component loading failed: ${error.message}`);
@@ -92,7 +92,7 @@ async function loadNavbarComponent(navbar, componentType) {
 function initializeNavigation() {
   // 🔍 Get navigation elements
   const elements = getNavigationElements();
-  
+
   if (!elements.isValid) {
     throw new Error('Missing required navigation elements after component load');
   }
@@ -104,13 +104,13 @@ function initializeNavigation() {
   setupEventListeners(menuButton, sidebarButton, sidebarMenu, overlay);
   setupKeyboardNavigation(sidebarMenu);
   setupClickOutsideHandling(sidebarMenu, menuButton, sidebarButton);
-  
+
   // 🎯 Highlight active navigation link
   highlightActiveLink(sidebarMenu);
-  
+
   // 🔐 Setup admin-specific functionality
   setupAdminLogout();
-  
+
   console.log('🎯 Navigation functionality initialized');
 }
 
@@ -124,7 +124,7 @@ function getNavigationElements() {
   const overlay = document.getElementById('menu-overlay');
 
   const isValid = !!(menuButton && sidebarButton && sidebarMenu && overlay);
-  
+
   if (!isValid) {
     console.warn('⚠️ Missing navigation elements:', {
       menuButton: !!menuButton,
@@ -149,7 +149,7 @@ function getNavigationElements() {
 function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
   const animateOpen = (bars) => {
     navigationMetrics.animationCount++;
-    
+
     anime({
       targets: bars[0],
       rotate: 45,
@@ -157,14 +157,14 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
       duration: 300,
       easing: 'easeInOutQuad',
     });
-    
+
     anime({
       targets: bars[1],
       opacity: 0,
       duration: 200,
       easing: 'easeInOutQuad',
     });
-    
+
     anime({
       targets: bars[2],
       rotate: -45,
@@ -176,7 +176,7 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
 
   const animateClose = (bars) => {
     navigationMetrics.animationCount++;
-    
+
     anime({
       targets: bars[0],
       rotate: 0,
@@ -184,14 +184,14 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
       duration: 300,
       easing: 'easeInOutQuad',
     });
-    
+
     anime({
       targets: bars[1],
       opacity: 1,
       duration: 200,
       easing: 'easeInOutQuad',
     });
-    
+
     anime({
       targets: bars[2],
       rotate: 0,
@@ -203,7 +203,7 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
 
   const openMenu = () => {
     navigationMetrics.lastAction = 'open';
-    
+
     menuButton.classList.add('open');
     sidebarButton.classList.add('open');
     animateOpen(menuButton.querySelectorAll('.bar'));
@@ -212,18 +212,18 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
     sidebarMenu.classList.remove('hidden');
     overlay.classList.remove('hidden');
     document.body.classList.add('no-scroll');
-    
+
     // 🎯 Focus management for accessibility
     sidebarMenu.setAttribute('aria-hidden', 'false');
     const firstLink = sidebarMenu.querySelector('.nav-links a');
     if (firstLink) firstLink.focus();
-    
+
     showNotification('📂 Menu opened.', 'info');
   };
 
   const closeMenu = () => {
     navigationMetrics.lastAction = 'close';
-    
+
     menuButton.classList.remove('open');
     sidebarButton.classList.remove('open');
     animateClose(menuButton.querySelectorAll('.bar'));
@@ -232,11 +232,11 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
     sidebarMenu.classList.add('hidden');
     overlay.classList.add('hidden');
     document.body.classList.remove('no-scroll');
-    
+
     // 🎯 Focus management for accessibility
     sidebarMenu.setAttribute('aria-hidden', 'true');
     menuButton.focus();
-    
+
     showNotification('📁 Menu closed.', 'info');
   };
 
@@ -262,7 +262,7 @@ function setupEventListeners(menuButton, sidebarButton, sidebarMenu, overlay) {
   menuButton.addEventListener('click', menuButton._toggleMenu);
   sidebarButton.addEventListener('click', menuButton._toggleMenu);
   overlay.addEventListener('click', menuButton._closeMenu);
-  
+
   // 🎹 Enhanced keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && sidebarMenu.classList.contains('visible')) {
@@ -277,7 +277,7 @@ function setupEventListeners(menuButton, sidebarButton, sidebarMenu, overlay) {
  */
 function setupKeyboardNavigation(sidebarMenu) {
   const navLinks = sidebarMenu.querySelectorAll('.nav-links a, .nav-button');
-  
+
   navLinks.forEach((link, index) => {
     link.addEventListener('keydown', (e) => {
       switch (e.key) {
@@ -286,18 +286,18 @@ function setupKeyboardNavigation(sidebarMenu) {
           const nextIndex = (index + 1) % navLinks.length;
           navLinks[nextIndex].focus();
           break;
-          
+
         case 'ArrowUp':
           e.preventDefault();
           const prevIndex = (index - 1 + navLinks.length) % navLinks.length;
           navLinks[prevIndex].focus();
           break;
-          
+
         case 'Home':
           e.preventDefault();
           navLinks[0].focus();
           break;
-          
+
         case 'End':
           e.preventDefault();
           navLinks[navLinks.length - 1].focus();
@@ -313,9 +313,9 @@ function setupKeyboardNavigation(sidebarMenu) {
 function setupClickOutsideHandling(sidebarMenu, menuButton, sidebarButton) {
   document.addEventListener('click', (event) => {
     const isInsideSidebar = sidebarMenu.contains(event.target);
-    const isToggleButton = menuButton.contains(event.target) || 
+    const isToggleButton = menuButton.contains(event.target) ||
                           sidebarButton.contains(event.target);
-    
+
     if (!isInsideSidebar && !isToggleButton && sidebarMenu.classList.contains('visible')) {
       menuButton._closeMenu();
     }
@@ -329,7 +329,7 @@ function highlightActiveLink(sidebarMenu) {
   try {
     const currentPage = window.location.pathname.split('/').pop().toLowerCase();
     const navLinks = sidebarMenu.querySelectorAll('.nav-links a');
-    
+
     navLinks.forEach(link => {
       const linkPage = link.getAttribute('href').split('/').pop().toLowerCase();
       if (currentPage === linkPage) {
@@ -348,39 +348,39 @@ function highlightActiveLink(sidebarMenu) {
  */
 function setupAdminLogout() {
   const logoutLink = document.getElementById('logout-link');
-  
+
   if (logoutLink) {
     logoutLink.addEventListener('click', async (e) => {
       e.preventDefault();
-      
+
       try {
         // 🔄 Show loading state
         logoutLink.textContent = '🔄 Logging out...';
         logoutLink.style.pointerEvents = 'none';
-        
+
         // 🗑️ Clear admin token
         localStorage.removeItem('adminToken');
-        
+
         // 📊 Optional: Call logout API endpoint
         // await fetch('/api/auth/logout', { method: 'POST' });
-        
+
         showNotification('🚪 You have been logged out successfully.', 'success');
-        
+
         // 🔄 Redirect after short delay
         setTimeout(() => {
           window.location.href = '../../pages/auth/login.html';
         }, 1000);
-        
+
       } catch (error) {
         console.error('❌ Logout failed:', error);
         showNotification('❗ Logout failed. Please try again.', 'error');
-        
+
         // 🔄 Reset button state
         logoutLink.textContent = '🚪 Logout';
         logoutLink.style.pointerEvents = 'auto';
       }
     });
-    
+
     console.log('🔐 Admin logout functionality enabled');
   }
 }
@@ -391,9 +391,9 @@ function setupAdminLogout() {
 function setupFallbackNavigation() {
   const navbar = document.querySelector('.navbar');
   if (!navbar) return;
-  
+
   console.log('🛡️ Setting up fallback navigation...');
-  
+
   navbar.innerHTML = `
     <div class="nav-left">
       <span class="nav-title">Pedro M. Dominguez</span>
@@ -403,7 +403,7 @@ function setupFallbackNavigation() {
       <a href="../../pages/contact/contact.html" class="nav-link">📬 Contact</a>
     </div>
   `;
-  
+
   showNotification('🛡️ Fallback navigation active.', 'warning');
 }
 
@@ -423,17 +423,17 @@ export function getNavigationMetrics() {
  */
 export async function reloadNavigation() {
   console.log('🔄 Reloading navigation...');
-  
+
   try {
     // 🧹 Clear existing navigation
     const navbar = document.querySelector('.navbar');
     if (navbar) {
       navbar.innerHTML = '';
     }
-    
+
     // 🔄 Reinitialize
     await setupNavigation();
-    
+
   } catch (error) {
     console.error('❌ Navigation reload failed:', error);
     showNotification('❗ Failed to reload navigation.', 'error');
