@@ -10,7 +10,7 @@
 import { asciiLogo, identityBanner, systemStatus, getResponsiveLogo } from './asciiLogo.js';
 import { loadBootScreen } from './load-components.js';
 import { typeLineByLine, typeWithEffect } from './typingengine.js';
-import { startMatrixRain, createAdvancedEffects } from './matrixRain.js';
+import { startMatrixRain, } from './matrixRain.js';
 
 // === ENTERPRISE CONFIGURATION ===
 const SYSTEM_CONFIG = {
@@ -33,7 +33,7 @@ const coreSystemChecks = [
     metrics: "99.9% uptime"
   },
   {
-    component: "Core Architecture", 
+    component: "Core Architecture",
     details: "Sovereign-First, Local-First Design",
     status: "VERIFIED",
     metrics: "Zero dependencies"
@@ -41,7 +41,7 @@ const coreSystemChecks = [
   {
     component: "Security Framework",
     details: "Multi-layer Defense + Audit Trail",
-    status: "HARDENED", 
+    status: "HARDENED",
     metrics: "256-bit encryption"
   },
   {
@@ -83,7 +83,7 @@ const founderProfile = [
     classification: "AUTHENTIC"
   },
   {
-    attribute: "Technical Specialization", 
+    attribute: "Technical Specialization",
     value: "Meta Framework Architecture & Digital Sovereignty",
     classification: "EXPERT"
   },
@@ -123,7 +123,7 @@ const deploymentMetrics = [
   },
   {
     metric: "Digital Sovereignty",
-    value: "100% Vendor Independence", 
+    value: "100% Vendor Independence",
     trend: "🛡️ GUARANTEED"
   },
   {
@@ -149,10 +149,10 @@ class BootProgressManager {
   updateProgress(increment = 1, phase = 'system') {
     this.currentStep += increment;
     const percentage = Math.min((this.currentStep / this.totalSteps) * 100, 100);
-    
+
     this.updateProgressBar(percentage);
     this.updatePhaseIndicator(phase, percentage);
-    
+
     return percentage;
   }
 
@@ -170,7 +170,7 @@ class BootProgressManager {
       const phaseNames = {
         'init': 'SYSTEM INITIALIZATION',
         'core': 'CORE ARCHITECTURE',
-        'security': 'SECURITY VERIFICATION', 
+        'security': 'SECURITY VERIFICATION',
         'identity': 'IDENTITY VALIDATION',
         'deployment': 'DEPLOYMENT METRICS',
         'finalize': 'FINALIZATION'
@@ -185,21 +185,21 @@ class CinematicTyping {
   static async typeSystemCheck(component, details, status, metrics, output) {
     const statusColors = {
       'OPTIMAL': 'ok',
-      'VERIFIED': 'ok', 
+      'VERIFIED': 'ok',
       'HARDENED': 'success',
       'ACTIVE': 'ok',
       'CONNECTED': 'ok',
       'LISTENING': 'ok',
       'SECURED': 'success'
     };
-    
+
     const html = `
-      [ <span class="${statusColors[status] || 'ok'}">${status}</span> ] 
-      <span class="module">${component}</span>: 
+      [ <span class="${statusColors[status] || 'ok'}">${status}</span> ]
+      <span class="module">${component}</span>:
       <span class="module">${details}</span>
       <span class="metric-badge">(${metrics})</span>
     `;
-    
+
     await typeLineByLine(html, output, 15);
   }
 
@@ -207,28 +207,28 @@ class CinematicTyping {
     const classColors = {
       'VERIFIED': 'success',
       'AUTHENTIC': 'ok',
-      'EXPERT': 'success', 
+      'EXPERT': 'success',
       'ACTIVE': 'ok',
       'UNWAVERING': 'success',
       'REVOLUTIONARY': 'flicker'
     };
-    
+
     const html = `
-      [ <span class="${classColors[classification] || 'ok'}">${classification}</span> ] 
-      <span class="profile-attr">${attribute}</span>: 
+      [ <span class="${classColors[classification] || 'ok'}">${classification}</span> ]
+      <span class="profile-attr">${attribute}</span>:
       <span class="profile-value">${value}</span>
     `;
-    
+
     await typeLineByLine(html, output, 18);
   }
 
   static async typeMetric(metric, value, trend, output) {
     const html = `
-      <span class="metric-name">📊 ${metric}</span>: 
-      <span class="metric-value">${value}</span> 
+      <span class="metric-name">📊 ${metric}</span>:
+      <span class="metric-value">${value}</span>
       <span class="metric-trend">${trend}</span>
     `;
-    
+
     await typeLineByLine(html, output, 20);
   }
 }
@@ -277,16 +277,16 @@ export class EnterpriseBootOrchestrator {
   async executePhase(phaseName, phaseFunction) {
     const startTime = Date.now();
     console.log(`🚀 Starting phase: ${phaseName}`);
-    
+
     await phaseFunction();
-    
+
     this.bootMetrics.phases[phaseName] = Date.now() - startTime;
     console.log(`✅ Completed phase: ${phaseName} (${this.bootMetrics.phases[phaseName]}ms)`);
   }
 
   async renderSystemIdentity(output) {
     const responsiveLogo = getResponsiveLogo();
-    
+
     // Render appropriate logo for screen size
     for (const line of responsiveLogo) {
       await typeLineByLine(line, output, 3);
@@ -302,7 +302,7 @@ export class EnterpriseBootOrchestrator {
   async renderSystemDiagnostics(output) {
     await typeLineByLine('<span class="section-title">🔧 ENTERPRISE SYSTEM DIAGNOSTICS</span>', output, 25);
     this.progressManager.updateProgress(1, 'core');
-    
+
     await typeLineByLine('<span class="flicker">[ VERIFYING CORE INFRASTRUCTURE COMPONENTS... ]</span>', output, 35);
     await this.addPause(400);
     this.progressManager.updateProgress(1, 'core');
@@ -310,7 +310,7 @@ export class EnterpriseBootOrchestrator {
     for (const check of coreSystemChecks) {
       await CinematicTyping.typeSystemCheck(
         check.component,
-        check.details, 
+        check.details,
         check.status,
         check.metrics,
         output
@@ -322,10 +322,10 @@ export class EnterpriseBootOrchestrator {
 
   async renderFounderProfile(output) {
     await this.addPause(500);
-    
+
     await typeLineByLine('<span class="section-title">👨‍💻 ARCHITECT IDENTITY VERIFICATION</span>', output, 25);
     this.progressManager.updateProgress(1, 'identity');
-    
+
     await typeLineByLine('<span class="flicker">[ AUTHENTICATING FOUNDER CREDENTIALS... ]</span>', output, 35);
     await this.addPause(400);
     this.progressManager.updateProgress(1, 'identity');
@@ -344,10 +344,10 @@ export class EnterpriseBootOrchestrator {
 
   async renderDeploymentMetrics(output) {
     await this.addPause(500);
-    
+
     await typeLineByLine('<span class="section-title">📈 ENTERPRISE DEPLOYMENT METRICS</span>', output, 25);
     this.progressManager.updateProgress(1, 'deployment');
-    
+
     await typeLineByLine('<span class="flicker">[ ANALYZING PRODUCTION PERFORMANCE... ]</span>', output, 35);
     await this.addPause(400);
     this.progressManager.updateProgress(1, 'deployment');
@@ -371,7 +371,7 @@ export class EnterpriseBootOrchestrator {
     output.style.transition = 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
     output.style.opacity = '0';
     await this.addPause(700);
-    
+
     output.innerHTML = '';
     output.style.opacity = '1';
 
@@ -401,7 +401,7 @@ export class EnterpriseBootOrchestrator {
 
     // Mark boot as completed
     sessionStorage.setItem('denoGenesisBoot', 'true');
-    
+
     // Log boot metrics
     this.bootMetrics.totalTime = Date.now() - this.bootMetrics.startTime;
     console.log('🎯 Boot Metrics:', this.bootMetrics);
@@ -423,7 +423,7 @@ export class EnterpriseBootOrchestrator {
       mainApp.style.setProperty('display', 'block');
       mainApp.style.setProperty('opacity', '0');
       mainApp.style.setProperty('transition', 'opacity 0.8s ease-out');
-      
+
       requestAnimationFrame(() => {
         mainApp.style.setProperty('opacity', '1');
       });
@@ -438,7 +438,7 @@ export class EnterpriseBootOrchestrator {
 // === MAIN BOOT SEQUENCE ORCHESTRATION ===
 export async function runBootSequence() {
   const orchestrator = new EnterpriseBootOrchestrator();
-  
+
   // Initialize environment
   const shouldBoot = await orchestrator.initializeEnvironment();
   if (!shouldBoot) return;
@@ -451,36 +451,36 @@ export async function runBootSequence() {
 
   try {
     // Calculate total steps for progress tracking
-    const totalSteps = 
+    const totalSteps =
       getResponsiveLogo().length + // Logo lines
       coreSystemChecks.length +    // System checks
-      founderProfile.length +      // Profile entries  
+      founderProfile.length +      // Profile entries
       deploymentMetrics.length +   // Metrics
       8;                          // Additional steps (headers, etc.)
-    
+
     orchestrator.progressManager.initialize(totalSteps);
 
     // Start advanced visual effects
     await orchestrator.startAdvancedEffects();
 
     // Execute boot phases with enterprise orchestration
-    await orchestrator.executePhase('identity', () => 
+    await orchestrator.executePhase('identity', () =>
       orchestrator.renderSystemIdentity(output)
     );
 
-    await orchestrator.executePhase('diagnostics', () => 
+    await orchestrator.executePhase('diagnostics', () =>
       orchestrator.renderSystemDiagnostics(output)
     );
 
-    await orchestrator.executePhase('profile', () => 
+    await orchestrator.executePhase('profile', () =>
       orchestrator.renderFounderProfile(output)
     );
 
-    await orchestrator.executePhase('metrics', () => 
+    await orchestrator.executePhase('metrics', () =>
       orchestrator.renderDeploymentMetrics(output)
     );
 
-    await orchestrator.executePhase('ready', () => 
+    await orchestrator.executePhase('ready', () =>
       orchestrator.renderSystemReady(output)
     );
 
@@ -489,14 +489,14 @@ export async function runBootSequence() {
 
   } catch (error) {
     console.error('🚨 Boot Sequence Error:', error);
-    
+
     // Graceful fallback
     await typeLineByLine(
       '<span class="error">⚠️ Boot sequence interrupted. Activating emergency protocols...</span>',
       output,
       30
     );
-    
+
     setTimeout(() => {
       orchestrator.activateMainApplication();
     }, 2000);
