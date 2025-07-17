@@ -569,3 +569,21 @@ body.no-scroll {
     color: #000000;
   }
 }
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .sidebar,
+  .nav-links li,
+  .nav-links a,
+  .nav-button,
+  .hamburger-menu .bar,
+  .nav-title {
+    animation: none !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+  }
+
+  .nav-links a:hover {
+    transform: none !important;
+  }
+}
