@@ -8,8 +8,8 @@ import { showNotification } from './notifications.js';
 
 // 🔧 Component paths registry
 const NAVBAR_COMPONENTS = {
-  guest: '../../components/guest-navbar.html',
-  admin: '../../components/admin-navbar.html'
+  guest: '/components/guest-navbar.html',
+  admin: '/components/admin-navbar.html'
 };
 
 // 📊 Performance tracking
