@@ -172,31 +172,3 @@ body {
     max-width: 100%;
   }
 }
-
-.hero-banner {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom; /* focus skyline by default */
-  opacity: 0.15;
-  z-index: 0;
-}
-
-@media (max-width: 768px) {
-  .hero-banner {
-    object-position: center center; /* re-center for mobile */
-    height: 120%; /* zoom slightly to avoid gaps */
-  }
-
-  .hero {
-    padding: 8rem 1.5rem 6rem; /* adjust hero spacing if needed */
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 6rem 1rem 4rem; /* adjust for smaller screens */
-  }
-}
