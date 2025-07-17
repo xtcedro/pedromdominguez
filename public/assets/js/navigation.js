@@ -218,7 +218,6 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
     const firstLink = sidebarMenu.querySelector('.nav-links a');
     if (firstLink) firstLink.focus();
 
-    showNotification('📂 Menu opened.', 'info');
   };
 
   const closeMenu = () => {
@@ -237,7 +236,6 @@ function setupMenuAnimations(menuButton, sidebarButton, sidebarMenu, overlay) {
     sidebarMenu.setAttribute('aria-hidden', 'true');
     menuButton.focus();
 
-    showNotification('📁 Menu closed.', 'info');
   };
 
   const toggleMenu = () => {
