@@ -1,108 +1,559 @@
-// load-components.js → v1.5 → Elite architecture
+// load-components.js → v2.0 → Enterprise Architecture
+// ================================================================================
+// 🚀 DenoGenesis Component Loader - Enterprise-Grade Dynamic Loading System
+// Enhanced with error handling, caching, performance monitoring, and resilience
+// ================================================================================
 
 import { initializeChatbot } from './chatbot.js';
 import { initializeFloatingSearch } from './search-widget.js';
 import { initializeWebSocket, sendWebSocketMessage } from './wsClient.js';
-import { showNotification } from './notifications.js'; // 🧠 Global notification utility
-import { initializeTechStackSlider } from './techStackSlider.js'; // ✅ Tech stack slider animation
-import { initializeSystemInfoFAB } from './systemInfoFAB.js'; // ✅ NEW: System Info FAB
+import { showNotification } from './notifications.js';
+import { initializeTechStackSlider } from './techStackSlider.js';
+import { initializeSystemInfoFAB } from './systemInfoFAB.js';
 
-// 🧠 Load Footer component
-export function loadFooter() {
-  fetch('/components/footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
+// ================================================================================
+// 🔧 COMPONENT REGISTRY & CONFIGURATION
+// ================================================================================
+
+const COMPONENT_REGISTRY = {
+  footer: {
+    path: '/components/footer.html',
+    cacheable: true,
+    dependencies: [],
+    targetElement: 'footer',
+    loader: null
+  },
+  chatbot: {
+    path: '/components/chatbot.html',
+    cacheable: true,
+    dependencies: ['notifications'],
+    targetElement: 'body',
+    loader: initializeChatbot,
+    appendMethod: 'appendChild'
+  },
+  searchWidget: {
+    path: '/components/search-widget.html',
+    cacheable: true,
+    dependencies: ['notifications'],
+    targetElement: 'body',
+    loader: initializeFloatingSearch,
+    appendMethod: 'appendChild'
+  },
+  notifications: {
+    path: '/components/notifications.html',
+    cacheable: true,
+    dependencies: [],
+    targetElement: 'body',
+    loader: null,
+    appendMethod: 'appendChild'
+  },
+  techStackSlider: {
+    path: '/components/tech-stack-slider.html',
+    cacheable: true,
+    dependencies: [],
+    targetElement: 'footer',
+    loader: initializeTechStackSlider,
+    appendMethod: 'insertBefore'
+  },
+  systemInfoFAB: {
+    path: '/components/system-info-fab.html',
+    cacheable: true,
+    dependencies: [],
+    targetElement: 'body',
+    loader: initializeSystemInfoFAB,
+    appendMethod: 'appendChild'
+  },
+  bootScreen: {
+    path: '/components/boot.html',
+    cacheable: false,
+    dependencies: [],
+    targetElement: 'body',
+    loader: null,
+    appendMethod: 'appendChild'
+  }
+};
+
+// ================================================================================
+// 📊 PERFORMANCE MONITORING & CACHING
+// ================================================================================
+
+const componentCache = new Map();
+const loadedComponents = new Set();
+const loadingPromises = new Map();
+
+const performanceMetrics = {
+  totalLoads: 0,
+  cacheHits: 0,
+  loadTimes: {},
+  errors: {},
+  averageLoadTime: 0,
+  lastUpdate: Date.now()
+};
+
+// Network awareness
+function getConnectionInfo() {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  return {
+    effectiveType: connection ? connection.effectiveType : 'unknown',
+    downlink: connection ? connection.downlink : null,
+    rtt: connection ? connection.rtt : null
+  };
 }
 
-// 🧠 Load Chatbot component
-export function loadChatbot(marked) {
-  return fetch('/components/chatbot.html')
-    .then(res => res.text())
-    .then(data => {
-      const container = document.createElement('div');
-      container.innerHTML = data;
-      document.body.appendChild(container);
-      initializeChatbot(marked);
-    });
+function shouldUseCaching() {
+  const connection = getConnectionInfo();
+  return connection.effectiveType !== '2g' && connection.effectiveType !== 'slow-2g';
 }
 
-// 🧠 Load Search Widget component
-export function loadSearchWidget() {
-  return fetch('/components/search-widget.html')
-    .then(res => res.text())
-    .then(data => {
-      const container = document.createElement('div');
-      container.innerHTML = data;
-      document.body.appendChild(container);
-      initializeFloatingSearch();
-    });
-}
+// ================================================================================
+// 🛡️ ERROR HANDLING & RESILIENCE
+// ================================================================================
 
-// 🧠 Load Notifications component (safe - prevents duplicates)
-export function loadNotifications() {
-  if (!document.getElementById('globalNotifications')) {
-    fetch('/components/notifications.html')
-      .then(res => res.text())
-      .then(data => {
-        const container = document.createElement('div');
-        container.innerHTML = data;
-        document.body.appendChild(container);
-      });
+class ComponentError extends Error {
+  constructor(message, component, originalError = null) {
+    super(message);
+    this.name = 'ComponentError';
+    this.component = component;
+    this.originalError = originalError;
+    this.timestamp = new Date().toISOString();
   }
 }
 
-// 🧠 Load Tech Stack Slider component BEFORE hero section and initialize
-export function loadTechStackSlider() {
-  fetch('/components/tech-stack-slider.html')
-    .then(res => res.text())
-    .then(data => {
-      const container = document.createElement('section');
-      container.innerHTML = data;
+// Enhanced error logging
+function logError(component, error, context = '') {
+  const errorInfo = {
+    component,
+    error: error.message,
+    context,
+    timestamp: new Date().toISOString(),
+    userAgent: navigator.userAgent.slice(0, 100),
+    url: window.location.href
+  };
+  
+  performanceMetrics.errors[component] = (performanceMetrics.errors[component] || 0) + 1;
+  
+  console.error('🚨 Component Loading Error:', errorInfo);
+  
+  // Optional: Send to monitoring service
+  if (window.trackError) {
+    window.trackError('ComponentLoadError', errorInfo);
+  }
+}
 
-      const heroSection = document.getElementById('footer');
-      if (heroSection && heroSection.parentNode) {
-        heroSection.parentNode.insertBefore(container, heroSection);
-      } else {
-        // fallback if no hero
-        document.body.prepend(container);
+// ================================================================================
+// 🚀 CORE COMPONENT LOADING ENGINE
+// ================================================================================
+
+async function fetchComponentHTML(componentPath, cacheable = true) {
+  const startTime = performance.now();
+  const cacheKey = componentPath;
+  
+  try {
+    // Check cache first
+    if (cacheable && shouldUseCaching() && componentCache.has(cacheKey)) {
+      performanceMetrics.cacheHits++;
+      console.log(`📦 Cache hit for: ${componentPath}`);
+      return componentCache.get(cacheKey);
+    }
+
+    // Fetch from network
+    console.log(`🌐 Fetching component: ${componentPath}`);
+    const response = await fetch(componentPath);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const html = await response.text();
+    
+    // Validate HTML content
+    if (!html.trim()) {
+      throw new Error('Empty component content received');
+    }
+    
+    // Cache if appropriate
+    if (cacheable && shouldUseCaching()) {
+      componentCache.set(cacheKey, html);
+      console.log(`💾 Cached component: ${componentPath}`);
+    }
+    
+    // Track performance
+    const loadTime = performance.now() - startTime;
+    performanceMetrics.loadTimes[componentPath] = loadTime;
+    performanceMetrics.totalLoads++;
+    
+    console.log(`✅ Component loaded: ${componentPath} (${loadTime.toFixed(2)}ms)`);
+    return html;
+    
+  } catch (error) {
+    const loadTime = performance.now() - startTime;
+    throw new ComponentError(
+      `Failed to fetch component: ${componentPath}`,
+      componentPath,
+      error
+    );
+  }
+}
+
+// ================================================================================
+// 🔗 DEPENDENCY MANAGEMENT
+// ================================================================================
+
+async function loadComponentDependencies(componentName) {
+  const config = COMPONENT_REGISTRY[componentName];
+  if (!config || !config.dependencies.length) {
+    return;
+  }
+  
+  console.log(`🔗 Loading dependencies for ${componentName}: ${config.dependencies.join(', ')}`);
+  
+  const dependencyPromises = config.dependencies.map(async (dep) => {
+    if (!loadedComponents.has(dep)) {
+      await loadComponentByName(dep);
+    }
+  });
+  
+  await Promise.all(dependencyPromises);
+  console.log(`✅ Dependencies loaded for ${componentName}`);
+}
+
+// ================================================================================
+// 🎯 SMART COMPONENT INSERTION
+// ================================================================================
+
+function insertComponentIntoDOM(html, config, componentName) {
+  try {
+    const container = document.createElement(config.targetElement === 'body' ? 'div' : 'section');
+    container.innerHTML = html;
+    container.setAttribute('data-component', componentName);
+    
+    const targetElement = config.targetElement === 'body' 
+      ? document.body 
+      : document.getElementById(config.targetElement);
+    
+    if (!targetElement) {
+      console.warn(`⚠️ Target element not found: ${config.targetElement}, appending to body`);
+      document.body.appendChild(container);
+      return container;
+    }
+    
+    switch (config.appendMethod) {
+      case 'insertBefore':
+        if (targetElement.parentNode) {
+          targetElement.parentNode.insertBefore(container, targetElement);
+        } else {
+          document.body.appendChild(container);
+        }
+        break;
+      case 'appendChild':
+      default:
+        targetElement.appendChild(container);
+        break;
+    }
+    
+    console.log(`📍 Component inserted: ${componentName} → ${config.targetElement}`);
+    return container;
+    
+  } catch (error) {
+    throw new ComponentError(`Failed to insert component into DOM: ${componentName}`, componentName, error);
+  }
+}
+
+// ================================================================================
+// 🎪 UNIVERSAL COMPONENT LOADER
+// ================================================================================
+
+async function loadComponentByName(componentName, ...args) {
+  // Prevent duplicate loading
+  if (loadedComponents.has(componentName)) {
+    console.log(`⚠️ Component already loaded: ${componentName}`);
+    return;
+  }
+  
+  // Check if already loading
+  if (loadingPromises.has(componentName)) {
+    console.log(`⏳ Component already loading: ${componentName}`);
+    return await loadingPromises.get(componentName);
+  }
+  
+  const config = COMPONENT_REGISTRY[componentName];
+  if (!config) {
+    throw new ComponentError(`Component not found in registry: ${componentName}`, componentName);
+  }
+  
+  // Create loading promise
+  const loadingPromise = (async () => {
+    try {
+      console.log(`🚀 Loading component: ${componentName}`);
+      
+      // Show loading notification
+      showNotification(`Loading ${componentName}...`, 'info');
+      
+      // Load dependencies first
+      await loadComponentDependencies(componentName);
+      
+      // Fetch component HTML
+      const html = await fetchComponentHTML(config.path, config.cacheable);
+      
+      // Insert into DOM
+      const container = insertComponentIntoDOM(html, config, componentName);
+      
+      // Initialize component if loader exists
+      if (config.loader && typeof config.loader === 'function') {
+        console.log(`⚙️ Initializing component: ${componentName}`);
+        await config.loader(...args);
       }
-
-      initializeTechStackSlider(); // ✅ After DOM injection
-    });
+      
+      // Mark as loaded
+      loadedComponents.add(componentName);
+      
+      // Success notification
+      showNotification(`${componentName} loaded successfully!`, 'success');
+      
+      console.log(`✅ Component fully loaded: ${componentName}`);
+      return container;
+      
+    } catch (error) {
+      logError(componentName, error, 'loadComponentByName');
+      showNotification(`Failed to load ${componentName}`, 'error');
+      throw error;
+    } finally {
+      loadingPromises.delete(componentName);
+    }
+  })();
+  
+  loadingPromises.set(componentName, loadingPromise);
+  return await loadingPromise;
 }
 
-// 🧠 Load System Info FAB and initialize
-export function loadSystemInfoFAB() {
-  fetch('/components/system-info-fab.html')
-    .then(res => res.text())
-    .then(data => {
-      const container = document.createElement('div');
-      container.innerHTML = data;
-      document.body.appendChild(container);
-      initializeSystemInfoFAB(); // ✅ After DOM injection
-    });
+// ================================================================================
+// 📦 PUBLIC API FUNCTIONS (Backward Compatible)
+// ================================================================================
+
+export async function loadFooter() {
+  try {
+    await loadComponentByName('footer');
+  } catch (error) {
+    console.error('Footer loading failed:', error);
+  }
 }
 
-// 🧠 Load Boot Screen component
-export function loadBootScreen() {
-  return fetch('/components/boot.html')
-    .then(res => res.text())
-    .then(data => {
-      const container = document.createElement('div');
-      container.innerHTML = data;
-      document.body.appendChild(container);
-    });
+export async function loadChatbot(marked) {
+  try {
+    await loadComponentByName('chatbot', marked);
+  } catch (error) {
+    console.error('Chatbot loading failed:', error);
+  }
 }
 
-// 🧠 Load WebSocket client and initialize connection
+export async function loadSearchWidget() {
+  try {
+    await loadComponentByName('searchWidget');
+  } catch (error) {
+    console.error('Search widget loading failed:', error);
+  }
+}
+
+export async function loadNotifications() {
+  try {
+    await loadComponentByName('notifications');
+  } catch (error) {
+    console.error('Notifications loading failed:', error);
+  }
+}
+
+export async function loadTechStackSlider() {
+  try {
+    await loadComponentByName('techStackSlider');
+  } catch (error) {
+    console.error('Tech stack slider loading failed:', error);
+  }
+}
+
+export async function loadSystemInfoFAB() {
+  try {
+    await loadComponentByName('systemInfoFAB');
+  } catch (error) {
+    console.error('System info FAB loading failed:', error);
+  }
+}
+
+export async function loadBootScreen() {
+  try {
+    return await loadComponentByName('bootScreen');
+  } catch (error) {
+    console.error('Boot screen loading failed:', error);
+    throw error;
+  }
+}
+
+// ================================================================================
+// 🌐 WEBSOCKET INTEGRATION
+// ================================================================================
+
 export function loadWebSocket(wsUrl = "wss://domingueztechsolutions.com/api/ws") {
-  initializeWebSocket(wsUrl);
+  try {
+    console.log(`🔌 Initializing WebSocket: ${wsUrl}`);
+    initializeWebSocket(wsUrl);
+  } catch (error) {
+    console.error('WebSocket initialization failed:', error);
+    showNotification('Real-time features unavailable', 'warning');
+  }
 }
 
-// 🧠 Export globally
+// ================================================================================
+// 🎯 BATCH LOADING & ADVANCED OPERATIONS
+// ================================================================================
+
+export async function loadComponentsBatch(componentNames = [], showProgress = true) {
+  if (!Array.isArray(componentNames) || componentNames.length === 0) {
+    console.warn('No components specified for batch loading');
+    return [];
+  }
+  
+  console.log(`🚀 Batch loading ${componentNames.length} components:`, componentNames);
+  
+  if (showProgress) {
+    showNotification(`Loading ${componentNames.length} components...`, 'info');
+  }
+  
+  const results = await Promise.allSettled(
+    componentNames.map(name => loadComponentByName(name))
+  );
+  
+  const successful = results.filter(r => r.status === 'fulfilled');
+  const failed = results.filter(r => r.status === 'rejected');
+  
+  if (showProgress) {
+    const message = `Loaded ${successful.length}/${componentNames.length} components`;
+    const type = failed.length === 0 ? 'success' : 'warning';
+    showNotification(message, type);
+  }
+  
+  console.log(`✅ Batch loading complete: ${successful.length} successful, ${failed.length} failed`);
+  
+  return {
+    successful: successful.map(r => r.value),
+    failed: failed.map(r => r.reason),
+    total: componentNames.length
+  };
+}
+
+// ================================================================================
+// 📊 PERFORMANCE MONITORING & DEBUGGING
+// ================================================================================
+
+export function getPerformanceMetrics() {
+  const totalTime = Object.values(performanceMetrics.loadTimes).reduce((a, b) => a + b, 0);
+  const avgTime = performanceMetrics.totalLoads > 0 ? totalTime / performanceMetrics.totalLoads : 0;
+  
+  return {
+    ...performanceMetrics,
+    averageLoadTime: Number(avgTime.toFixed(2)),
+    cacheHitRate: performanceMetrics.totalLoads > 0 
+      ? Number((performanceMetrics.cacheHits / performanceMetrics.totalLoads * 100).toFixed(2))
+      : 0,
+    loadedComponents: Array.from(loadedComponents),
+    connectionInfo: getConnectionInfo(),
+    cacheSize: componentCache.size,
+    timestamp: Date.now()
+  };
+}
+
+export function clearComponentCache() {
+  componentCache.clear();
+  console.log('🧹 Component cache cleared');
+}
+
+export function unloadComponent(componentName) {
+  try {
+    // Remove from DOM
+    const elements = document.querySelectorAll(`[data-component="${componentName}"]`);
+    elements.forEach(el => el.remove());
+    
+    // Remove from loaded set
+    loadedComponents.delete(componentName);
+    
+    // Remove from cache
+    const config = COMPONENT_REGISTRY[componentName];
+    if (config) {
+      componentCache.delete(config.path);
+    }
+    
+    console.log(`🗑️ Component unloaded: ${componentName}`);
+    return true;
+  } catch (error) {
+    logError(componentName, error, 'unloadComponent');
+    return false;
+  }
+}
+
+export function reloadComponent(componentName, ...args) {
+  console.log(`🔄 Reloading component: ${componentName}`);
+  unloadComponent(componentName);
+  return loadComponentByName(componentName, ...args);
+}
+
+// ================================================================================
+// 🛠️ DEVELOPMENT & DEBUGGING TOOLS
+// ================================================================================
+
+export function getLoadedComponents() {
+  return Array.from(loadedComponents);
+}
+
+export function getComponentRegistry() {
+  return { ...COMPONENT_REGISTRY };
+}
+
+export function isComponentLoaded(componentName) {
+  return loadedComponents.has(componentName);
+}
+
+// ================================================================================
+// 🌐 GLOBAL EXPORTS
+// ================================================================================
+
 export {
   sendWebSocketMessage,
   showNotification,
+  loadComponentByName
 };
+
+// ================================================================================
+// 🔧 DEVELOPMENT MODE UTILITIES
+// ================================================================================
+
+if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+  window.DenoGenesisComponents = {
+    loadComponent: loadComponentByName,
+    batchLoad: loadComponentsBatch,
+    metrics: getPerformanceMetrics,
+    unload: unloadComponent,
+    reload: reloadComponent,
+    clearCache: clearComponentCache,
+    registry: getComponentRegistry,
+    loaded: getLoadedComponents,
+    isLoaded: isComponentLoaded
+  };
+  
+  console.log('🔧 DenoGenesis Component Manager available at window.DenoGenesisComponents');
+  console.log('📊 Performance metrics:', getPerformanceMetrics());
+}
+
+// ================================================================================
+// 🎯 INITIALIZATION
+// ================================================================================
+
+// Auto-load critical components
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('🚀 DenoGenesis Component Loader initialized');
+  
+  // Load essential components first
+  try {
+    await loadComponentsBatch(['notifications'], false);
+    console.log('✅ Critical components loaded');
+  } catch (error) {
+    console.error('❌ Failed to load critical components:', error);
+  }
+});
