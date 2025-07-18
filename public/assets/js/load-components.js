@@ -228,8 +228,8 @@ function insertComponentIntoDOM(html, config, componentName) {
     container.innerHTML = html;
     container.setAttribute('data-component', componentName);
 
-    const targetElement = config.targetElement === 'body' 
-      ? document.body 
+    const targetElement = config.targetElement === 'body'
+      ? document.body
       : document.getElementById(config.targetElement);
 
     if (!targetElement) {
@@ -442,7 +442,7 @@ export async function loadComponentsBatch(componentNames = [], showFinalNotifica
 export function showFinalSuccessNotification() {
   const totalComponents = loadedComponents.size;
   const errorCount = Object.values(performanceMetrics.errors).reduce((sum, count) => sum + count, 0);
-  
+
   if (totalComponents > 0) {
     if (errorCount === 0) {
       showNotification('✅ All components loaded successfully for Pedro M. Dominguez', 'success');
@@ -463,7 +463,7 @@ export function getPerformanceMetrics() {
   return {
     ...performanceMetrics,
     averageLoadTime: Number(avgTime.toFixed(2)),
-    cacheHitRate: performanceMetrics.totalLoads > 0 
+    cacheHitRate: performanceMetrics.totalLoads > 0
       ? Number((performanceMetrics.cacheHits / performanceMetrics.totalLoads * 100).toFixed(2))
       : 0,
     loadedComponents: Array.from(loadedComponents),
@@ -537,7 +537,6 @@ export function isComponentLoaded(componentName) {
 export {
   sendWebSocketMessage,
   loadComponentByName,
-  showFinalSuccessNotification
 };
 
 // ================================================================================
