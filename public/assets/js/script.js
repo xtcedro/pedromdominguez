@@ -9,6 +9,8 @@ import {
   loadSystemInfoFAB    // ✅ System Info FAB
 } from './load-components.js';
 
+import anime from 'https://cdn.skypack.dev/animejs@3.2.1';
+
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/+esm";
 import { setupNavigation } from './navigation.js';
 import { runBootSequence } from './boot-sequence.js';
