@@ -1,7 +1,7 @@
-// load-components.js → v2.0 → Enterprise Architecture
+// load-components.js → v2.1 → Enterprise Architecture
 // ================================================================================
 // 🚀 DenoGenesis Component Loader - Enterprise-Grade Dynamic Loading System
-// Enhanced with error handling, caching, performance monitoring, and resilience
+// Enhanced with error handling, caching, performance monitoring, and simplified notifications
 // ================================================================================
 
 import { initializeChatbot } from './chatbot.js';
@@ -80,6 +80,7 @@ const COMPONENT_REGISTRY = {
 const componentCache = new Map();
 const loadedComponents = new Set();
 const loadingPromises = new Map();
+const componentLoadOrder = []; // Track order for final notification
 
 const performanceMetrics = {
   totalLoads: 0,
@@ -119,7 +120,7 @@ class ComponentError extends Error {
   }
 }
 
-// Enhanced error logging
+// Enhanced error logging (silent for user, detailed for console)
 function logError(component, error, context = '') {
   const errorInfo = {
     component,
@@ -129,11 +130,11 @@ function logError(component, error, context = '') {
     userAgent: navigator.userAgent.slice(0, 100),
     url: window.location.href
   };
-  
+
   performanceMetrics.errors[component] = (performanceMetrics.errors[component] || 0) + 1;
-  
+
   console.error('🚨 Component Loading Error:', errorInfo);
-  
+
   // Optional: Send to monitoring service
   if (window.trackError) {
     window.trackError('ComponentLoadError', errorInfo);
@@ -147,7 +148,7 @@ function logError(component, error, context = '') {
 async function fetchComponentHTML(componentPath, cacheable = true) {
   const startTime = performance.now();
   const cacheKey = componentPath;
-  
+
   try {
     // Check cache first
     if (cacheable && shouldUseCaching() && componentCache.has(cacheKey)) {
@@ -159,32 +160,32 @@ async function fetchComponentHTML(componentPath, cacheable = true) {
     // Fetch from network
     console.log(`🌐 Fetching component: ${componentPath}`);
     const response = await fetch(componentPath);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-    
+
     const html = await response.text();
-    
+
     // Validate HTML content
     if (!html.trim()) {
       throw new Error('Empty component content received');
     }
-    
+
     // Cache if appropriate
     if (cacheable && shouldUseCaching()) {
       componentCache.set(cacheKey, html);
       console.log(`💾 Cached component: ${componentPath}`);
     }
-    
+
     // Track performance
     const loadTime = performance.now() - startTime;
     performanceMetrics.loadTimes[componentPath] = loadTime;
     performanceMetrics.totalLoads++;
-    
+
     console.log(`✅ Component loaded: ${componentPath} (${loadTime.toFixed(2)}ms)`);
     return html;
-    
+
   } catch (error) {
     const loadTime = performance.now() - startTime;
     throw new ComponentError(
@@ -204,15 +205,15 @@ async function loadComponentDependencies(componentName) {
   if (!config || !config.dependencies.length) {
     return;
   }
-  
+
   console.log(`🔗 Loading dependencies for ${componentName}: ${config.dependencies.join(', ')}`);
-  
+
   const dependencyPromises = config.dependencies.map(async (dep) => {
     if (!loadedComponents.has(dep)) {
       await loadComponentByName(dep);
     }
   });
-  
+
   await Promise.all(dependencyPromises);
   console.log(`✅ Dependencies loaded for ${componentName}`);
 }
@@ -226,17 +227,17 @@ function insertComponentIntoDOM(html, config, componentName) {
     const container = document.createElement(config.targetElement === 'body' ? 'div' : 'section');
     container.innerHTML = html;
     container.setAttribute('data-component', componentName);
-    
+
     const targetElement = config.targetElement === 'body' 
       ? document.body 
       : document.getElementById(config.targetElement);
-    
+
     if (!targetElement) {
       console.warn(`⚠️ Target element not found: ${config.targetElement}, appending to body`);
       document.body.appendChild(container);
       return container;
     }
-    
+
     switch (config.appendMethod) {
       case 'insertBefore':
         if (targetElement.parentNode) {
@@ -250,10 +251,10 @@ function insertComponentIntoDOM(html, config, componentName) {
         targetElement.appendChild(container);
         break;
     }
-    
+
     console.log(`📍 Component inserted: ${componentName} → ${config.targetElement}`);
     return container;
-    
+
   } catch (error) {
     throw new ComponentError(`Failed to insert component into DOM: ${componentName}`, componentName, error);
   }
@@ -269,59 +270,55 @@ async function loadComponentByName(componentName, ...args) {
     console.log(`⚠️ Component already loaded: ${componentName}`);
     return;
   }
-  
+
   // Check if already loading
   if (loadingPromises.has(componentName)) {
     console.log(`⏳ Component already loading: ${componentName}`);
     return await loadingPromises.get(componentName);
   }
-  
+
   const config = COMPONENT_REGISTRY[componentName];
   if (!config) {
     throw new ComponentError(`Component not found in registry: ${componentName}`, componentName);
   }
-  
+
   // Create loading promise
   const loadingPromise = (async () => {
     try {
       console.log(`🚀 Loading component: ${componentName}`);
-      
-      // Show loading notification
-      showNotification(`Loading ${componentName}...`, 'info');
-      
+
       // Load dependencies first
       await loadComponentDependencies(componentName);
-      
+
       // Fetch component HTML
       const html = await fetchComponentHTML(config.path, config.cacheable);
-      
+
       // Insert into DOM
       const container = insertComponentIntoDOM(html, config, componentName);
-      
+
       // Initialize component if loader exists
       if (config.loader && typeof config.loader === 'function') {
         console.log(`⚙️ Initializing component: ${componentName}`);
         await config.loader(...args);
       }
-      
-      // Mark as loaded
+
+      // Mark as loaded and track order
       loadedComponents.add(componentName);
-      
-      // Success notification
-      showNotification(`${componentName} loaded successfully!`, 'success');
-      
+      componentLoadOrder.push(componentName);
+
       console.log(`✅ Component fully loaded: ${componentName}`);
       return container;
-      
+
     } catch (error) {
       logError(componentName, error, 'loadComponentByName');
-      showNotification(`Failed to load ${componentName}`, 'error');
+      // Only show error notifications, not loading notifications
+      showNotification(`❌ Failed to load ${componentName}`, 'error');
       throw error;
     } finally {
       loadingPromises.delete(componentName);
     }
   })();
-  
+
   loadingPromises.set(componentName, loadingPromise);
   return await loadingPromise;
 }
@@ -405,38 +402,54 @@ export function loadWebSocket(wsUrl = "wss://domingueztechsolutions.com/api/ws")
 // 🎯 BATCH LOADING & ADVANCED OPERATIONS
 // ================================================================================
 
-export async function loadComponentsBatch(componentNames = [], showProgress = true) {
+export async function loadComponentsBatch(componentNames = [], showFinalNotification = true) {
   if (!Array.isArray(componentNames) || componentNames.length === 0) {
     console.warn('No components specified for batch loading');
     return [];
   }
-  
+
   console.log(`🚀 Batch loading ${componentNames.length} components:`, componentNames);
-  
-  if (showProgress) {
-    showNotification(`Loading ${componentNames.length} components...`, 'info');
-  }
-  
+
   const results = await Promise.allSettled(
     componentNames.map(name => loadComponentByName(name))
   );
-  
+
   const successful = results.filter(r => r.status === 'fulfilled');
   const failed = results.filter(r => r.status === 'rejected');
-  
-  if (showProgress) {
-    const message = `Loaded ${successful.length}/${componentNames.length} components`;
-    const type = failed.length === 0 ? 'success' : 'warning';
-    showNotification(message, type);
-  }
-  
+
   console.log(`✅ Batch loading complete: ${successful.length} successful, ${failed.length} failed`);
-  
+
+  // Show single success notification if requested
+  if (showFinalNotification && successful.length > 0) {
+    if (failed.length === 0) {
+      showNotification('✅ All components loaded successfully for Pedro M. Dominguez', 'success');
+    } else {
+      showNotification(`⚠️ ${successful.length}/${componentNames.length} components loaded successfully for Pedro M. Dominguez`, 'warning');
+    }
+  }
+
   return {
     successful: successful.map(r => r.value),
     failed: failed.map(r => r.reason),
     total: componentNames.length
   };
+}
+
+// ================================================================================
+// 🎯 SIMPLIFIED SUCCESS NOTIFICATION
+// ================================================================================
+
+export function showFinalSuccessNotification() {
+  const totalComponents = loadedComponents.size;
+  const errorCount = Object.values(performanceMetrics.errors).reduce((sum, count) => sum + count, 0);
+  
+  if (totalComponents > 0) {
+    if (errorCount === 0) {
+      showNotification('✅ All components loaded successfully for Pedro M. Dominguez', 'success');
+    } else {
+      showNotification(`⚠️ ${totalComponents} components loaded with ${errorCount} errors for Pedro M. Dominguez`, 'warning');
+    }
+  }
 }
 
 // ================================================================================
@@ -446,7 +459,7 @@ export async function loadComponentsBatch(componentNames = [], showProgress = tr
 export function getPerformanceMetrics() {
   const totalTime = Object.values(performanceMetrics.loadTimes).reduce((a, b) => a + b, 0);
   const avgTime = performanceMetrics.totalLoads > 0 ? totalTime / performanceMetrics.totalLoads : 0;
-  
+
   return {
     ...performanceMetrics,
     averageLoadTime: Number(avgTime.toFixed(2)),
@@ -454,6 +467,7 @@ export function getPerformanceMetrics() {
       ? Number((performanceMetrics.cacheHits / performanceMetrics.totalLoads * 100).toFixed(2))
       : 0,
     loadedComponents: Array.from(loadedComponents),
+    componentLoadOrder,
     connectionInfo: getConnectionInfo(),
     cacheSize: componentCache.size,
     timestamp: Date.now()
@@ -470,16 +484,22 @@ export function unloadComponent(componentName) {
     // Remove from DOM
     const elements = document.querySelectorAll(`[data-component="${componentName}"]`);
     elements.forEach(el => el.remove());
-    
+
     // Remove from loaded set
     loadedComponents.delete(componentName);
-    
+
+    // Remove from load order
+    const orderIndex = componentLoadOrder.indexOf(componentName);
+    if (orderIndex > -1) {
+      componentLoadOrder.splice(orderIndex, 1);
+    }
+
     // Remove from cache
     const config = COMPONENT_REGISTRY[componentName];
     if (config) {
       componentCache.delete(config.path);
     }
-    
+
     console.log(`🗑️ Component unloaded: ${componentName}`);
     return true;
   } catch (error) {
@@ -517,7 +537,8 @@ export function isComponentLoaded(componentName) {
 export {
   sendWebSocketMessage,
   showNotification,
-  loadComponentByName
+  loadComponentByName,
+  showFinalSuccessNotification
 };
 
 // ================================================================================
@@ -534,9 +555,10 @@ if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
     clearCache: clearComponentCache,
     registry: getComponentRegistry,
     loaded: getLoadedComponents,
-    isLoaded: isComponentLoaded
+    isLoaded: isComponentLoaded,
+    showSuccess: showFinalSuccessNotification
   };
-  
+
   console.log('🔧 DenoGenesis Component Manager available at window.DenoGenesisComponents');
   console.log('📊 Performance metrics:', getPerformanceMetrics());
 }
@@ -548,8 +570,8 @@ if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
 // Auto-load critical components
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('🚀 DenoGenesis Component Loader initialized');
-  
-  // Load essential components first
+
+  // Load essential components first (silently)
   try {
     await loadComponentsBatch(['notifications'], false);
     console.log('✅ Critical components loaded');
