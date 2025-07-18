@@ -18,4 +18,4 @@
 @import url('user-messages.css');
 @import url('404.css');
 @import url('animations.css');
-@import url('components/chatbot.css');
+@import url('components/chatbot/chatbot.css');
