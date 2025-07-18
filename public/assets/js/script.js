@@ -1,6 +1,6 @@
 import {
   loadFooter,
-  // loadChatbot,
+  loadChatbot,
   // loadSearchWidget,
   loadNotifications,
   loadWebSocket,
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ✅ 3️⃣ Load core dynamic components
     loadFooter();
-    // loadChatbot(marked);
+    loadChatbot(marked);
     // loadSearchWidget();
     loadNotifications();
     loadWebSocket();
