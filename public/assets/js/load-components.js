@@ -536,7 +536,6 @@ export function isComponentLoaded(componentName) {
 
 export {
   sendWebSocketMessage,
-  showNotification,
   loadComponentByName,
   showFinalSuccessNotification
 };
