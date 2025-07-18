@@ -3,7 +3,6 @@
 @import url('tech-stack.css');
 @import url('footer.css');
 @import url('notifications.css');
-@import url('chatbot.css');
 @import url('boot.css');
 @import url('search-widget.css');
 @import url('system-info-fab.css');
@@ -19,3 +18,4 @@
 @import url('user-messages.css');
 @import url('404.css');
 @import url('animations.css');
+@import url('components/chatbot.css');
