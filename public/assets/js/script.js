@@ -4,7 +4,6 @@ import {
   // loadSearchWidget,
   loadNotifications,
   loadWebSocket,
-  showNotification,
   loadBootScreen,
   loadTechStackSlider, // ✅ Tech stack slider
   loadSystemInfoFAB    // ✅ System Info FAB
