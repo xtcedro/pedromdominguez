@@ -13,8 +13,11 @@ import { createSecurityMiddleware } from "./middleware/security.ts";
 // === STEP 3: ENHANCED LOGGING ✅
 import { createLoggingMiddleware, Logger } from "./middleware/logging.ts";
 
-// === STEP 4: ERROR HANDLING ===
+// === STEP 4: ERROR HANDLING ✅
 import { createErrorMiddleware, ErrorHandler } from "./middleware/errorHandler.ts";
+
+// === STEP 5: HEALTH CHECKS ===
+import { createHealthCheckMiddleware } from "./middleware/healthCheck.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -74,6 +77,27 @@ app.use(createLoggingMiddleware({
   logResponses: environment === 'development'
 }));
 console.log("\x1b[36m%s\x1b[0m", "📝 Enhanced logging enabled");
+
+// === NEW: ADD HEALTH CHECK ENDPOINT ===
+app.use(async (ctx, next) => {
+  if (ctx.request.url.pathname === "/health") {
+    const metrics = monitor.getMetrics();
+    ctx.response.body = {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      version: version,
+      metrics: metrics,
+      environment: environment,
+      framework: "DenoGenesis",
+      author: "Pedro M. Dominguez",
+      location: "Oklahoma City, OK"
+    };
+    ctx.response.headers.set("Content-Type", "application/json");
+    return;
+  }
+  await next();
+});
+console.log("\x1b[36m%s\x1b[0m", "🏥 Health check enabled at /health");
 
 // === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
 app.use(async (ctx, next) => {
@@ -146,14 +170,22 @@ app.use(async (ctx) => {
   });
 });
 
-// === START SERVER ===
+// === STARTUP COMPLETION & METRICS ===
 console.log("\x1b[32m%s\x1b[0m", `⚙️  DenoGenesis server is now running on http://localhost:${port}`);
 console.log("\x1b[36m%s\x1b[0m", `🏥 Health check available at: http://localhost:${port}/health`);
+console.log("\x1b[33m%s\x1b[0m", `📊 Middleware stack: Performance → Error → Security → Logging → CORS → Health → Static → Routes`);
+
+if (environment === "development") {
+  console.log("\x1b[33m%s\x1b[0m", "🔧 Development mode - Enhanced debugging enabled");
+} else {
+  console.log("\x1b[32m%s\x1b[0m", "🚀 Production mode - Optimized for performance and security");
+}
 
 // Show initial metrics after 2 seconds
 setTimeout(() => {
   const metrics = monitor.getMetrics();
-  console.log("\x1b[33m%s\x1b[0m", `📊 Initial metrics: ${metrics.requests} requests, ${metrics.uptime} uptime`);
+  console.log("\x1b[33m%s\x1b[0m", `📊 Initial metrics: ${metrics.requests} requests, ${metrics.uptime} uptime, ${metrics.successRate} success rate`);
+  console.log("\x1b[36m%s\x1b[0m", "✨ DenoGenesis Framework - Local-First Digital Sovereignty Platform - Ready! 🚀");
 }, 2000);
 
 await app.listen({ port });
