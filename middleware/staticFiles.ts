@@ -535,4 +535,122 @@ export class StaticFileUtils {
   /**
    * Check if a file type is compressible
    */
-  static isCom
+  static isCompressible(extension: string): boolean {
+    return StaticFileHandler['COMPRESSIBLE_TYPES'].has(extension.toLowerCase());
+  }
+}
+
+// ================================================================================
+// 🎯 STATIC FILE CONFIGURATION PRESETS
+// ================================================================================
+
+export const StaticFilePresets = {
+  /**
+   * Development configuration - no caching, detailed logging
+   */
+  DEVELOPMENT: {
+    enableCaching: false,
+    enableGzip: true,
+    enableBrotli: false,
+    enableEtag: false,
+    serveHidden: true,
+    indexFiles: ['index.html', 'index.htm'],
+    maxFileSize: 100 * 1024 * 1024, // 100MB
+    compressionLevel: 6
+  } as StaticFileConfig,
+  
+  /**
+   * Production configuration - aggressive caching, compression
+   */
+  PRODUCTION: {
+    enableCaching: true,
+    enableGzip: true,
+    enableBrotli: true,
+    enableEtag: true,
+    serveHidden: false,
+    indexFiles: ['index.html'],
+    maxFileSize: 50 * 1024 * 1024, // 50MB
+    compressionLevel: 9,
+    maxAge: 31536000 // 1 year
+  } as StaticFileConfig,
+  
+  /**
+   * CDN configuration - maximum caching for static assets
+   */
+  CDN: {
+    enableCaching: true,
+    enableGzip: true,
+    enableBrotli: true,
+    enableEtag: true,
+    serveHidden: false,
+    indexFiles: ['index.html'],
+    maxFileSize: 10 * 1024 * 1024, // 10MB
+    compressionLevel: 9,
+    maxAge: 94608000 // 3 years
+  } as StaticFileConfig,
+  
+  /**
+   * SPA (Single Page Application) configuration
+   */
+  SPA: {
+    enableCaching: true,
+    enableGzip: true,
+    enableBrotli: true,
+    enableEtag: true,
+    serveHidden: false,
+    indexFiles: ['index.html'],
+    fallbackFile: '/index.html', // SPA fallback
+    maxFileSize: 25 * 1024 * 1024, // 25MB
+    compressionLevel: 7
+  } as StaticFileConfig
+};
+
+// ================================================================================
+// 🔍 STATIC FILE MIDDLEWARE WITH ANALYTICS
+// ================================================================================
+
+export function createAnalyticsEnabledStaticMiddleware(config: StaticFileConfig) {
+  const baseMiddleware = StaticFileHandler.createMiddleware(config);
+  
+  return async (ctx: any, next: () => Promise<unknown>) => {
+    const filePath = ctx.request.url.pathname;
+    const startTime = Date.now();
+    
+    // Call the base static file middleware
+    await baseMiddleware(ctx, next);
+    
+    // If a static file was served (response is set), track analytics
+    if (ctx.response.body !== undefined && ctx.response.status < 400) {
+      const responseTime = Date.now() - startTime;
+      const contentLength = ctx.response.headers.get('Content-Length');
+      const size = contentLength ? parseInt(contentLength) : 0;
+      
+      // Track the request
+      StaticFileAnalytics.trackRequest(filePath, size);
+      
+      // Add analytics headers (development only)
+      if (ctx.state?.environment === 'development') {
+        ctx.response.headers.set('X-Static-File-Analytics', 'enabled');
+        ctx.response.headers.set('X-File-Requests', 
+          String(StaticFileAnalytics['requestCounts'].get(filePath) || 0));
+      }
+      
+      // Log performance metrics for slow requests
+      if (responseTime > 1000) {
+        console.warn(`🐌 Slow static file serve: ${filePath} took ${responseTime}ms`);
+      }
+    }
+  };
+}
+
+// ================================================================================
+// 🚀 EXPORT ALL STATIC FILE COMPONENTS
+// ================================================================================
+
+export default {
+  StaticFileHandler,
+  StaticFileAnalytics,
+  StaticFileUtils,
+  StaticFilePresets,
+  createAnalyticsEnabledStaticMiddleware
+};
