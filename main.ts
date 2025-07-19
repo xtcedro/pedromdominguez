@@ -4,8 +4,11 @@ import router from "./routes/index.ts";
 import wsRouter from "./routes/wsRoutes.ts";
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
-// === STEP 1: ADD ONLY PERFORMANCE MONITOR ===
+// === STEP 1: PERFORMANCE MONITOR ✅
 import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/performanceMonitor.ts";
+
+// === STEP 2: ADD SECURITY HEADERS ===
+import { createSecurityMiddleware } from "./middleware/security.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -32,10 +35,18 @@ console.log("\x1b[33m%s\x1b[0m", "⚡  Bringing AI, automation, and full-stack i
 console.log("\x1b[32m%s\x1b[0m", "🛠️  This is DenoGenesis — born from purpose, built with precision.");
 console.log("\x1b[36m%s\x1b[0m", "✨ Let's rebuild the web — together.\n");
 
-// === NEW: ADD PERFORMANCE MONITORING ===
+// === STEP 1: PERFORMANCE MONITORING ✅
 const monitor = new PerformanceMonitor();
 app.use(createPerformanceMiddleware(monitor, environment === 'development'));
 console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
+
+// === STEP 2: SECURITY HEADERS ===
+app.use(createSecurityMiddleware({
+  environment: environment,
+  enableHSTS: environment === 'production',
+  frameOptions: 'SAMEORIGIN'
+}));
+console.log("\x1b[36m%s\x1b[0m", "🔒 Security headers enabled");
 
 // === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
 app.use(async (ctx, next) => {
