@@ -718,4 +718,207 @@ export class HealthCheckUtils {
   /**
    * Validate health check configuration
    */
-  s
+  static validateConfig(config: HealthCheckConfig): { valid: boolean; errors: string[] } {
+    const errors: string[] = [];
+    
+    if (!config.endpoint) {
+      errors.push('Health check endpoint is required');
+    }
+    
+    if (config.endpoint && !config.endpoint.startsWith('/')) {
+      errors.push('Health check endpoint must start with "/"');
+    }
+    
+    if (config.timeout && config.timeout <= 0) {
+      errors.push('Timeout must be positive');
+    }
+    
+    if (config.cacheTTL && config.cacheTTL <= 0) {
+      errors.push('Cache TTL must be positive');
+    }
+    
+    if (config.customChecks && !Array.isArray(config.customChecks)) {
+      errors.push('Custom checks must be an array');
+    }
+    
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
+}
+
+// ================================================================================
+// 📊 HEALTH MONITORING AND ALERTING
+// ================================================================================
+
+export class HealthMonitor {
+  private healthHistory: Array<{ timestamp: number; status: string; details?: any }> = [];
+  private alerts: Array<{ timestamp: number; message: string; severity: string }> = [];
+  
+  /**
+   * Record health check result
+   */
+  recordHealthCheck(result: SystemHealth): void {
+    this.healthHistory.push({
+      timestamp: Date.now(),
+      status: result.status,
+      details: {
+        checksCount: result.checks?.length || 0,
+        dependenciesCount: result.dependencies?.length || 0,
+        memoryUsage: result.resources?.memory.percentage
+      }
+    });
+    
+    // Keep only last 1000 entries
+    if (this.healthHistory.length > 1000) {
+      this.healthHistory = this.healthHistory.slice(-1000);
+    }
+    
+    // Check for alerting conditions
+    this.checkAlertConditions(result);
+  }
+  
+  /**
+   * Check for conditions that should trigger alerts
+   */
+  private checkAlertConditions(result: SystemHealth): void {
+    const now = Date.now();
+    
+    // Alert on unhealthy status
+    if (result.status === 'unhealthy') {
+      this.addAlert('System health is unhealthy', 'high');
+    }
+    
+    // Alert on high memory usage
+    if (result.resources?.memory.percentage && result.resources.memory.percentage > 90) {
+      this.addAlert(`High memory usage: ${result.resources.memory.percentage}%`, 'medium');
+    }
+    
+    // Alert on consecutive degraded status
+    const recent = this.healthHistory.slice(-5);
+    const allDegraded = recent.length >= 3 && recent.every(h => h.status === 'degraded');
+    if (allDegraded) {
+      this.addAlert('System has been in degraded state for multiple checks', 'medium');
+    }
+    
+    // Alert on failed dependencies
+    const failedDeps = result.dependencies?.filter(d => d.status === 'unhealthy') || [];
+    if (failedDeps.length > 0) {
+      this.addAlert(`${failedDeps.length} dependencies are unhealthy`, 'high');
+    }
+  }
+  
+  /**
+   * Add an alert
+   */
+  private addAlert(message: string, severity: string): void {
+    // Avoid duplicate alerts (same message within 5 minutes)
+    const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
+    const isDuplicate = this.alerts.some(alert => 
+      alert.message === message && alert.timestamp > fiveMinutesAgo
+    );
+    
+    if (!isDuplicate) {
+      this.alerts.push({
+        timestamp: Date.now(),
+        message,
+        severity
+      });
+      
+      // Log the alert
+      console.warn(`🚨 Health Alert [${severity.toUpperCase()}]: ${message}`);
+      
+      // Keep only last 100 alerts
+      if (this.alerts.length > 100) {
+        this.alerts = this.alerts.slice(-100);
+      }
+    }
+  }
+  
+  /**
+   * Get health statistics
+   */
+  getHealthStats() {
+    const totalChecks = this.healthHistory.length;
+    const healthyChecks = this.healthHistory.filter(h => h.status === 'healthy').length;
+    const degradedChecks = this.healthHistory.filter(h => h.status === 'degraded').length;
+    const unhealthyChecks = this.healthHistory.filter(h => h.status === 'unhealthy').length;
+    
+    const uptime = totalChecks > 0 ? (healthyChecks / totalChecks) * 100 : 100;
+    
+    // Recent alerts (last 24 hours)
+    const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+    const recentAlerts = this.alerts.filter(alert => alert.timestamp > oneDayAgo);
+    
+    return {
+      totalChecks,
+      healthyChecks,
+      degradedChecks,
+      unhealthyChecks,
+      uptimePercentage: uptime.toFixed(2) + '%',
+      recentAlerts: recentAlerts.length,
+      alertsByseverity: {
+        high: recentAlerts.filter(a => a.severity === 'high').length,
+        medium: recentAlerts.filter(a => a.severity === 'medium').length,
+        low: recentAlerts.filter(a => a.severity === 'low').length
+      },
+      lastCheck: this.healthHistory.length > 0 
+        ? new Date(this.healthHistory[this.healthHistory.length - 1].timestamp).toISOString()
+        : null,
+      healthTrend: this.calculateHealthTrend()
+    };
+  }
+  
+  /**
+   * Calculate health trend
+   */
+  private calculateHealthTrend(): 'improving' | 'stable' | 'declining' {
+    if (this.healthHistory.length < 10) return 'stable';
+    
+    const recent = this.healthHistory.slice(-5);
+    const previous = this.healthHistory.slice(-10, -5);
+    
+    const recentHealthy = recent.filter(h => h.status === 'healthy').length;
+    const previousHealthy = previous.filter(h => h.status === 'healthy').length;
+    
+    if (recentHealthy > previousHealthy) return 'improving';
+    if (recentHealthy < previousHealthy) return 'declining';
+    return 'stable';
+  }
+  
+  /**
+   * Get recent alerts
+   */
+  getRecentAlerts(hours: number = 24) {
+    const cutoff = Date.now() - (hours * 60 * 60 * 1000);
+    return this.alerts
+      .filter(alert => alert.timestamp > cutoff)
+      .sort((a, b) => b.timestamp - a.timestamp)
+      .map(alert => ({
+        ...alert,
+        timestamp: new Date(alert.timestamp).toISOString()
+      }));
+  }
+  
+  /**
+   * Clear old data
+   */
+  cleanup(): void {
+    const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+    this.healthHistory = this.healthHistory.filter(h => h.timestamp > oneDayAgo);
+    this.alerts = this.alerts.filter(a => a.timestamp > oneDayAgo);
+  }
+}
+
+// ================================================================================
+// 🚀 EXPORT ALL HEALTH CHECK COMPONENTS
+// ================================================================================
+
+export default {
+  createHealthCheckMiddleware,
+  HealthChecker,
+  HealthCheckUtils,
+  HealthMonitor,
+  HealthCheckPresets
+};
