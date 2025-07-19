@@ -45,7 +45,7 @@ app.use(async (ctx, next) => {
   if (fileWhitelist.some(ext => filePath.endsWith(ext))) {
     try {
       await send(ctx, filePath, {
-        root: `${Deno.cwd()}/public/pages/home`,
+        root: `${Deno.cwd()}/public`,
         index: "index.html",
       });
       return;
