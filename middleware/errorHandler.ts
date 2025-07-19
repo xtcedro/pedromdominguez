@@ -1,4 +1,4 @@
- 
+
 // middleware/errorHandler.ts → Enterprise Error Management System
 // ================================================================================
 // 🛡️ DenoGenesis Framework - Advanced Error Handling Middleware
@@ -683,7 +683,7 @@ export class ErrorUtils {
 
   /**
 =======
-  
+
     /**
 >>>>>>> refs/remotes/origin/main
    * Extract useful error information for logging
@@ -701,7 +701,7 @@ export class ErrorUtils {
       })
     };
   }
-  
+
   /**
    * Create error from HTTP status code
    */
@@ -718,9 +718,9 @@ export class ErrorUtils {
       503: 'Service Unavailable',
       504: 'Gateway Timeout'
     };
-    
+
     const errorMessage = message || defaultMessages[statusCode] || 'Unknown Error';
-    
+
     switch (statusCode) {
       case 401:
         return new AuthenticationError(errorMessage, requestId);
@@ -734,21 +734,21 @@ export class ErrorUtils {
         return new AppError(errorMessage, statusCode, true, requestId);
     }
   }
-  
+
   /**
    * Validate error handler configuration
    */
   static validateConfig(config: ErrorConfig): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
-    
+
     if (!config.environment) {
       errors.push('Environment is required');
     }
-    
+
     if (config.logToFile && !config.logErrors) {
       errors.push('logErrors must be true when logToFile is enabled');
     }
-    
+
     if (config.customErrorMessages) {
       for (const [errorType, message] of Object.entries(config.customErrorMessages)) {
         if (typeof message !== 'string' || message.trim().length === 0) {
@@ -756,7 +756,7 @@ export class ErrorUtils {
         }
       }
     }
-    
+
     return {
       valid: errors.length === 0,
       errors
