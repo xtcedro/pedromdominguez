@@ -45,15 +45,9 @@ app.use(createSecurityMiddleware({
   environment: environment,
   enableHSTS: environment === 'production',
   frameOptions: 'SAMEORIGIN',
-<<<<<<< HEAD
-  contentSecurityPolicy: environment === 'production'
-    ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline';"
-    : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline';"
-=======
   contentSecurityPolicy: environment === 'production' 
     ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
     : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
->>>>>>> refs/remotes/origin/main
 }));
 console.log("\x1b[36m%s\x1b[0m", "🔒 Security headers enabled");
 
@@ -81,12 +75,8 @@ app.use(async (ctx, next) => {
 app.use(oakCors({
   origin: [
     "https://pedromdominguez.com",
-<<<<<<< HEAD
-    "http://localhost:3003",
-=======
     "http://localhost:3004",
     "http://localhost:3000",
->>>>>>> refs/remotes/origin/main
     "https://cdn.skypack.dev",
     "https://cdnjs.cloudflare.com",
     "https://cdn.jsdelivr.net",
