@@ -33,20 +33,18 @@ const middlewareConfig: MiddlewareConfig = {
   },
   cors: {
     allowedOrigins: [
-      "https://domingueztechsolutions.com",
-      "https://www.domingueztechsolutions.com",
       "https://pedromdominguez.com",
       "https://www.pedromdominguez.com"
     ],
     developmentOrigins: [
-      "http://localhost:3000",
+      "http://localhost:3004",
       "http://localhost:8080",
-      "http://127.0.0.1:3000"
+      "http://127.0.0.1:3004"
     ]
   },
   security: {
     enableHSTS: environment === "production",
-    contentSecurityPolicy: environment === "production" 
+    contentSecurityPolicy: environment === "production"
       ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
       : undefined
   },
@@ -84,7 +82,7 @@ ConsoleStyler.logSection("🔧 Initializing Middleware Stack");
 const coreMiddlewares = middlewares.slice(0, 6);
 const middlewareNames = [
   "Performance Monitor",
-  "Error Handler", 
+  "Error Handler",
   "Request Logger",
   "Security Headers",
   "CORS Handler",
@@ -143,7 +141,7 @@ app.use(async (ctx) => {
   }
 
   ctx.response.status = 404;
-  
+
   try {
     await send(ctx, "/pages/errors/404.html", {
       root: `${Deno.cwd()}/public`,
