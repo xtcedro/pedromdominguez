@@ -156,54 +156,6 @@ class RouteRegistry {
     };
   }
 
-  // Register homepage route with enhanced error handling
-  registerHomepage(): void {
-    try {
-      this.router.get("/", async (ctx) => {
-        try {
-          // Check if response has already been handled
-          if (ctx.response.body !== undefined || ctx.respond === false) {
-            return;
-          }
-
-          // Set security headers first
-          ctx.response.headers.set('X-Frame-Options', 'SAMEORIGIN');
-          ctx.response.headers.set('X-Content-Type-Options', 'nosniff');
-          ctx.response.headers.set('Content-Type', 'text/html');
-
-          // Try to serve the homepage file - using the approach that works
-          await send(ctx, "index.html", {
-            root: `${Deno.cwd()}/public/pages/home/`,
-          });
-
-        } catch (error) {
-          console.error('Homepage serving error:', error);
-
-          // Only set error response if not already sent
-          if (ctx.response.body === undefined && ctx.respond !== false) {
-            ctx.response.status = 404;
-            ctx.response.headers.set('Content-Type', 'application/json');
-            ctx.response.body = {
-              error: 'Homepage Not Found',
-              message: 'Please create /public/pages/home/index.html',
-              timestamp: new Date().toISOString(),
-              suggestion: 'Create the public directory structure and add your homepage file'
-            };
-          }
-        }
-      });
-
-      this.routes.push({
-        path: '/',
-        router: this.router,
-        description: 'DenoGenesis Framework Homepage',
-        version: '2.0',
-        status: 'active'
-      });
-    } catch (error) {
-      this.metrics.errors.push(`Failed to register homepage: ${error.message}`);
-    }
-  }
 
   // Enhanced route registration with validation
   registerRoute(config: RouteConfig): void {
