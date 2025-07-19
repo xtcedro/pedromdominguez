@@ -7,8 +7,11 @@ import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 // === STEP 1: PERFORMANCE MONITOR ✅
 import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/performanceMonitor.ts";
 
-// === STEP 2: ADD SECURITY HEADERS ===
+// === STEP 2: SECURITY HEADERS ✅
 import { createSecurityMiddleware } from "./middleware/security.ts";
+
+// === STEP 3: ENHANCED LOGGING ===
+import { createLoggingMiddleware, Logger } from "./middleware/logging.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -40,7 +43,7 @@ const monitor = new PerformanceMonitor();
 app.use(createPerformanceMiddleware(monitor, environment === 'development'));
 console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
 
-// === STEP 2: SECURITY HEADERS (FIXED CSP AND PERMISSIONS) ===
+// === STEP 2: SECURITY HEADERS ✅
 app.use(createSecurityMiddleware({
   environment: environment,
   enableHSTS: environment === 'production',
@@ -50,6 +53,15 @@ app.use(createSecurityMiddleware({
     : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
 }));
 console.log("\x1b[36m%s\x1b[0m", "🔒 Security headers enabled");
+
+// === STEP 3: ENHANCED LOGGING ===
+app.use(createLoggingMiddleware({
+  environment: environment,
+  logLevel: environment === 'development' ? 'debug' : 'info',
+  logRequests: true,
+  logResponses: environment === 'development'
+}));
+console.log("\x1b[36m%s\x1b[0m", "📝 Enhanced logging enabled");
 
 // === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
 app.use(async (ctx, next) => {
