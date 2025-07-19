@@ -77,24 +77,51 @@ globalThis.addEventListener('unhandledrejection', (event) => {
   ErrorHandler.handleUnhandledRejection(event.reason);
 });
 
-// === APPLY MIDDLEWARE STACK ===
+// === APPLY MIDDLEWARE STACK (EXCLUDING STATIC FILES) ===
 ConsoleStyler.logSection("🔧 Initializing Middleware Stack");
 
-middlewares.forEach((middleware, index) => {
+// Apply only the first 6 middleware (excluding static files)
+const coreMiddlewares = middlewares.slice(0, 6);
+const middlewareNames = [
+  "Performance Monitor",
+  "Error Handler", 
+  "Request Logger",
+  "Security Headers",
+  "CORS Handler",
+  "Health Check"
+];
+
+coreMiddlewares.forEach((middleware, index) => {
   app.use(middleware);
-  const middlewareNames = [
-    "Performance Monitor",
-    "Error Handler", 
-    "Request Logger",
-    "Security Headers",
-    "CORS Handler",
-    "Health Check",
-    "Static File Server"
-  ];
-  ConsoleStyler.logRoute(`Middleware ${index + 1}`, middlewareNames[index] || "Custom Middleware");
+  ConsoleStyler.logRoute(`Middleware ${index + 1}`, middlewareNames[index]);
 });
 
-ConsoleStyler.logSuccess("All middleware initialized successfully");
+ConsoleStyler.logSuccess("Core middleware initialized successfully");
+
+// === CUSTOM STATIC FILE MIDDLEWARE (SIMPLIFIED) ===
+app.use(async (ctx, next) => {
+  const filePath = ctx.request.url.pathname;
+  const fileWhitelist = [".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".ttf", ".woff2", ".html"];
+
+  // Only handle static files, let everything else pass through
+  if (fileWhitelist.some(ext => filePath.endsWith(ext))) {
+    try {
+      await send(ctx, filePath, {
+        root: `${Deno.cwd()}/public`,
+        index: "index.html",
+      });
+      return; // Important: return here to prevent further middleware execution
+    } catch {
+      // If file not found, continue to next middleware
+      await next();
+    }
+  } else {
+    // Not a static file, continue to routes
+    await next();
+  }
+});
+
+ConsoleStyler.logRoute("Static File Handler", "Serving public assets");
 
 // === WEBSOCKET ROUTES ===
 ConsoleStyler.logSection("🌐 Registering WebSocket Routes");
@@ -110,7 +137,13 @@ ConsoleStyler.logSuccess("All API routes registered successfully");
 
 // === 404 FALLBACK ===
 app.use(async (ctx) => {
+  // Check if response has already been sent
+  if (ctx.response.body !== undefined || ctx.response.status !== 404) {
+    return;
+  }
+
   ctx.response.status = 404;
+  
   try {
     await send(ctx, "/pages/errors/404.html", {
       root: `${Deno.cwd()}/public`,
@@ -130,7 +163,7 @@ app.use(async (ctx) => {
 // === STARTUP COMPLETION ===
 ConsoleStyler.logStartup(denoGenesisConfig);
 
-// Log initial metrics
+// Log initial metrics after a short delay
 setTimeout(() => {
   ConsoleStyler.logMetrics(monitor.getMetrics());
 }, 1000);
