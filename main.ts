@@ -1,16 +1,12 @@
 import { Application, send } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { config as loadEnv } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 import router from "./routes/index.ts";
-import wsRouter from "./routes/wsRoutes.ts";
+import wsRouter from "./routes/wsRoutes.ts"; // 🧠 Add WebSocket route import
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
-
-// === STEP 1: ADD ONLY PERFORMANCE MONITOR ===
-import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/performanceMonitor.ts";
 
 const env = await loadEnv();
 const app = new Application();
 const port = parseInt(env.PORT || "3000");
-const environment = env.DENO_ENV || "development";
 
 // === DENOGENESIS FRAMEWORK BOOTUP LOGS ===
 const version = "v1.3.0";
@@ -32,12 +28,7 @@ console.log("\x1b[33m%s\x1b[0m", "⚡  Bringing AI, automation, and full-stack i
 console.log("\x1b[32m%s\x1b[0m", "🛠️  This is DenoGenesis — born from purpose, built with precision.");
 console.log("\x1b[36m%s\x1b[0m", "✨ Let's rebuild the web — together.\n");
 
-// === NEW: ADD PERFORMANCE MONITORING ===
-const monitor = new PerformanceMonitor();
-app.use(createPerformanceMiddleware(monitor, environment === 'development'));
-console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
-
-// === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
+// === STATIC FILE MIDDLEWARE (Public Assets) ===
 app.use(async (ctx, next) => {
   const filePath = ctx.request.url.pathname;
   const fileWhitelist = [".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".ttf", ".woff2", ".html"];
@@ -57,39 +48,21 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-// === YOUR EXISTING CORS (UNCHANGED) ===
 app.use(oakCors({
-  origin: "https://pedromdominguez.com",
-  credentials: true,
+  origin: "https://domingueztechsolutions.com",
+  credentials: true, // allow cookies if needed
 }));
 
-// === NEW: ADD HEALTH CHECK ENDPOINT ===
-app.use(async (ctx, next) => {
-  if (ctx.request.url.pathname === "/health") {
-    const metrics = monitor.getMetrics();
-    ctx.response.body = {
-      status: "healthy",
-      timestamp: new Date().toISOString(),
-      version: version,
-      metrics: metrics,
-      environment: environment
-    };
-    ctx.response.headers.set("Content-Type", "application/json");
-    return;
-  }
-  await next();
-});
-
-// === YOUR EXISTING WEBSOCKET ROUTES (UNCHANGED) ===
+// === WEBSOCKET ROUTES ===
 app.use(wsRouter.routes());
 app.use(wsRouter.allowedMethods());
 console.log("\x1b[36m%s\x1b[0m", "➡️ WebSocket route loaded at /api/ws");
 
-// === YOUR EXISTING API ROUTES (UNCHANGED) ===
+// === API ROUTES ===
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// === YOUR EXISTING 404 FALLBACK (UNCHANGED) ===
+// === 404 FALLBACK ===
 app.use(async (ctx) => {
   ctx.response.status = 404;
   await send(ctx, "/pages/errors/404.html", {
@@ -99,12 +72,4 @@ app.use(async (ctx) => {
 
 // === START SERVER ===
 console.log("\x1b[32m%s\x1b[0m", `⚙️  DenoGenesis server is now running on http://localhost:${port}`);
-console.log("\x1b[36m%s\x1b[0m", `🏥 Health check available at: http://localhost:${port}/health`);
-
-// Show initial metrics after 2 seconds
-setTimeout(() => {
-  const metrics = monitor.getMetrics();
-  console.log("\x1b[33m%s\x1b[0m", `📊 Initial metrics: ${metrics.requests} requests, ${metrics.uptime} uptime`);
-}, 2000);
-
 await app.listen({ port });
