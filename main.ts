@@ -9,8 +9,8 @@ import { Application, send } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { config as loadEnv } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 import router from "./routes/index.ts";
 import wsRouter from "./routes/wsRoutes.ts";
-import { 
-  createMiddlewareStack, 
+import {
+  createMiddlewareStack,
   type MiddlewareConfig,
   ErrorHandler,
   PerformanceMonitor // Import PerformanceMonitor type
@@ -23,10 +23,10 @@ import { ConsoleStyler, type DenoGenesisConfig } from "./utils/consoleStyler.ts"
 
 const FRAMEWORK_CONFIG: DenoGenesisConfig = {
   version: "v3.0.0",
-  buildDate: new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  buildDate: new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   }),
   environment: Deno.env.get("DENO_ENV") || "development",
   port: parseInt(Deno.env.get("PORT") || "3000"),
@@ -51,9 +51,7 @@ const MIDDLEWARE_CONFIG: MiddlewareConfig = {
   cors: {
     allowedOrigins: [
       'https://pedromdominguez.com',
-      'https://www.pedromdominguez.com', 
-      'https://domingueztechsolutions.com',
-      'https://www.domingueztechsolutions.com'
+      'https://www.pedromdominguez.com',
     ],
     developmentOrigins: [
       'http://localhost:3000',
@@ -63,7 +61,7 @@ const MIDDLEWARE_CONFIG: MiddlewareConfig = {
 
   security: {
     enableHSTS: FRAMEWORK_CONFIG.environment === 'production',
-    contentSecurityPolicy: FRAMEWORK_CONFIG.environment === 'production' 
+    contentSecurityPolicy: FRAMEWORK_CONFIG.environment === 'production'
       ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com;"
       : undefined
   },
@@ -122,7 +120,7 @@ class DenoGenesisServer {
     try {
       // Create the complete middleware stack
       const middlewareStack = createMiddlewareStack(MIDDLEWARE_CONFIG);
-      
+
       // Extract monitor and middlewares from the stack
       this.monitor = middlewareStack.monitor;
       const middlewares = middlewareStack.middlewares;
@@ -215,7 +213,7 @@ class DenoGenesisServer {
           suggestion: 'Check the API documentation for available endpoints',
           availableEndpoints: [
             '/api/auth',
-            '/api/appointments', 
+            '/api/appointments',
             '/api/dashboard',
             '/api/analytics',
             '/health'
@@ -240,20 +238,20 @@ class DenoGenesisServer {
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>404 - Page Not Found | DenoGenesis</title>
               <style>
-                body { 
-                  font-family: 'Inter', sans-serif; 
+                body {
+                  font-family: 'Inter', sans-serif;
                   background: linear-gradient(135deg, #0a1a2f, #142040);
-                  color: white; 
-                  text-align: center; 
-                  padding: 2rem; 
+                  color: white;
+                  text-align: center;
+                  padding: 2rem;
                   margin: 0;
                 }
                 .container { max-width: 600px; margin: 0 auto; padding-top: 10vh; }
                 h1 { color: #ffd700; font-size: 3rem; margin-bottom: 1rem; }
                 p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8; }
-                a { 
-                  color: #ffd700; 
-                  text-decoration: none; 
+                a {
+                  color: #ffd700;
+                  text-decoration: none;
                   padding: 1rem 2rem;
                   border: 2px solid #ffd700;
                   border-radius: 8px;
@@ -325,7 +323,7 @@ class DenoGenesisServer {
       console.log('\n');
 
       // Start the server with signal handling
-      await this.app.listen({ 
+      await this.app.listen({
         port: FRAMEWORK_CONFIG.port,
         signal: this.abortController.signal,
         hostname: '0.0.0.0' // Allow external connections
