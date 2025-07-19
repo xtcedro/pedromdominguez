@@ -24,7 +24,6 @@ import projectsRoutes from "./projectsRoutes.ts";
 import roadmapRoutes from "./roadmapRoutes.ts";
 import searchRoutes from "./searchRoutes.ts";
 import notificationsRoutes from "./notificationsRoutes.ts";
-import systemRoutes from "./systemRoutes.ts";
 
 // ================================================================================
 // 🔧 ROUTE REGISTRY CONFIGURATION
@@ -172,151 +171,28 @@ class RouteRegistry {
           ctx.response.headers.set('X-Content-Type-Options', 'nosniff');
           ctx.response.headers.set('Content-Type', 'text/html');
           
-          // Try to serve the homepage file
-          try {
-            await send(ctx, "index.html", {
-              root: `${Deno.cwd()}/public/pages/home`,
-              index: "index.html",
-            });
-          } catch (fileError) {
-            // If homepage file doesn't exist, serve a default page
-            console.warn('Homepage file not found, serving default page');
-            ctx.response.status = 200;
-            ctx.response.body = `
-              <!DOCTYPE html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <title>DenoGenesis Framework</title>
-                  <style>
-                    * { margin: 0; padding: 0; box-sizing: border-box; }
-                    body { 
-                      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-                      background: linear-gradient(135deg, #0a1a2f 0%, #142040 50%, #1a2f4a 100%);
-                      color: white; 
-                      min-height: 100vh;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      text-align: center;
-                    }
-                    .container { 
-                      max-width: 800px; 
-                      padding: 3rem 2rem; 
-                      background: rgba(255, 255, 255, 0.05);
-                      border-radius: 20px;
-                      backdrop-filter: blur(10px);
-                      border: 1px solid rgba(255, 255, 255, 0.1);
-                    }
-                    h1 { 
-                      color: #ffd700; 
-                      font-size: 3.5rem; 
-                      margin-bottom: 1rem; 
-                      font-weight: 800;
-                      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-                    }
-                    .subtitle { 
-                      font-size: 1.3rem; 
-                      margin-bottom: 2rem; 
-                      opacity: 0.9; 
-                      color: #e0e0e0;
-                    }
-                    .version { 
-                      color: #4ade80; 
-                      font-weight: 600; 
-                      font-size: 1.1rem;
-                      margin-bottom: 2rem;
-                    }
-                    .features { 
-                      display: grid; 
-                      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-                      gap: 1.5rem; 
-                      margin: 2rem 0;
-                    }
-                    .feature { 
-                      padding: 1.5rem; 
-                      background: rgba(255, 255, 255, 0.03);
-                      border-radius: 12px; 
-                      border: 1px solid rgba(255, 255, 255, 0.1);
-                    }
-                    .feature h3 { 
-                      color: #ffd700; 
-                      margin-bottom: 0.5rem; 
-                      font-size: 1.1rem;
-                    }
-                    .feature p { 
-                      font-size: 0.9rem; 
-                      opacity: 0.8; 
-                      line-height: 1.4;
-                    }
-                    .status { 
-                      margin-top: 2rem; 
-                      padding: 1rem; 
-                      background: rgba(74, 222, 128, 0.1);
-                      border-radius: 8px; 
-                      border: 1px solid rgba(74, 222, 128, 0.2);
-                    }
-                    .status-indicator { 
-                      color: #4ade80; 
-                      font-weight: 600; 
-                    }
-                    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-                    .pulse { animation: pulse 2s infinite; }
-                  </style>
-                </head>
-                <body>
-                  <div class="container">
-                    <h1>DenoGenesis</h1>
-                    <div class="subtitle">Enterprise-Grade Digital Sovereignty Framework</div>
-                    <div class="version">v3.0.0 - Production Ready</div>
-                    
-                    <div class="features">
-                      <div class="feature">
-                        <h3>🚀 High Performance</h3>
-                        <p>Built on Deno with enterprise-grade middleware orchestration</p>
-                      </div>
-                      <div class="feature">
-                        <h3>🔒 Security First</h3>
-                        <p>Advanced security headers, CORS, and request sanitization</p>
-                      </div>
-                      <div class="feature">
-                        <h3>📊 Real-time Metrics</h3>
-                        <p>Comprehensive performance monitoring and analytics</p>
-                      </div>
-                      <div class="feature">
-                        <h3>🌐 API Ready</h3>
-                        <p>RESTful APIs with WebSocket support and error handling</p>
-                      </div>
-                    </div>
-                    
-                    <div class="status">
-                      <div class="status-indicator pulse">● Framework Status: ACTIVE</div>
-                      <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
-                        All systems operational | Digital Sovereignty Activated
-                      </div>
-                    </div>
-                  </div>
-                </body>
-              </html>
-            `;
-          }
+          // Try to serve the homepage file - using the approach that works
+          await send(ctx, "index.html", {
+            root: `${Deno.cwd()}/public/pages/home`,
+          });
+          
         } catch (error) {
           console.error('Homepage serving error:', error);
-          
+
           // Only set error response if not already sent
           if (ctx.response.body === undefined && ctx.respond !== false) {
-            ctx.response.status = 500;
+            ctx.response.status = 404;
             ctx.response.headers.set('Content-Type', 'application/json');
             ctx.response.body = {
-              error: 'Internal Server Error',
-              message: 'Homepage temporarily unavailable',
-              timestamp: new Date().toISOString()
+              error: 'Homepage Not Found',
+              message: 'Please create /public/pages/home/index.html',
+              timestamp: new Date().toISOString(),
+              suggestion: 'Create the public directory structure and add your homepage file'
             };
           }
         }
       });
-      
+
       this.routes.push({
         path: '/',
         router: this.router,
@@ -544,15 +420,6 @@ class RouteRegistry {
         status: 'active',
         requiresAuth: true,
         rateLimit: 200
-      },
-      {
-        path: '/api/system',
-        router: systemRoutes,
-        description: 'System Health & Administration',
-        version: '2.0',
-        status: 'active',
-        requiresAuth: true,
-        rateLimit: 15
       }
     ];
     
@@ -574,8 +441,6 @@ class RouteRegistry {
       RouteLogger.logWarning(`${this.metrics.totalRoutes} routes registered with ${this.metrics.errors.length} errors`);
     }
   }
-  
-
   
   // Get the configured router instance
   getRouter(): Router {
