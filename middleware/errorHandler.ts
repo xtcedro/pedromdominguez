@@ -1,3 +1,4 @@
+ 
 // middleware/errorHandler.ts → Enterprise Error Management System
 // ================================================================================
 // 🛡️ DenoGenesis Framework - Advanced Error Handling Middleware
@@ -678,8 +679,13 @@ export class ErrorUtils {
 
     return operationalErrors.includes(error.name);
   }
+<<<<<<< HEAD
 
   /**
+=======
+  
+    /**
+>>>>>>> refs/remotes/origin/main
    * Extract useful error information for logging
    */
   static extractErrorInfo(error: Error) {
@@ -689,3 +695,90 @@ export class ErrorUtils {
       stack: error.stack,
       timestamp: new Date().toISOString(),
       ...(error instanceof AppError && {
+        statusCode: error.statusCode,
+        isOperational: error.isOperational,
+        requestId: error.requestId
+      })
+    };
+  }
+  
+  /**
+   * Create error from HTTP status code
+   */
+  static fromHttpStatus(statusCode: number, message?: string, requestId?: string): AppError {
+    const defaultMessages: Record<number, string> = {
+      400: 'Bad Request',
+      401: 'Unauthorized',
+      403: 'Forbidden',
+      404: 'Not Found',
+      409: 'Conflict',
+      429: 'Too Many Requests',
+      500: 'Internal Server Error',
+      502: 'Bad Gateway',
+      503: 'Service Unavailable',
+      504: 'Gateway Timeout'
+    };
+    
+    const errorMessage = message || defaultMessages[statusCode] || 'Unknown Error';
+    
+    switch (statusCode) {
+      case 401:
+        return new AuthenticationError(errorMessage, requestId);
+      case 403:
+        return new AuthorizationError(errorMessage, requestId);
+      case 404:
+        return new NotFoundError(errorMessage.replace(' not found', ''), requestId);
+      case 429:
+        return new RateLimitError(60, requestId); // Default 60 second retry
+      default:
+        return new AppError(errorMessage, statusCode, true, requestId);
+    }
+  }
+  
+  /**
+   * Validate error handler configuration
+   */
+  static validateConfig(config: ErrorConfig): { valid: boolean; errors: string[] } {
+    const errors: string[] = [];
+    
+    if (!config.environment) {
+      errors.push('Environment is required');
+    }
+    
+    if (config.logToFile && !config.logErrors) {
+      errors.push('logErrors must be true when logToFile is enabled');
+    }
+    
+    if (config.customErrorMessages) {
+      for (const [errorType, message] of Object.entries(config.customErrorMessages)) {
+        if (typeof message !== 'string' || message.trim().length === 0) {
+          errors.push(`Custom error message for ${errorType} must be a non-empty string`);
+        }
+      }
+    }
+    
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
+}
+
+// ================================================================================
+// 🚀 EXPORT ALL ERROR HANDLING COMPONENTS
+// ================================================================================
+
+export default {
+  ErrorHandler,
+  AppError,
+  ValidationError,
+  AuthenticationError,
+  AuthorizationError,
+  NotFoundError,
+  RateLimitError,
+  DatabaseError,
+  createErrorMiddleware,
+  ErrorAnalytics,
+  ErrorHandlerPresets,
+  ErrorUtils
+};
