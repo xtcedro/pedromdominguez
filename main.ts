@@ -48,7 +48,7 @@ app.use(createSecurityMiddleware({
   environment: environment,
   enableHSTS: environment === 'production',
   frameOptions: 'SAMEORIGIN',
-  contentSecurityPolicy: environment === 'production' 
+  contentSecurityPolicy: environment === 'production'
     ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
     : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
 }));
@@ -88,7 +88,6 @@ app.use(oakCors({
   origin: [
     "https://pedromdominguez.com",
     "http://localhost:3004",
-    "http://localhost:3000",
     "https://cdn.skypack.dev",
     "https://cdnjs.cloudflare.com",
     "https://cdn.jsdelivr.net",
