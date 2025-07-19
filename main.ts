@@ -40,11 +40,14 @@ const monitor = new PerformanceMonitor();
 app.use(createPerformanceMiddleware(monitor, environment === 'development'));
 console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
 
-// === STEP 2: SECURITY HEADERS ===
+// === STEP 2: SECURITY HEADERS (UPDATED FOR CDN SCRIPTS) ===
 app.use(createSecurityMiddleware({
   environment: environment,
   enableHSTS: environment === 'production',
-  frameOptions: 'SAMEORIGIN'
+  frameOptions: 'SAMEORIGIN',
+  contentSecurityPolicy: environment === 'production' 
+    ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline';"
+    : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline';"
 }));
 console.log("\x1b[36m%s\x1b[0m", "🔒 Security headers enabled");
 
@@ -68,9 +71,14 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-// === YOUR EXISTING CORS (UNCHANGED) ===
+// === YOUR EXISTING CORS (UPDATED FOR ANIME.JS) ===
 app.use(oakCors({
-  origin: "https://pedromdominguez.com",
+  origin: [
+    "https://pedromdominguez.com",
+    "http://localhost:3004",
+    "https://cdn.skypack.dev",
+    "https://cdnjs.cloudflare.com"
+  ],
   credentials: true,
 }));
 
