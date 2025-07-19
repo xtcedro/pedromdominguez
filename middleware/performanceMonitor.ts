@@ -16,28 +16,28 @@ export class PerformanceMonitor {
   private slowRequests: number = 0;
   private endpoints: Map<string, { count: number; totalTime: number; errors: number }> = new Map();
   private recentRequests: Array<{ timestamp: number; path: string; method: string; duration: number; status: number }> = [];
-  
+
   constructor() {
     this.startTime = Date.now();
     this.startPeriodicCleanup();
   }
-  
+
   incrementRequest(): void {
     this.requestCount++;
   }
-  
+
   incrementError(): void {
     this.errorCount++;
   }
-  
+
   recordRequest(path: string, method: string, duration: number, status: number): void {
     this.totalResponseTime += duration;
-    
+
     // Track slow requests (>1000ms)
     if (duration > 1000) {
       this.slowRequests++;
     }
-    
+
     // Track per-endpoint metrics
     const endpointKey = `${method} ${path}`;
     const existing = this.endpoints.get(endpointKey) || { count: 0, totalTime: 0, errors: 0 };
@@ -47,7 +47,7 @@ export class PerformanceMonitor {
       existing.errors++;
     }
     this.endpoints.set(endpointKey, existing);
-    
+
     // Store recent request (keep last 100)
     this.recentRequests.push({
       timestamp: Date.now(),
@@ -56,16 +56,16 @@ export class PerformanceMonitor {
       duration,
       status
     });
-    
+
     if (this.recentRequests.length > 100) {
       this.recentRequests.shift();
     }
   }
-  
+
   getMetrics() {
     const uptime = Date.now() - this.startTime;
     const avgResponseTime = this.requestCount > 0 ? this.totalResponseTime / this.requestCount : 0;
-    
+
     return {
       // Basic metrics
       uptime: this.formatUptime(uptime),
@@ -75,24 +75,24 @@ export class PerformanceMonitor {
       successRate: this.requestCount > 0 
         ? ((this.requestCount - this.errorCount) / this.requestCount * 100).toFixed(2) + '%'
         : '100%',
-      
+
       // Performance metrics
       averageResponseTime: Math.round(avgResponseTime) + 'ms',
       slowRequests: this.slowRequests,
       slowRequestRate: this.requestCount > 0 
         ? ((this.slowRequests / this.requestCount) * 100).toFixed(2) + '%'
         : '0%',
-      
+
       // System metrics
       memory: this.getMemoryUsage(),
       timestamp: new Date().toISOString(),
-      
+
       // Endpoint analytics
       topEndpoints: this.getTopEndpoints(),
       recentActivity: this.getRecentActivity()
     };
   }
-  
+
   getDetailedMetrics() {
     return {
       ...this.getMetrics(),
@@ -106,19 +106,19 @@ export class PerformanceMonitor {
       systemInfo: this.getSystemInfo()
     };
   }
-  
+
   private formatUptime(ms: number): string {
     const seconds = Math.floor(ms / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    
+
     if (days > 0) return `${days}d ${hours % 24}h ${minutes % 60}m`;
     if (hours > 0) return `${hours}h ${minutes % 60}m ${seconds % 60}s`;
     if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
     return `${seconds}s`;
   }
-  
+
   private getMemoryUsage() {
     try {
       const memory = Deno.memoryUsage();
@@ -141,14 +141,14 @@ export class PerformanceMonitor {
       };
     }
   }
-  
+
   private formatBytes(bytes: number): string {
     const sizes = ['B', 'KB', 'MB', 'GB'];
     if (bytes === 0) return '0 B';
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
   }
-  
+
   private getTopEndpoints(limit: number = 5) {
     return Array.from(this.endpoints.entries())
       .sort(([,a], [,b]) => b.count - a.count)
@@ -160,7 +160,7 @@ export class PerformanceMonitor {
         errorRate: ((stats.errors / stats.count) * 100).toFixed(1)
       }));
   }
-  
+
   private getRecentActivity(limit: number = 10) {
     return this.recentRequests
       .slice(-limit)
@@ -172,7 +172,7 @@ export class PerformanceMonitor {
         statusClass: req.status >= 400 ? 'error' : req.status >= 300 ? 'warning' : 'success'
       }));
   }
-  
+
   private getSystemInfo() {
     return {
       deno: {
@@ -191,7 +191,7 @@ export class PerformanceMonitor {
       }
     };
   }
-  
+
   private startPeriodicCleanup(): void {
     // Clean up old data every 5 minutes
     setInterval(() => {
@@ -199,12 +199,12 @@ export class PerformanceMonitor {
       this.recentRequests = this.recentRequests.filter(req => req.timestamp > fiveMinutesAgo);
     }, 5 * 60 * 1000);
   }
-  
+
   // Performance analysis methods
   getPerformanceInsights() {
     const metrics = this.getMetrics();
     const insights = [];
-    
+
     // Analyze response time
     const avgTime = parseInt(metrics.averageResponseTime);
     if (avgTime > 500) {
@@ -214,7 +214,7 @@ export class PerformanceMonitor {
         suggestion: 'Review slow endpoints and implement caching'
       });
     }
-    
+
     // Analyze error rate
     const errorRate = parseFloat(metrics.successRate.replace('%', ''));
     if (errorRate < 95) {
@@ -224,7 +224,7 @@ export class PerformanceMonitor {
         suggestion: 'Review error logs and improve error handling'
       });
     }
-    
+
     // Analyze memory usage
     const memoryUtil = parseFloat(metrics.memory.utilization?.replace('%', '') || '0');
     if (memoryUtil > 80) {
@@ -234,7 +234,7 @@ export class PerformanceMonitor {
         suggestion: 'Review memory usage and implement cleanup routines'
       });
     }
-    
+
     // Analyze slow requests
     const slowRate = parseFloat(metrics.slowRequestRate.replace('%', ''));
     if (slowRate > 5) {
@@ -244,7 +244,7 @@ export class PerformanceMonitor {
         suggestion: 'Identify and optimize slow endpoints'
       });
     }
-    
+
     return {
       insights,
       overallHealth: insights.length === 0 ? 'excellent' : 
@@ -257,6 +257,11 @@ export class PerformanceMonitor {
 // 🔄 PERFORMANCE MIDDLEWARE FACTORY
 // ================================================================================
 
+// Simple UUID generator for Deno
+function generateRequestId(): string {
+  return Math.random().toString(36).substring(2, 8) + Date.now().toString(36);
+}
+
 export function createPerformanceMiddleware(
   monitor: PerformanceMonitor, 
   isDevelopment: boolean = false
@@ -264,28 +269,28 @@ export function createPerformanceMiddleware(
   return async (ctx: any, next: () => Promise<unknown>) => {
     const start = Date.now();
     monitor.incrementRequest();
-    
+
     // Generate unique request ID for tracking
-    const requestId = crypto.randomUUID().split('-')[0];
+    const requestId = generateRequestId();
     ctx.state.requestId = requestId;
     ctx.state.startTime = start;
-    
+
     try {
       await next();
-      
+
       const responseTime = Date.now() - start;
       const method = ctx.request.method;
       const path = ctx.request.url.pathname;
       const status = ctx.response.status;
-      
+
       // Record request metrics
       monitor.recordRequest(path, method, responseTime, status);
-      
+
       // Add performance headers
       ctx.response.headers.set('X-Response-Time', `${responseTime}ms`);
       ctx.response.headers.set('X-Request-ID', requestId);
       ctx.response.headers.set('X-Server-Timing', `total;dur=${responseTime}`);
-      
+
       // Development logging
       if (isDevelopment) {
         const statusColor = status >= 400 ? '\x1b[31m' : status >= 300 ? '\x1b[33m' : '\x1b[32m';
@@ -293,17 +298,17 @@ export function createPerformanceMiddleware(
         console.log(
           `🔍 ${statusColor}${method} ${path} - ${status} (${responseTime}ms) [${requestId}]${resetColor}`
         );
-        
+
         // Warn about slow requests
         if (responseTime > 1000) {
           console.log(`⚠️  Slow request detected: ${responseTime}ms for ${method} ${path}`);
         }
       }
-      
+
     } catch (error) {
       monitor.incrementError();
       const responseTime = Date.now() - start;
-      
+
       // Record failed request
       monitor.recordRequest(
         ctx.request.url.pathname, 
@@ -311,7 +316,7 @@ export function createPerformanceMiddleware(
         responseTime, 
         500
       );
-      
+
       console.error(`❌ Request failed [${requestId}] after ${responseTime}ms: ${error.message}`);
       throw error;
     }
@@ -325,33 +330,33 @@ export function createPerformanceMiddleware(
 export class PerformanceAnalyzer {
   static analyzeEndpointPerformance(monitor: PerformanceMonitor) {
     const metrics = monitor.getDetailedMetrics();
-    
+
     return {
       slowestEndpoints: metrics.endpoints
         .sort((a, b) => parseInt(b.avgResponseTime) - parseInt(a.avgResponseTime))
         .slice(0, 5),
-      
+
       errorProneEndpoints: metrics.endpoints
         .filter(e => parseFloat(e.errorRate) > 0)
         .sort((a, b) => parseFloat(b.errorRate) - parseFloat(a.errorRate))
         .slice(0, 5),
-      
+
       popularEndpoints: metrics.endpoints
         .sort((a, b) => b.requests - a.requests)
         .slice(0, 5),
-      
+
       recommendations: this.generateRecommendations(metrics)
     };
   }
-  
+
   private static generateRecommendations(metrics: any) {
     const recommendations = [];
-    
+
     // Check for endpoints that could benefit from caching
     const highTrafficEndpoints = metrics.endpoints
       .filter((e: any) => e.requests > 100 && e.endpoint.startsWith('GET'))
       .sort((a: any, b: any) => b.requests - a.requests);
-    
+
     if (highTrafficEndpoints.length > 0) {
       recommendations.push({
         type: 'caching',
@@ -359,11 +364,11 @@ export class PerformanceAnalyzer {
         endpoints: highTrafficEndpoints.slice(0, 3).map((e: any) => e.endpoint)
       });
     }
-    
+
     // Check for endpoints with high error rates
     const errorProneEndpoints = metrics.endpoints
       .filter((e: any) => parseFloat(e.errorRate) > 5);
-    
+
     if (errorProneEndpoints.length > 0) {
       recommendations.push({
         type: 'error-handling',
@@ -371,7 +376,7 @@ export class PerformanceAnalyzer {
         endpoints: errorProneEndpoints.map((e: any) => e.endpoint)
       });
     }
-    
+
     return recommendations;
   }
 }
