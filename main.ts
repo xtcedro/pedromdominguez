@@ -10,8 +10,11 @@ import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/pe
 // === STEP 2: SECURITY HEADERS ✅
 import { createSecurityMiddleware } from "./middleware/security.ts";
 
-// === STEP 3: ENHANCED LOGGING ===
+// === STEP 3: ENHANCED LOGGING ✅
 import { createLoggingMiddleware, Logger } from "./middleware/logging.ts";
+
+// === STEP 4: ERROR HANDLING ===
+import { createErrorMiddleware, ErrorHandler } from "./middleware/errorHandler.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -43,12 +46,21 @@ const monitor = new PerformanceMonitor();
 app.use(createPerformanceMiddleware(monitor, environment === 'development'));
 console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
 
+// === STEP 4: ERROR HANDLING (EARLY IN CHAIN) ===
+app.use(createErrorMiddleware({
+  environment: environment,
+  logErrors: true,
+  logToFile: environment === 'production',
+  showStackTrace: environment === 'development'
+}));
+console.log("\x1b[36m%s\x1b[0m", "🛡️ Error handling enabled");
+
 // === STEP 2: SECURITY HEADERS ✅
 app.use(createSecurityMiddleware({
   environment: environment,
   enableHSTS: environment === 'production',
   frameOptions: 'SAMEORIGIN',
-  contentSecurityPolicy: environment === 'production'
+  contentSecurityPolicy: environment === 'production' 
     ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
     : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
 }));
@@ -88,6 +100,7 @@ app.use(oakCors({
   origin: [
     "https://pedromdominguez.com",
     "http://localhost:3004",
+    "http://localhost:3000",
     "https://cdn.skypack.dev",
     "https://cdnjs.cloudflare.com",
     "https://cdn.jsdelivr.net",
