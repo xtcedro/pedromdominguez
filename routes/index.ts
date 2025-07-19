@@ -568,4 +568,44 @@ class RouteRegistry {
     RouteLogger.logSection('📈 Registration Complete');
     RouteLogger.logMetrics(this.metrics);
     
-    if (this.metrics.errors.l
+    if (this.metrics.errors.length === 0) {
+      RouteLogger.logSuccess(`All ${this.metrics.totalRoutes} routes registered successfully!`);
+    } else {
+      RouteLogger.logWarning(`${this.metrics.totalRoutes} routes registered with ${this.metrics.errors.length} errors`);
+    }
+  }
+  
+
+  
+  // Get the configured router instance
+  getRouter(): Router {
+    return this.router;
+  }
+  
+  // Get route registry metrics
+  getMetrics(): RegistryMetrics {
+    return { ...this.metrics };
+  }
+  
+  // Get all registered routes
+  getRoutes(): RouteConfig[] {
+    return [...this.routes];
+  }
+}
+
+// ================================================================================
+// 🎯 MAIN ROUTER INITIALIZATION & EXPORT
+// ================================================================================
+
+// Create and configure the enterprise router registry
+const registry = new RouteRegistry();
+
+// Initialize all routes
+await registry.registerAllRoutes();
+
+// Export the configured router for use in main application
+export default registry.getRouter();
+
+// Export additional utilities for monitoring and debugging
+export { RouteRegistry, RouteLogger };
+export type { RouteConfig, RegistryMetrics };
