@@ -154,52 +154,130 @@ export class StaticFileHandler {
     '.html', '.htm', '.css', '.js', '.mjs', '.json', '.xml', '.txt', '.md', '.svg'
   ]);
   
-  /**
-   * Create static file middleware with advanced features
-   */
   static createMiddleware(config: StaticFileConfig) {
-    return async (ctx: any, next: () => Promise<unknown>) => {
-      const filePath = ctx.request.url.pathname;
-      const extension = this.getFileExtension(filePath);
-      
-      // ================================================================================
-      // 🛡️ SECURITY VALIDATION
-      // ================================================================================
-      
-      // Check if file extension is allowed
-      if (!this.ALLOWED_EXTENSIONS.has(extension)) {
-        await next();
+  return async (ctx: any, next: () => Promise<unknown>) => {
+    const filePath = ctx.request.url.pathname;
+    const extension = this.getFileExtension(filePath);
+
+    // Security validation (unchanged)
+    if (!this.ALLOWED_EXTENSIONS.has(extension)) {
+      await next();
+      return;
+    }
+    if (!config.serveHidden && this.isHiddenFile(filePath)) {
+      await next();
+      return;
+    }
+    if (this.hasDirectoryTraversal(filePath)) {
+      console.warn(`🚨 Directory traversal attempt blocked: ${filePath}`);
+      ctx.response.status = 403;
+      ctx.response.body = 'Forbidden';
+      return;
+    }
+
+    try {
+      const stats = await this.getFileStats(config.root, filePath);
+
+      if (config.maxFileSize && stats && stats.size > config.maxFileSize) {
+        console.warn(`📏 File too large: ${filePath} (${stats.size} bytes)`);
+        ctx.response.status = 413;
+        ctx.response.body = 'File too large';
         return;
       }
-      
-      // Prevent access to hidden files unless explicitly allowed
-      if (!config.serveHidden && this.isHiddenFile(filePath)) {
-        await next();
-        return;
-      }
-      
-      // Prevent directory traversal attacks
-      if (this.hasDirectoryTraversal(filePath)) {
-        console.warn(`🚨 Directory traversal attempt blocked: ${filePath}`);
-        ctx.response.status = 403;
-        ctx.response.body = 'Forbidden';
-        return;
-      }
-      
-      try {
-        // ================================================================================
-        // 📁 FILE SERVING LOGIC
-        // ================================================================================
-        
-        const stats = await this.getFileStats(config.root, filePath);
-        
-        // Check file size limits
-        if (config.maxFileSize && stats && stats.size > config.maxFileSize) {
-          console.warn(`📏 File too large: ${filePath} (${stats.size} bytes)`);
-          ctx.response.status = 413;
-          ctx.response.body = 'File too large';
-          return;
+
+      // MIME type and headers (unchanged)
+      const mimeType = this.MIME_TYPES.get(extension) || 'application/octet-stream';
+      ctx.response.headers.set('Content-Type', mimeType);
+
+      if (config.enableCaching) {
+        const cacheConfig = this.CACHE_HEADERS.get(extension) || { maxAge: config.maxAge || 3600, public: true };
+        const cacheControlParts = [];
+        if (cacheConfig.public) cacheControlParts.push('public');
+        if (cacheConfig.maxAge) cacheControlParts.push(`max-age=${cacheConfig.maxAge}`);
+        if (cacheConfig.immutable) cacheControlParts.push('immutable');
+        ctx.response.headers.set('Cache-Control', cacheControlParts.join(', '));
+
+        if (config.enableEtag !== false && stats) {
+          const etag = await this.generateETag(stats, filePath);
+          ctx.response.headers.set('ETag', etag);
+          const ifNoneMatch = ctx.request.headers.get('If-None-Match');
+          if (ifNoneMatch === etag) {
+            ctx.response.status = 304;
+            return;
+          }
         }
+
+        if (stats && stats.mtime) {
+          const lastModified = stats.mtime.toUTCString();
+          ctx.response.headers.set('Last-Modified', lastModified);
+          const ifModifiedSince = ctx.request.headers.get('If-Modified-Since');
+          if (ifModifiedSince && new Date(ifModifiedSince) >= stats.mtime) {
+            ctx.response.status = 304;
+            return;
+          }
+        }
+      } else {
+        ctx.response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        ctx.response.headers.set('Pragma', 'no-cache');
+        ctx.response.headers.set('Expires', '0');
+      }
+
+      if (this.shouldCompress(extension, config)) {
+        const acceptEncoding = ctx.request.headers.get('Accept-Encoding') || '';
+        if (config.enableBrotli && acceptEncoding.includes('br')) {
+          ctx.response.headers.set('Content-Encoding', 'br');
+          ctx.response.headers.set('Vary', 'Accept-Encoding');
+        } else if (config.enableGzip !== false && acceptEncoding.includes('gzip')) {
+          ctx.response.headers.set('Content-Encoding', 'gzip');
+          ctx.response.headers.set('Vary', 'Accept-Encoding');
+        }
+      }
+
+      // Security headers (unchanged)
+      ctx.response.headers.set('X-Content-Type-Options', 'nosniff');
+      if (extension === '.html' || extension === '.htm') {
+        ctx.response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+        ctx.response.headers.set('X-XSS-Protection', '1; mode=block');
+      }
+      if (['.pdf', '.doc', '.docx', '.xls', '.xlsx'].includes(extension)) {
+        ctx.response.headers.set('X-Download-Options', 'noopen');
+        ctx.response.headers.set('Content-Disposition', 'attachment');
+      }
+
+      // Serve the file
+      await send(ctx, filePath, {
+        root: config.root,
+        index: config.indexFiles || ["index.html"],
+        hidden: config.serveHidden || false
+      });
+
+      if (ctx.state?.environment === 'development') {
+        console.log(`📁 Served static file: ${filePath} (${mimeType})`);
+      }
+      StaticFileAnalytics.trackRequest(filePath, stats?.size || 0);
+      return;
+
+    } catch (error) {
+      if (error.name === 'NotFound' && config.fallbackFile) {
+        try {
+          await send(ctx, config.fallbackFile, { root: config.root });
+          ctx.response.headers.set('Content-Type', 'text/html; charset=utf-8');
+          ctx.response.headers.set('Cache-Control', 'no-cache');
+          return;
+        } catch (fallbackError) {
+          console.error(`❌ Fallback file serving failed: ${fallbackError.message}`);
+        }
+      }
+
+      // Only call next if response is still writable
+      if (ctx.response.writable) {
+        await next();
+      } else {
+        console.warn(`⚠️ Response not writable for ${filePath}, skipping to next handler`);
+      }
+    }
+  };
+}
         
         // ================================================================================
         // 🎯 MIME TYPE AND HEADERS
