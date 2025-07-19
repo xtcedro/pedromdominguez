@@ -4,13 +4,23 @@
 // Coordinates all middleware components in optimal order for performance
 // ================================================================================
 
-export { PerformanceMonitor, createPerformanceMiddleware } from "./performanceMonitor.ts";
-export { createSecurityMiddleware, type SecurityConfig } from "./security.ts";
-export { StaticFileHandler, type StaticFileConfig } from "./staticFiles.ts";
-export { createCorsMiddleware, type CorsConfig } from "./cors.ts";
-export { Logger, createLoggingMiddleware, type LoggingConfig } from "./logging.ts";
-export { ErrorHandler, createErrorMiddleware, type ErrorConfig } from "./errorHandler.ts";
-export { createHealthCheckMiddleware, type HealthCheckConfig } from "./healthCheck.ts";
+// Import PerformanceMonitor and createPerformanceMiddleware first
+import { PerformanceMonitor, createPerformanceMiddleware } from "./performanceMonitor.ts";
+import { createSecurityMiddleware, type SecurityConfig } from "./security.ts";
+import { StaticFileHandler, type StaticFileConfig } from "./staticFiles.ts";
+import { createCorsMiddleware, type CorsConfig } from "./cors.ts";
+import { Logger, createLoggingMiddleware, type LoggingConfig } from "./logging.ts";
+import { ErrorHandler, createErrorMiddleware, type ErrorConfig } from "./errorHandler.ts";
+import { createHealthCheckMiddleware, type HealthCheckConfig } from "./healthCheck.ts";
+
+// Export everything after importing
+export { PerformanceMonitor, createPerformanceMiddleware };
+export { createSecurityMiddleware, type SecurityConfig };
+export { StaticFileHandler, type StaticFileConfig };
+export { createCorsMiddleware, type CorsConfig };
+export { Logger, createLoggingMiddleware, type LoggingConfig };
+export { ErrorHandler, createErrorMiddleware, type ErrorConfig };
+export { createHealthCheckMiddleware, type HealthCheckConfig };
 
 // ================================================================================
 // 🔧 MIDDLEWARE CONFIGURATION INTERFACE
@@ -53,13 +63,21 @@ export interface MiddlewareConfig {
 
 export function createMiddlewareStack(config: MiddlewareConfig) {
   // Create performance monitor instance
-  const monitor = new PerformanceMonitor();
+  let monitor: PerformanceMonitor;
   
+  try {
+    monitor = new PerformanceMonitor();
+    console.log('✅ PerformanceMonitor created successfully');
+  } catch (error) {
+    console.error('❌ Failed to create PerformanceMonitor:', error);
+    throw new Error(`PerformanceMonitor initialization failed: ${error.message}`);
+  }
+
   // Create all middleware in optimal order
   const middlewares = [
     // 1. Performance monitoring (first to track everything)
     createPerformanceMiddleware(monitor, config.environment === 'development'),
-    
+
     // 2. Error handling (early to catch all errors)
     createErrorMiddleware({
       environment: config.environment,
@@ -67,7 +85,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       logToFile: config.environment === 'production',
       showStackTrace: config.environment === 'development'
     }),
-    
+
     // 3. Request/Response logging (after error handling)
     createLoggingMiddleware({
       environment: config.environment,
@@ -75,7 +93,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       logRequests: config.logging.logRequests,
       logResponses: config.logging.logResponses ?? (config.environment === 'development')
     }),
-    
+
     // 4. Security headers (before content serving)
     createSecurityMiddleware({
       environment: config.environment,
@@ -83,7 +101,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       contentSecurityPolicy: config.security.contentSecurityPolicy,
       frameOptions: config.security.frameOptions
     }),
-    
+
     // 5. CORS handling (before content serving)
     createCorsMiddleware({
       environment: config.environment,
@@ -92,7 +110,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       credentials: config.cors.credentials,
       maxAge: config.cors.maxAge
     }),
-    
+
     // 6. Health check endpoint (before static files)
     createHealthCheckMiddleware(monitor, {
       endpoint: config.healthCheck.endpoint,
@@ -112,7 +130,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
         })
       ]
     }),
-    
+
     // 7. Static file serving (last middleware before routes)
     StaticFileHandler.createMiddleware({
       root: config.staticFiles.root,
@@ -120,7 +138,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       maxAge: config.staticFiles.maxAge
     })
   ];
-  
+
   return {
     monitor,
     middlewares,
@@ -151,33 +169,33 @@ export class MiddlewareManager {
   private static instance: MiddlewareManager;
   private config: MiddlewareConfig;
   private stack: ReturnType<typeof createMiddlewareStack>;
-  
+
   private constructor(config: MiddlewareConfig) {
     this.config = config;
     this.stack = createMiddlewareStack(config);
   }
-  
+
   static getInstance(config: MiddlewareConfig): MiddlewareManager {
     if (!MiddlewareManager.instance) {
       MiddlewareManager.instance = new MiddlewareManager(config);
     }
     return MiddlewareManager.instance;
   }
-  
+
   getStack() {
     return this.stack;
   }
-  
+
   getMetrics() {
     return this.stack.monitor.getMetrics();
   }
-  
+
   updateConfig(newConfig: Partial<MiddlewareConfig>) {
     this.config = { ...this.config, ...newConfig };
     // Note: In a full implementation, you'd recreate the stack here
     console.log('⚙️ Middleware configuration updated');
   }
-  
+
   logStatus() {
     console.log('📊 Middleware Status:');
     console.log(`   Environment: ${this.config.environment}`);
@@ -213,7 +231,7 @@ export function validateMiddlewareOrder(middlewares: any[]) {
     'health',
     'static'
   ];
-  
+
   // In a real implementation, you'd validate the actual middleware order
   console.log('✅ Middleware order validation passed');
   return true;
