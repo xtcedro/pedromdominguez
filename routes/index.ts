@@ -248,8 +248,6 @@ class RouteRegistry {
     RouteLogger.printHeader();
     RouteLogger.logSection('🏠 Core Routes');
 
-    // Register homepage
-    this.registerHomepage();
 
     RouteLogger.logSection('🔐 API Routes');
 
