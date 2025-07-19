@@ -175,7 +175,7 @@ class RouteRegistry {
           // Try to serve the homepage file
           try {
             await send(ctx, "index.html", {
-              root: `${Deno.cwd()}/public/pages/home/index.html`,
+              root: `${Deno.cwd()}../public/pages/home/index.html`,
               index: "index.html",
             });
           } catch (fileError) {
