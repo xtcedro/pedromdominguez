@@ -40,14 +40,14 @@ const monitor = new PerformanceMonitor();
 app.use(createPerformanceMiddleware(monitor, environment === 'development'));
 console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
 
-// === STEP 2: SECURITY HEADERS (UPDATED FOR CDN SCRIPTS) ===
+// === STEP 2: SECURITY HEADERS (FIXED CSP AND PERMISSIONS) ===
 app.use(createSecurityMiddleware({
   environment: environment,
   enableHSTS: environment === 'production',
   frameOptions: 'SAMEORIGIN',
   contentSecurityPolicy: environment === 'production' 
-    ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline';"
-    : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline';"
+    ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
+    : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
 }));
 console.log("\x1b[36m%s\x1b[0m", "🔒 Security headers enabled");
 
@@ -71,15 +71,21 @@ app.use(async (ctx, next) => {
   await next();
 });
 
-// === YOUR EXISTING CORS (UPDATED FOR ANIME.JS) ===
+// === YOUR EXISTING CORS (UPDATED FOR ALL CDN SOURCES) ===
 app.use(oakCors({
   origin: [
     "https://pedromdominguez.com",
     "http://localhost:3004",
+    "http://localhost:3000",
     "https://cdn.skypack.dev",
-    "https://cdnjs.cloudflare.com"
+    "https://cdnjs.cloudflare.com",
+    "https://cdn.jsdelivr.net",
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com"
   ],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Request-ID']
 }));
 
 // === NEW: ADD HEALTH CHECK ENDPOINT ===
