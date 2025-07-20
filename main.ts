@@ -31,7 +31,7 @@ console.log("\x1b[33m%s\x1b[0m", "⚡  Bringing AI, automation, and full-stack i
 console.log("\x1b[32m%s\x1b[0m", "🛠️  This is DenoGenesis — born from purpose, built with precision.");
 console.log("\x1b[36m%s\x1b[0m", "✨ Let's rebuild the web — together.\n");
 
-// === STEP 7: COMPLETE MIDDLEWARE ORCHESTRATION ===
+// === STEP 7: SIMPLIFIED MIDDLEWARE ORCHESTRATION ===
 const middlewareConfig: MiddlewareConfig = {
   environment,
   port,
@@ -77,11 +77,11 @@ const middlewareConfig: MiddlewareConfig = {
   }
 };
 
-// Create the complete middleware stack
+// Create the simplified middleware stack (no static files middleware)
 const { monitor, middlewares } = createMiddlewareStack(middlewareConfig);
 
-// Apply all middleware in optimal order
-console.log("\x1b[35m%s\x1b[0m", "🔧 Initializing Complete Middleware Stack...");
+// Apply core middleware in optimal order
+console.log("\x1b[35m%s\x1b[0m", "🔧 Initializing Simplified Middleware Stack...");
 middlewares.forEach((middleware, index) => {
   app.use(middleware);
 });
@@ -92,15 +92,74 @@ const middlewareNames = [
   "Request Logger", 
   "Security Headers",
   "CORS Handler",
-  "Health Check",
-  "Static File Server"
+  "Health Check"
 ];
 
 middlewareNames.forEach((name, index) => {
   console.log("\x1b[36m%s\x1b[0m", `✅ ${index + 1}. ${name}`);
 });
 
-console.log("\x1b[32m%s\x1b[0m", "🚀 Complete middleware orchestration enabled!");
+console.log("\x1b[32m%s\x1b[0m", "🚀 Simplified middleware orchestration enabled!");
+
+// === ENHANCED STATIC FILE MIDDLEWARE WITH PROPER MIME TYPES ===
+app.use(async (ctx, next) => {
+  const filePath = ctx.request.url.pathname;
+  const fileWhitelist = [".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".ttf", ".woff2", ".html"];
+
+  if (fileWhitelist.some(ext => filePath.endsWith(ext))) {
+    try {
+      // Set proper MIME types BEFORE sending the file
+      const extension = filePath.substring(filePath.lastIndexOf('.')).toLowerCase();
+      
+      switch (extension) {
+        case '.css':
+          ctx.response.headers.set('Content-Type', 'text/css; charset=utf-8');
+          break;
+        case '.js':
+          ctx.response.headers.set('Content-Type', 'application/javascript; charset=utf-8');
+          break;
+        case '.png':
+          ctx.response.headers.set('Content-Type', 'image/png');
+          break;
+        case '.jpg':
+        case '.jpeg':
+          ctx.response.headers.set('Content-Type', 'image/jpeg');
+          break;
+        case '.webp':
+          ctx.response.headers.set('Content-Type', 'image/webp');
+          break;
+        case '.svg':
+          ctx.response.headers.set('Content-Type', 'image/svg+xml');
+          break;
+        case '.ico':
+          ctx.response.headers.set('Content-Type', 'image/x-icon');
+          break;
+        case '.ttf':
+          ctx.response.headers.set('Content-Type', 'font/ttf');
+          break;
+        case '.woff2':
+          ctx.response.headers.set('Content-Type', 'font/woff2');
+          break;
+        case '.html':
+          ctx.response.headers.set('Content-Type', 'text/html; charset=utf-8');
+          break;
+        default:
+          ctx.response.headers.set('Content-Type', 'application/octet-stream');
+      }
+
+      await send(ctx, filePath, {
+        root: `${Deno.cwd()}/public`,
+        index: "index.html",
+      });
+      return;
+    } catch {
+      // Let it fall through to 404
+    }
+  }
+
+  await next();
+});
+console.log("\x1b[36m%s\x1b[0m", "📁 Enhanced static file handler with proper MIME types enabled");
 
 // === YOUR EXISTING WEBSOCKET ROUTES (UNCHANGED) ===
 app.use(wsRouter.routes());
@@ -122,7 +181,7 @@ app.use(async (ctx) => {
 // === STARTUP COMPLETION & METRICS ===
 console.log("\x1b[32m%s\x1b[0m", `⚙️  DenoGenesis server is now running on http://localhost:${port}`);
 console.log("\x1b[36m%s\x1b[0m", `🏥 Health check available at: http://localhost:${port}/health`);
-console.log("\x1b[33m%s\x1b[0m", `📊 Complete middleware orchestration active`);
+console.log("\x1b[33m%s\x1b[0m", `📊 Simplified middleware stack: Performance → Error → Security → Logging → CORS → Health → Static → Routes`);
 
 // Create middleware manager instance
 const middlewareManager = MiddlewareManager.getInstance(middlewareConfig);
