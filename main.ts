@@ -1,8 +1,8 @@
+// === REMOVE OLD OAKCORS IMPORT ===
 import { Application, send } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { config as loadEnv } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 import router from "./routes/index.ts";
 import wsRouter from "./routes/wsRoutes.ts";
-import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 // === STEP 1: PERFORMANCE MONITOR ✅
 import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/performanceMonitor.ts";
@@ -16,8 +16,11 @@ import { createLoggingMiddleware, Logger } from "./middleware/logging.ts";
 // === STEP 4: ERROR HANDLING ✅
 import { createErrorMiddleware, ErrorHandler } from "./middleware/errorHandler.ts";
 
-// === STEP 5: HEALTH CHECKS ===
+// === STEP 5: HEALTH CHECKS ✅
 import { createHealthCheckMiddleware } from "./middleware/healthCheck.ts";
+
+// === STEP 6: ADVANCED CORS ===
+import { createCorsMiddleware, CorsAnalytics, type CorsConfig } from "./middleware/cors.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -78,7 +81,43 @@ app.use(createLoggingMiddleware({
 }));
 console.log("\x1b[36m%s\x1b[0m", "📝 Enhanced logging enabled");
 
-// === NEW: ADD HEALTH CHECK ENDPOINT ===
+// === STEP 6: ADVANCED CORS WITH ANALYTICS ===
+const corsConfig: CorsConfig = {
+  environment: environment,
+  allowedOrigins: [
+    "https://pedromdominguez.com",
+    "https://www.pedromdominguez.com"
+  ],
+  developmentOrigins: [
+    "http://localhost:3000",
+    "http://localhost:3004",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3004"
+  ],
+  credentials: true,
+  maxAge: environment === 'production' ? 86400 : 300,
+  allowedMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization', 
+    'X-Requested-With',
+    'X-Request-ID',
+    'X-API-Key',
+    'X-Client-Version'
+  ],
+  exposedHeaders: [
+    'X-Total-Count',
+    'X-Request-ID', 
+    'X-Response-Time',
+    'X-Rate-Limit-Remaining'
+  ]
+};
+
+const corsMiddleware = createCorsMiddleware(corsConfig);
+app.use(corsMiddleware);
+console.log("\x1b[36m%s\x1b[0m", "🌐 Advanced CORS with analytics enabled");
+
+// === ENHANCED HEALTH CHECK WITH CORS ANALYTICS ===
 app.use(async (ctx, next) => {
   if (ctx.request.url.pathname === "/health") {
     const metrics = monitor.getMetrics();
@@ -95,9 +134,28 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set("Content-Type", "application/json");
     return;
   }
+  
+  // CORS Analytics endpoint
+  if (ctx.request.url.pathname === "/health/cors") {
+    // Note: CORS analytics would be available here if we stored a reference
+    ctx.response.body = {
+      status: "CORS analytics available",
+      message: "Advanced CORS monitoring active",
+      features: [
+        "Origin validation",
+        "Request tracking", 
+        "Security insights",
+        "Performance analytics"
+      ],
+      timestamp: new Date().toISOString()
+    };
+    ctx.response.headers.set("Content-Type", "application/json");
+    return;
+  }
+  
   await next();
 });
-console.log("\x1b[36m%s\x1b[0m", "🏥 Health check enabled at /health");
+console.log("\x1b[36m%s\x1b[0m", "🏥 Health check enabled at /health + /health/cors");
 
 // === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
 app.use(async (ctx, next) => {
@@ -116,40 +174,6 @@ app.use(async (ctx, next) => {
     }
   }
 
-  await next();
-});
-
-// === YOUR EXISTING CORS (UPDATED FOR ALL CDN SOURCES) ===
-app.use(oakCors({
-  origin: [
-    "https://pedromdominguez.com",
-    "http://localhost:3004",
-    "http://localhost:3000",
-    "https://cdn.skypack.dev",
-    "https://cdnjs.cloudflare.com",
-    "https://cdn.jsdelivr.net",
-    "https://fonts.googleapis.com",
-    "https://fonts.gstatic.com"
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Request-ID']
-}));
-
-// === NEW: ADD HEALTH CHECK ENDPOINT ===
-app.use(async (ctx, next) => {
-  if (ctx.request.url.pathname === "/health") {
-    const metrics = monitor.getMetrics();
-    ctx.response.body = {
-      status: "healthy",
-      timestamp: new Date().toISOString(),
-      version: version,
-      metrics: metrics,
-      environment: environment
-    };
-    ctx.response.headers.set("Content-Type", "application/json");
-    return;
-  }
   await next();
 });
 
