@@ -7,7 +7,7 @@
 // Import PerformanceMonitor and createPerformanceMiddleware first
 import { PerformanceMonitor, createPerformanceMiddleware } from "./performanceMonitor.ts";
 import { createSecurityMiddleware, type SecurityConfig } from "./security.ts";
-import { StaticFileHandler, type StaticFileConfig } from "./staticFiles.ts";
+// import { StaticFileHandler, type StaticFileConfig } from "./staticFiles.ts"; // COMMENTED OUT - USING SIMPLE STATIC HANDLER
 // import { createCorsMiddleware, type CorsConfig } from "./cors.ts"; // COMMENTED OUT - USING SIMPLE CORS
 import { Logger, createLoggingMiddleware, type LoggingConfig } from "./logging.ts";
 import { ErrorHandler, createErrorMiddleware, type ErrorConfig } from "./errorHandler.ts";
@@ -17,7 +17,7 @@ import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 // Export everything after importing
 export { PerformanceMonitor, createPerformanceMiddleware };
 export { createSecurityMiddleware, type SecurityConfig };
-export { StaticFileHandler, type StaticFileConfig };
+// export { StaticFileHandler, type StaticFileConfig }; // COMMENTED OUT
 // export { createCorsMiddleware, type CorsConfig }; // COMMENTED OUT
 export { Logger, createLoggingMiddleware, type LoggingConfig };
 export { ErrorHandler, createErrorMiddleware, type ErrorConfig };
@@ -80,7 +80,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
     allOrigins.push(...config.cors.developmentOrigins);
   }
 
-  // Create all middleware in optimal order
+  // Create all middleware in optimal order (EXCLUDING STATIC FILES FOR NOW)
   const middlewares = [
     // 1. Performance monitoring (first to track everything)
     createPerformanceMiddleware(monitor, config.environment === 'development'),
@@ -118,7 +118,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       maxAge: config.cors.maxAge ?? (config.environment === 'production' ? 86400 : 300)
     }),
 
-    // 6. Health check endpoint (before static files)
+    // 6. Health check endpoint
     createHealthCheckMiddleware(monitor, {
       endpoint: config.healthCheck.endpoint,
       includeMetrics: config.healthCheck.includeMetrics,
@@ -136,14 +136,14 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
           details: { writeable: true, space: 'sufficient' }
         })
       ]
-    }),
-
-    // 7. Static file serving (last middleware before routes)
-    StaticFileHandler.createMiddleware({
-      root: config.staticFiles.root,
-      enableCaching: config.staticFiles.enableCaching,
-      maxAge: config.staticFiles.maxAge
     })
+
+    // 7. Static file serving - COMMENTED OUT FOR NOW
+    // StaticFileHandler.createMiddleware({
+    //   root: config.staticFiles.root,
+    //   enableCaching: config.staticFiles.enableCaching,
+    //   maxAge: config.staticFiles.maxAge
+    // })
   ];
 
   return {
@@ -160,8 +160,8 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
         '3. Request Logging',
         '4. Security Headers',
         '5. CORS Configuration (Simple)',
-        '6. Health Check',
-        '7. Static File Serving'
+        '6. Health Check'
+        // '7. Static File Serving' // COMMENTED OUT
       ];
       middlewareNames.forEach(name => console.log(`   ${name}`));
     }
@@ -235,8 +235,8 @@ export function validateMiddlewareOrder(middlewares: any[]) {
     'logging', 
     'security',
     'cors',
-    'health',
-    'static'
+    'health'
+    // 'static' // COMMENTED OUT
   ];
 
   // In a real implementation, you'd validate the actual middleware order
@@ -250,7 +250,7 @@ export function validateMiddlewareOrder(middlewares: any[]) {
 
 export type { 
   SecurityConfig,
-  StaticFileConfig, 
+  // StaticFileConfig, // COMMENTED OUT
   // CorsConfig, // COMMENTED OUT
   LoggingConfig,
   ErrorConfig,
