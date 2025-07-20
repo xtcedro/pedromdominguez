@@ -1,10 +1,27 @@
+// === REMOVE OLD OAKCORS IMPORT ===
 import { Application, send } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { config as loadEnv } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 import router from "./routes/index.ts";
 import wsRouter from "./routes/wsRoutes.ts";
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
-// === STEP 7: FULL MIDDLEWARE ORCHESTRATOR ===
-import { createMiddlewareStack, MiddlewareManager, type MiddlewareConfig } from "./middleware/index.ts";
+// === STEP 1: PERFORMANCE MONITOR ✅
+import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/performanceMonitor.ts";
+
+// === STEP 2: SECURITY HEADERS ✅
+import { createSecurityMiddleware } from "./middleware/security.ts";
+
+// === STEP 3: ENHANCED LOGGING ✅
+import { createLoggingMiddleware, Logger } from "./middleware/logging.ts";
+
+// === STEP 4: ERROR HANDLING ✅
+import { createErrorMiddleware, ErrorHandler } from "./middleware/errorHandler.ts";
+
+// === STEP 5: HEALTH CHECKS ✅
+import { createHealthCheckMiddleware } from "./middleware/healthCheck.ts";
+
+// === STEP 6: ADVANCED CORS ===
+// import { createCorsMiddleware, CorsAnalytics, type CorsConfig } from "./middleware/cors.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -31,76 +48,101 @@ console.log("\x1b[33m%s\x1b[0m", "⚡  Bringing AI, automation, and full-stack i
 console.log("\x1b[32m%s\x1b[0m", "🛠️  This is DenoGenesis — born from purpose, built with precision.");
 console.log("\x1b[36m%s\x1b[0m", "✨ Let's rebuild the web — together.\n");
 
-// === STEP 7: COMPLETE MIDDLEWARE ORCHESTRATION ===
-const middlewareConfig: MiddlewareConfig = {
-  environment,
-  port,
-  staticFiles: {
-    root: `${Deno.cwd()}/public`,
-    enableCaching: environment === 'production',
-    maxAge: environment === 'production' ? 86400 : 300
-  },
-  cors: {
-    allowedOrigins: [
-      "https://pedromdominguez.com",
-      "https://www.pedromdominguez.com"
-    ],
-    developmentOrigins: [
-      "http://localhost:3000",
-      "http://localhost:3004", 
-      "http://127.0.0.1:3000",
-      "https://cdn.skypack.dev",
-      "https://cdnjs.cloudflare.com",
-      "https://cdn.jsdelivr.net",
-      "https://fonts.googleapis.com",
-      "https://fonts.gstatic.com"
-    ],
-    credentials: true,
-    maxAge: environment === 'production' ? 86400 : 300
-  },
-  security: {
-    enableHSTS: environment === 'production',
-    contentSecurityPolicy: environment === 'production' 
-      ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
-      : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';",
-    frameOptions: 'SAMEORIGIN'
-  },
-  logging: {
-    logLevel: environment === 'development' ? 'debug' : 'info',
-    logRequests: true,
-    logResponses: environment === 'development'
-  },
-  healthCheck: {
-    endpoint: '/health',
-    includeMetrics: true,
-    includeEnvironment: true
+// === STEP 1: PERFORMANCE MONITORING ✅
+const monitor = new PerformanceMonitor();
+app.use(createPerformanceMiddleware(monitor, environment === 'development'));
+console.log("\x1b[36m%s\x1b[0m", "📊 Performance monitoring enabled");
+
+// === STEP 4: ERROR HANDLING (EARLY IN CHAIN) ===
+app.use(createErrorMiddleware({
+  environment: environment,
+  logErrors: true,
+  logToFile: environment === 'production',
+  showStackTrace: environment === 'development'
+}));
+console.log("\x1b[36m%s\x1b[0m", "🛡️ Error handling enabled");
+
+// === STEP 2: SECURITY HEADERS ✅
+app.use(createSecurityMiddleware({
+  environment: environment,
+  enableHSTS: environment === 'production',
+  frameOptions: 'SAMEORIGIN',
+  contentSecurityPolicy: environment === 'production' 
+    ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
+    : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
+}));
+console.log("\x1b[36m%s\x1b[0m", "🔒 Security headers enabled");
+
+// === STEP 3: ENHANCED LOGGING ===
+app.use(createLoggingMiddleware({
+  environment: environment,
+  logLevel: environment === 'development' ? 'debug' : 'info',
+  logRequests: true,
+  logResponses: environment === 'development'
+}));
+console.log("\x1b[36m%s\x1b[0m", "📝 Enhanced logging enabled");
+
+// === STEP 6: SIMPLE CORS (REVERT TO WORKING VERSION) ===
+app.use(oakCors({
+  origin: [
+    "https://pedromdominguez.com",
+    "https://www.pedromdominguez.com",
+    "http://localhost:3000",
+    "http://localhost:3004",
+    "http://127.0.0.1:3000",
+    "https://cdn.skypack.dev",
+    "https://cdnjs.cloudflare.com",
+    "https://cdn.jsdelivr.net",
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com"
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Request-ID']
+}));
+console.log("\x1b[36m%s\x1b[0m", "🌐 CORS enabled (simple & stable)");
+
+// === SIMPLE HEALTH CHECK (NO CORS ANALYTICS) ===
+app.use(async (ctx, next) => {
+  if (ctx.request.url.pathname === "/health") {
+    const metrics = monitor.getMetrics();
+    ctx.response.body = {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      version: version,
+      metrics: metrics,
+      environment: environment,
+      framework: "DenoGenesis",
+      author: "Pedro M. Dominguez",
+      location: "Oklahoma City, OK"
+    };
+    ctx.response.headers.set("Content-Type", "application/json");
+    return;
   }
-};
-
-// Create the complete middleware stack
-const { monitor, middlewares } = createMiddlewareStack(middlewareConfig);
-
-// Apply all middleware in optimal order
-console.log("\x1b[35m%s\x1b[0m", "🔧 Initializing Complete Middleware Stack...");
-middlewares.forEach((middleware, index) => {
-  app.use(middleware);
+  
+  await next();
 });
+console.log("\x1b[36m%s\x1b[0m", "🏥 Health check enabled at /health");
 
-const middlewareNames = [
-  "Performance Monitor",
-  "Error Handler",
-  "Request Logger", 
-  "Security Headers",
-  "CORS Handler",
-  "Health Check",
-  "Static File Server"
-];
+// === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
+app.use(async (ctx, next) => {
+  const filePath = ctx.request.url.pathname;
+  const fileWhitelist = [".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".ttf", ".woff2", ".html"];
 
-middlewareNames.forEach((name, index) => {
-  console.log("\x1b[36m%s\x1b[0m", `✅ ${index + 1}. ${name}`);
+  if (fileWhitelist.some(ext => filePath.endsWith(ext))) {
+    try {
+      await send(ctx, filePath, {
+        root: `${Deno.cwd()}/public`,
+        index: "index.html",
+      });
+      return;
+    } catch {
+      // Let it fall through to 404
+    }
+  }
+
+  await next();
 });
-
-console.log("\x1b[32m%s\x1b[0m", "🚀 Complete middleware orchestration enabled!");
 
 // === YOUR EXISTING WEBSOCKET ROUTES (UNCHANGED) ===
 app.use(wsRouter.routes());
@@ -122,11 +164,7 @@ app.use(async (ctx) => {
 // === STARTUP COMPLETION & METRICS ===
 console.log("\x1b[32m%s\x1b[0m", `⚙️  DenoGenesis server is now running on http://localhost:${port}`);
 console.log("\x1b[36m%s\x1b[0m", `🏥 Health check available at: http://localhost:${port}/health`);
-console.log("\x1b[33m%s\x1b[0m", `📊 Complete middleware orchestration active`);
-
-// Create middleware manager instance
-const middlewareManager = MiddlewareManager.getInstance(middlewareConfig);
-middlewareManager.logStatus();
+console.log("\x1b[33m%s\x1b[0m", `📊 Middleware stack: Performance → Error → Security → Logging → CORS → Health → Static → Routes`);
 
 if (environment === "development") {
   console.log("\x1b[33m%s\x1b[0m", "🔧 Development mode - Enhanced debugging enabled");
