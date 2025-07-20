@@ -8,16 +8,17 @@
 import { PerformanceMonitor, createPerformanceMiddleware } from "./performanceMonitor.ts";
 import { createSecurityMiddleware, type SecurityConfig } from "./security.ts";
 import { StaticFileHandler, type StaticFileConfig } from "./staticFiles.ts";
-import { createCorsMiddleware, type CorsConfig } from "./cors.ts";
+// import { createCorsMiddleware, type CorsConfig } from "./cors.ts"; // COMMENTED OUT - USING SIMPLE CORS
 import { Logger, createLoggingMiddleware, type LoggingConfig } from "./logging.ts";
 import { ErrorHandler, createErrorMiddleware, type ErrorConfig } from "./errorHandler.ts";
 import { createHealthCheckMiddleware, type HealthCheckConfig } from "./healthCheck.ts";
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 // Export everything after importing
 export { PerformanceMonitor, createPerformanceMiddleware };
 export { createSecurityMiddleware, type SecurityConfig };
 export { StaticFileHandler, type StaticFileConfig };
-export { createCorsMiddleware, type CorsConfig };
+// export { createCorsMiddleware, type CorsConfig }; // COMMENTED OUT
 export { Logger, createLoggingMiddleware, type LoggingConfig };
 export { ErrorHandler, createErrorMiddleware, type ErrorConfig };
 export { createHealthCheckMiddleware, type HealthCheckConfig };
@@ -64,13 +65,19 @@ export interface MiddlewareConfig {
 export function createMiddlewareStack(config: MiddlewareConfig) {
   // Create performance monitor instance
   let monitor: PerformanceMonitor;
-  
+
   try {
     monitor = new PerformanceMonitor();
     console.log('✅ PerformanceMonitor created successfully');
   } catch (error) {
     console.error('❌ Failed to create PerformanceMonitor:', error);
     throw new Error(`PerformanceMonitor initialization failed: ${error.message}`);
+  }
+
+  // Combine CORS origins for simple oakCors
+  const allOrigins = [...config.cors.allowedOrigins];
+  if (config.environment === 'development' && config.cors.developmentOrigins) {
+    allOrigins.push(...config.cors.developmentOrigins);
   }
 
   // Create all middleware in optimal order
@@ -102,13 +109,13 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
       frameOptions: config.security.frameOptions
     }),
 
-    // 5. CORS handling (before content serving)
-    createCorsMiddleware({
-      environment: config.environment,
-      allowedOrigins: config.cors.allowedOrigins,
-      developmentOrigins: config.cors.developmentOrigins,
-      credentials: config.cors.credentials,
-      maxAge: config.cors.maxAge
+    // 5. Simple CORS handling (using oakCors instead of custom middleware)
+    oakCors({
+      origin: allOrigins,
+      credentials: config.cors.credentials ?? true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Request-ID'],
+      maxAge: config.cors.maxAge ?? (config.environment === 'production' ? 86400 : 300)
     }),
 
     // 6. Health check endpoint (before static files)
@@ -152,7 +159,7 @@ export function createMiddlewareStack(config: MiddlewareConfig) {
         '2. Error Handling',
         '3. Request Logging',
         '4. Security Headers',
-        '5. CORS Configuration',
+        '5. CORS Configuration (Simple)',
         '6. Health Check',
         '7. Static File Serving'
       ];
@@ -201,7 +208,7 @@ export class MiddlewareManager {
     console.log(`   Environment: ${this.config.environment}`);
     console.log(`   Components: ${this.stack.getMiddlewareCount()}`);
     console.log(`   Caching: ${this.config.staticFiles.enableCaching ? 'Enabled' : 'Disabled'}`);
-    console.log(`   CORS Origins: ${this.config.cors.allowedOrigins.length}`);
+    console.log(`   CORS Origins: ${this.config.cors.allowedOrigins.length + (this.config.cors.developmentOrigins?.length || 0)}`);
     console.log(`   Security: ${this.config.security.enableHSTS ? 'Production' : 'Development'}`);
   }
 }
@@ -244,7 +251,7 @@ export function validateMiddlewareOrder(middlewares: any[]) {
 export type { 
   SecurityConfig,
   StaticFileConfig, 
-  CorsConfig,
+  // CorsConfig, // COMMENTED OUT
   LoggingConfig,
   ErrorConfig,
   HealthCheckConfig
