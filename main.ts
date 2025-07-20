@@ -3,6 +3,7 @@ import { Application, send } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { config as loadEnv } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 import router from "./routes/index.ts";
 import wsRouter from "./routes/wsRoutes.ts";
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 // === STEP 1: PERFORMANCE MONITOR ✅
 import { PerformanceMonitor, createPerformanceMiddleware } from "./middleware/performanceMonitor.ts";
@@ -20,7 +21,7 @@ import { createErrorMiddleware, ErrorHandler } from "./middleware/errorHandler.t
 import { createHealthCheckMiddleware } from "./middleware/healthCheck.ts";
 
 // === STEP 6: ADVANCED CORS ===
-import { createCorsMiddleware, CorsAnalytics, type CorsConfig } from "./middleware/cors.ts";
+// import { createCorsMiddleware, CorsAnalytics, type CorsConfig } from "./middleware/cors.ts";
 
 const env = await loadEnv();
 const app = new Application();
@@ -81,43 +82,27 @@ app.use(createLoggingMiddleware({
 }));
 console.log("\x1b[36m%s\x1b[0m", "📝 Enhanced logging enabled");
 
-// === STEP 6: ADVANCED CORS WITH ANALYTICS ===
-const corsConfig: CorsConfig = {
-  environment: environment,
-  allowedOrigins: [
+// === STEP 6: SIMPLE CORS (REVERT TO WORKING VERSION) ===
+app.use(oakCors({
+  origin: [
     "https://pedromdominguez.com",
-    "https://www.pedromdominguez.com"
-  ],
-  developmentOrigins: [
+    "https://www.pedromdominguez.com",
     "http://localhost:3000",
     "http://localhost:3004",
     "http://127.0.0.1:3000",
-    "http://127.0.0.1:3004"
+    "https://cdn.skypack.dev",
+    "https://cdnjs.cloudflare.com",
+    "https://cdn.jsdelivr.net",
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com"
   ],
   credentials: true,
-  maxAge: environment === 'production' ? 86400 : 300,
-  allowedMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: [
-    'Content-Type',
-    'Authorization', 
-    'X-Requested-With',
-    'X-Request-ID',
-    'X-API-Key',
-    'X-Client-Version'
-  ],
-  exposedHeaders: [
-    'X-Total-Count',
-    'X-Request-ID', 
-    'X-Response-Time',
-    'X-Rate-Limit-Remaining'
-  ]
-};
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Request-ID']
+}));
+console.log("\x1b[36m%s\x1b[0m", "🌐 CORS enabled (simple & stable)");
 
-const corsMiddleware = createCorsMiddleware(corsConfig);
-app.use(corsMiddleware);
-console.log("\x1b[36m%s\x1b[0m", "🌐 Advanced CORS with analytics enabled");
-
-// === ENHANCED HEALTH CHECK WITH CORS ANALYTICS ===
+// === SIMPLE HEALTH CHECK (NO CORS ANALYTICS) ===
 app.use(async (ctx, next) => {
   if (ctx.request.url.pathname === "/health") {
     const metrics = monitor.getMetrics();
@@ -135,27 +120,9 @@ app.use(async (ctx, next) => {
     return;
   }
   
-  // CORS Analytics endpoint
-  if (ctx.request.url.pathname === "/health/cors") {
-    // Note: CORS analytics would be available here if we stored a reference
-    ctx.response.body = {
-      status: "CORS analytics available",
-      message: "Advanced CORS monitoring active",
-      features: [
-        "Origin validation",
-        "Request tracking", 
-        "Security insights",
-        "Performance analytics"
-      ],
-      timestamp: new Date().toISOString()
-    };
-    ctx.response.headers.set("Content-Type", "application/json");
-    return;
-  }
-  
   await next();
 });
-console.log("\x1b[36m%s\x1b[0m", "🏥 Health check enabled at /health + /health/cors");
+console.log("\x1b[36m%s\x1b[0m", "🏥 Health check enabled at /health");
 
 // === YOUR EXISTING STATIC FILE MIDDLEWARE (UNCHANGED) ===
 app.use(async (ctx, next) => {
