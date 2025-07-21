@@ -5,7 +5,7 @@ export const getDashboardOverview = async (ctx: Context) => {
   const overviewPayload: DashboardOverview = {
     // 🚫 No more welcomeMessage
     contentSections: [
-      { label: "📅 Manage Appointments", link: "public-appointments.html" },
+      { label: "📅 Manage Appointments", link: "manage-appointments.html" },
     ],
     systemTools: [
       { label: "⚙️ Site Settings", link: "settings.html" },
