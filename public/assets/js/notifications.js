@@ -673,4 +673,42 @@ async function ensureNotificationsComponent() {
 
 // ================================================================================
 // 🎯 DEVELOPMENT & DEBUGGING UTILITIES
-// ====
+// ================================================================================
+
+// Development mode utilities
+if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+  window.DenoGenesisNotifications = {
+    show: showNotification,
+    showSuccess: showSuccessNotification,
+    showInfo: showInfoNotification,
+    showWarning: showWarningNotification,
+    showError: showErrorNotification,
+    showPersistent: showPersistentNotification,
+    showQuick: showQuickNotification,
+    clear: clearAllNotifications,
+    count: getNotificationCount,
+    
+    // Test functions
+    test: () => {
+      showSuccessNotification('✅ Success notification test');
+      setTimeout(() => showInfoNotification('ℹ️ Info notification test'), 500);
+      setTimeout(() => showWarningNotification('⚠️ Warning notification test'), 1000);
+      setTimeout(() => showErrorNotification('❌ Error notification test'), 1500);
+    },
+    
+    config: NOTIFICATION_CONFIG
+  };
+  
+  console.log('🔧 DenoGenesis Notifications available at window.DenoGenesisNotifications');
+}
+
+// ================================================================================
+// 🚀 INITIALIZATION
+// ================================================================================
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', ensureNotificationsComponent);
+} else {
+  ensureNotificationsComponent();
+}
