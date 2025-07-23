@@ -1,61 +1,66 @@
+// main.ts
+// ================================================================================
+// 🚀 DenoGenesis Framework - Enhanced Main Application
+// Professional server initialization with styled console output
+// ================================================================================
+
 import { Application, send } from "https://deno.land/x/oak@v12.6.1/mod.ts";
 import { config as loadEnv } from "https://deno.land/x/dotenv@v3.2.2/mod.ts";
 import router from "./routes/index.ts";
 import wsRouter from "./routes/wsRoutes.ts";
 
-// === STEP 7: SIMPLIFIED MIDDLEWARE ORCHESTRATOR ===
+// Enhanced Console Styling
+import { ConsoleStyler, type DenoGenesisConfig } from "./utils/consoleStyler.ts";
+
+// Middleware Management
 import { createMiddlewareStack, MiddlewareManager, type MiddlewareConfig } from "./middleware/index.ts";
+
+// ================================================================================
+// 🔧 ENVIRONMENT & CONFIGURATION SETUP
+// ================================================================================
 
 const env = await loadEnv();
 const app = new Application();
 const port = parseInt(env.PORT || "3000");
 const environment = env.DENO_ENV || "development";
 
-// === DENOGENESIS FRAMEWORK BOOTUP LOGS ===
-const version = "v1.4.0-enterprise";
-const buildDate = "July 23, 2025";
-
-console.log("\x1b[35m%s\x1b[0m", "✨========================================================✨");
-console.log("\x1b[36m%s\x1b[0m", "         Welcome to the DenoGenesis Framework Engine");
-console.log("\x1b[33m%s\x1b[0m", `         ⚙️  Version: ${version}`);
-console.log("\x1b[33m%s\x1b[0m", `         📅 Build Date: ${buildDate}`);
-console.log("\x1b[33m%s\x1b[0m", "         🚀 Developed by Pedro M. Dominguez");
-console.log("\x1b[35m%s\x1b[0m", "✨========================================================✨");
-
-console.log("\x1b[32m%s\x1b[0m", "💡 This isn't just code — it's a revolution in motion.");
-console.log("\x1b[36m%s\x1b[0m", "🔓 Powered by Deno. Structured by Oak. Hardened on Debian.");
-console.log("\x1b[34m%s\x1b[0m", "🔗 GitHub: https://github.com/xtcedro");
-console.log("\x1b[32m%s\x1b[0m", "🌍 Pedro M. Dominguez is democratizing technology in Oklahoma City");
-console.log("\x1b[32m%s\x1b[0m", "   — one system, one local business, one breakthrough at a time.");
-console.log("\x1b[33m%s\x1b[0m", "⚡  Bringing AI, automation, and full-stack innovation to the people.");
-console.log("\x1b[32m%s\x1b[0m", "🛠️  This is DenoGenesis — born from purpose, built with precision.");
-console.log("\x1b[36m%s\x1b[0m", "✨ Let's rebuild the web — together.\n");
-
-// === ENHANCED CSP FOR APPOINTMENT BOOKING FUNCTIONALITY ===
-const createCSPPolicy = (env: string) => {
-  const baseDirectives = [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com data:",
-    "img-src 'self' data: blob: https:",
-    "connect-src 'self'",
-    "object-src 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
-    "frame-ancestors 'none'"
-  ];
-
-  if (env === 'development') {
-    // More permissive for development
-    baseDirectives[1] = "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http: localhost:* 127.0.0.1:*";
-    baseDirectives[4] = "connect-src 'self' http://localhost:* http://127.0.0.1:* https://localhost:* ws://localhost:* wss://localhost:*";
-  }
-
-  return baseDirectives.join('; ');
+// DenoGenesis Framework Configuration
+const frameworkConfig: DenoGenesisConfig = {
+  version: "v1.4.0-enterprise",
+  buildDate: new Date().toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }),
+  environment,
+  port,
+  author: "Pedro M. Dominguez",
+  repository: "https://github.com/xtcedro/deno-genesis",
+  description: "Local-First Digital Sovereignty Platform"
 };
 
-// === STEP 7: SIMPLIFIED MIDDLEWARE ORCHESTRATION ===
+// ================================================================================
+// 🎨 PROFESSIONAL STARTUP SEQUENCE
+// ================================================================================
+
+// Clear console for clean startup
+ConsoleStyler.clear();
+
+// Display professional banner
+ConsoleStyler.printBanner(frameworkConfig);
+
+// Log environment-specific information
+ConsoleStyler.logEnvironment(environment);
+
+// Display startup information
+ConsoleStyler.logStartup(frameworkConfig);
+
+// ================================================================================
+// 🔧 MIDDLEWARE CONFIGURATION
+// ================================================================================
+
+ConsoleStyler.logSection('🔧 Middleware Configuration', 'blue');
+
 const middlewareConfig: MiddlewareConfig = {
   environment,
   port,
@@ -67,11 +72,17 @@ const middlewareConfig: MiddlewareConfig = {
   cors: {
     allowedOrigins: [
       "https://pedromdominguez.com",
-      "https://www.pedromdominguez.com"
+      "https://www.pedromdominguez.com",
+      "https://domingueztechsolutions.com",
+      "https://okdevs.xyz"
     ],
     developmentOrigins: [
+      "http://localhost:3000",
+      "http://localhost:3001", 
+      "http://localhost:3002",
       "http://localhost:3003",
-      "http://127.0.0.1:3003",
+      "http://localhost:3004",
+      "http://127.0.0.1:3000",
       "https://cdn.skypack.dev",
       "https://cdnjs.cloudflare.com",
       "https://cdn.jsdelivr.net",
@@ -83,7 +94,9 @@ const middlewareConfig: MiddlewareConfig = {
   },
   security: {
     enableHSTS: environment === 'production',
-    contentSecurityPolicy: createCSPPolicy(environment),
+    contentSecurityPolicy: environment === 'production'
+      ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
+      : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';",
     frameOptions: 'SAMEORIGIN'
   },
   logging: {
@@ -98,94 +111,76 @@ const middlewareConfig: MiddlewareConfig = {
   }
 };
 
-// Create the simplified middleware stack (no static files middleware)
+// ================================================================================
+// 🚀 MIDDLEWARE STACK INITIALIZATION
+// ================================================================================
+
+ConsoleStyler.logInfo("Initializing enterprise middleware stack...");
+
+// Create the middleware stack
 const { monitor, middlewares } = createMiddlewareStack(middlewareConfig);
 
-// Apply core middleware in optimal order
-console.log("\x1b[35m%s\x1b[0m", "🔧 Initializing Enhanced Middleware Stack...");
-middlewares.forEach((middleware, index) => {
-  app.use(middleware);
-});
-
-const middlewareNames = [
-  "Performance Monitor",
-  "Error Handler",
-  "Request Logger",
-  "Enhanced Security Headers",
-  "CORS Handler",
-  "Health Check"
+// Apply middleware with professional logging
+const middlewareComponents = [
+  { name: "Performance Monitor", description: "Request timing and metrics collection" },
+  { name: "Error Handler", description: "Global error handling and recovery" },
+  { name: "Request Logger", description: "HTTP request/response logging" },
+  { name: "Security Headers", description: "OWASP security header injection" },
+  { name: "CORS Handler", description: "Cross-origin resource sharing" },
+  { name: "Health Check", description: "System health monitoring endpoint" }
 ];
 
-middlewareNames.forEach((name, index) => {
-  console.log("\x1b[36m%s\x1b[0m", `✅ ${index + 1}. ${name}`);
+middlewares.forEach((middleware, index) => {
+  app.use(middleware);
+  const component = middlewareComponents[index];
+  if (component) {
+    ConsoleStyler.logSuccess(`${component.name} initialized`);
+    ConsoleStyler.logDebug(`   → ${component.description}`);
+  }
 });
 
-console.log("\x1b[32m%s\x1b[0m", "🚀 Enhanced middleware orchestration with appointment booking support enabled!");
+ConsoleStyler.logSuccess("Middleware orchestration completed successfully!");
 
-// === ENHANCED STATIC FILE MIDDLEWARE WITH PROPER MIME TYPES ===
+// ================================================================================
+// 📁 ENHANCED STATIC FILE HANDLER
+// ================================================================================
+
+ConsoleStyler.logSection('📁 Static File Configuration', 'cyan');
+
+const mimeTypes = {
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'application/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.html': 'text/html; charset=utf-8',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.ttf': 'font/ttf',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.pdf': 'application/pdf',
+  '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8'
+};
+
+const supportedExtensions = Object.keys(mimeTypes);
+
 app.use(async (ctx, next) => {
   const filePath = ctx.request.url.pathname;
-  const fileWhitelist = [".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".ttf", ".woff2", ".html", ".json"];
+  const extension = filePath.substring(filePath.lastIndexOf('.')).toLowerCase();
 
-  if (fileWhitelist.some(ext => filePath.endsWith(ext))) {
+  if (supportedExtensions.includes(extension)) {
     try {
-      // Set proper MIME types AND security headers BEFORE sending the file
-      const extension = filePath.substring(filePath.lastIndexOf('.')).toLowerCase();
-
-      // Enhanced MIME type handling
-      switch (extension) {
-        case '.css':
-          ctx.response.headers.set('Content-Type', 'text/css; charset=utf-8');
-          break;
-        case '.js':
-          ctx.response.headers.set('Content-Type', 'application/javascript; charset=utf-8');
-          // Add specific CSP for JavaScript files
-          ctx.response.headers.set('X-Content-Type-Options', 'nosniff');
-          break;
-        case '.png':
-          ctx.response.headers.set('Content-Type', 'image/png');
-          break;
-        case '.jpg':
-        case '.jpeg':
-          ctx.response.headers.set('Content-Type', 'image/jpeg');
-          break;
-        case '.webp':
-          ctx.response.headers.set('Content-Type', 'image/webp');
-          break;
-        case '.svg':
-          ctx.response.headers.set('Content-Type', 'image/svg+xml');
-          // Allow SVG to be used in img-src
-          ctx.response.headers.set('Content-Security-Policy', 'default-src \'none\'; img-src \'self\' data:;');
-          break;
-        case '.ico':
-          ctx.response.headers.set('Content-Type', 'image/x-icon');
-          break;
-        case '.ttf':
-          ctx.response.headers.set('Content-Type', 'font/ttf');
-          break;
-        case '.woff2':
-          ctx.response.headers.set('Content-Type', 'font/woff2');
-          break;
-        case '.html':
-          ctx.response.headers.set('Content-Type', 'text/html; charset=utf-8');
-          // Apply full CSP to HTML files
-          ctx.response.headers.set('Content-Security-Policy', createCSPPolicy(environment));
-          break;
-        case '.json':
-          ctx.response.headers.set('Content-Type', 'application/json; charset=utf-8');
-          break;
-        default:
-          ctx.response.headers.set('Content-Type', 'application/octet-stream');
-      }
-
-      // Add caching headers for static assets
-      if (environment === 'production') {
-        const cacheTime = ['.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.ttf', '.woff2'].includes(extension)
-          ? 86400 // 24 hours for assets
-          : 3600; // 1 hour for HTML
-        ctx.response.headers.set('Cache-Control', `public, max-age=${cacheTime}`);
-      } else {
-        ctx.response.headers.set('Cache-Control', 'no-cache');
+      // Set proper MIME type
+      ctx.response.headers.set('Content-Type', mimeTypes[extension as keyof typeof mimeTypes]);
+      
+      // Add caching headers for production
+      if (environment === 'production' && ['.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.ttf', '.woff', '.woff2'].includes(extension)) {
+        ctx.response.headers.set('Cache-Control', 'public, max-age=86400'); // 24 hours
+        ctx.response.headers.set('ETag', `"${Date.now()}"`);
       }
 
       await send(ctx, filePath, {
@@ -194,108 +189,204 @@ app.use(async (ctx, next) => {
       });
       return;
     } catch (error) {
-      // Log the error for debugging
-      if (environment === 'development') {
-        console.log(`\x1b[33m%s\x1b[0m`, `⚠️  Static file not found: ${filePath}`);
-      }
-      // Let it fall through to next middleware
+      // File not found, let it fall through to next middleware
+      ConsoleStyler.logDebug(`Static file not found: ${filePath}`);
     }
   }
 
   await next();
 });
 
-console.log("\x1b[36m%s\x1b[0m", "📁 Enhanced static file handler with appointment booking CSP support enabled");
+ConsoleStyler.logSuccess("Enhanced static file handler configured");
+ConsoleStyler.logInfo(`Supporting ${supportedExtensions.length} file types with proper MIME handling`);
 
-// === APPOINTMENT BOOKING API MIDDLEWARE ===
-app.use(async (ctx, next) => {
-  // Add specific headers for API endpoints
-  if (ctx.request.url.pathname.startsWith('/api/')) {
-    // Allow API calls from same origin
-    ctx.response.headers.set('Access-Control-Allow-Origin', ctx.request.headers.get('Origin') || '*');
-    ctx.response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    ctx.response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-    ctx.response.headers.set('Access-Control-Allow-Credentials', 'true');
+// ================================================================================
+// 🌐 WEBSOCKET ROUTE CONFIGURATION
+// ================================================================================
 
-    // Handle preflight requests
-    if (ctx.request.method === 'OPTIONS') {
-      ctx.response.status = 200;
-      return;
-    }
-  }
+ConsoleStyler.logSection('🌐 WebSocket Configuration', 'magenta');
 
-  await next();
-});
-
-console.log("\x1b[36m%s\x1b[0m", "📅 Appointment booking API middleware enabled");
-
-// === YOUR EXISTING WEBSOCKET ROUTES (UNCHANGED) ===
 app.use(wsRouter.routes());
 app.use(wsRouter.allowedMethods());
-console.log("\x1b[36m%s\x1b[0m", "➡️ WebSocket route loaded at /api/ws");
 
-// === YOUR EXISTING API ROUTES (UNCHANGED) ===
+ConsoleStyler.logRoute('/api/ws', 'WebSocket connection endpoint');
+ConsoleStyler.logSuccess("WebSocket routes configured successfully");
+
+// ================================================================================
+// 🛣️ API ROUTE CONFIGURATION  
+// ================================================================================
+
+ConsoleStyler.logSection('🛣️ API Route Configuration', 'yellow');
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// === ENHANCED 404 FALLBACK WITH PROPER CONTENT TYPE ===
-app.use(async (ctx) => {
-  ctx.response.status = 404;
-  ctx.response.headers.set('Content-Type', 'text/html; charset=utf-8');
-  ctx.response.headers.set('Content-Security-Policy', createCSPPolicy(environment));
+// Log registered routes (you can expand this based on your actual routes)
+const apiRoutes = [
+  { path: '/api/health', description: 'System health check' },
+  { path: '/api/dashboard', description: 'Dashboard data endpoint' },
+  { path: '/api/appointments', description: 'Appointment management' },
+  { path: '/api/payments', description: 'Payment processing' },
+  { path: '/api/analytics', description: 'Analytics data' },
+  { path: '/api/blogs', description: 'Blog content management' },
+  { path: '/api/projects', description: 'Project portfolio' },
+  { path: '/api/notifications', description: 'Notification system' },
+  { path: '/api/contact', description: 'Contact form handling' }
+];
 
+apiRoutes.forEach(route => {
+  ConsoleStyler.logRoute(route.path, route.description);
+});
+
+ConsoleStyler.logSuccess("API routes configured successfully");
+
+// ================================================================================
+// 🚨 ERROR HANDLING & 404 FALLBACK
+// ================================================================================
+
+app.use(async (ctx) => {
+  ConsoleStyler.logWarning(`404 Not Found: ${ctx.request.url.pathname}`);
+  ctx.response.status = 404;
+  
   try {
     await send(ctx, "/pages/errors/404.html", {
       root: `${Deno.cwd()}/public`,
     });
   } catch {
-    // Fallback if 404.html doesn't exist
-    ctx.response.body = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>404 - Page Not Found</title>
-        <style>
-          body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-          h1 { color: #333; }
-          p { color: #666; }
-        </style>
-      </head>
-      <body>
-        <h1>404 - Page Not Found</h1>
-        <p>The page you're looking for doesn't exist.</p>
-        <a href="/">← Back to Home</a>
-      </body>
-      </html>
-    `;
+    // Fallback JSON response if 404.html doesn't exist
+    ctx.response.type = 'application/json';
+    ctx.response.body = {
+      error: 'Not Found',
+      message: 'The requested resource was not found',
+      path: ctx.request.url.pathname,
+      timestamp: new Date().toISOString()
+    };
   }
 });
 
-// === STARTUP COMPLETION & METRICS ===
-console.log("\x1b[32m%s\x1b[0m", `⚙️  DenoGenesis server is now running on http://localhost:${port}`);
-console.log("\x1b[36m%s\x1b[0m", `🏥 Health check available at: http://localhost:${port}/health`);
-console.log("\x1b[33m%s\x1b[0m", `📊 Enhanced middleware stack: Performance → Error → Security → Logging → CORS → Health → Static → API → Routes`);
+// ================================================================================
+// 🚀 SERVER STARTUP & MONITORING
+// ================================================================================
+
+ConsoleStyler.logSection('🚀 Server Startup', 'green');
 
 // Create middleware manager instance
 const middlewareManager = MiddlewareManager.getInstance(middlewareConfig);
-middlewareManager.logStatus();
 
+// Server startup information
+const serverInfo = [
+  { label: 'Server URL', value: `http://localhost:${port}` },
+  { label: 'Environment', value: environment },
+  { label: 'Process ID', value: Deno.pid.toString() },
+  { label: 'Version', value: frameworkConfig.version },
+  { label: 'Build Date', value: frameworkConfig.buildDate }
+];
+
+serverInfo.forEach(info => {
+  ConsoleStyler.logInfo(`${info.label}: ${info.value}`);
+});
+
+// Health check information
+ConsoleStyler.logRoute('/health', 'System health monitoring endpoint');
+ConsoleStyler.logRoute('/metrics', 'Performance metrics endpoint (if enabled)');
+
+// Development vs Production specific messages
 if (environment === "development") {
-  console.log("\x1b[33m%s\x1b[0m", "🔧 Development mode - Enhanced debugging and permissive CSP enabled");
-  console.log("\x1b[33m%s\x1b[0m", "📅 Appointment booking functionality ready for testing");
+  ConsoleStyler.logCustom("Development mode active - Enhanced debugging enabled", "🔧", "warning");
+  ConsoleStyler.logInfo("Hot reload and detailed logging available");
 } else {
-  console.log("\x1b[32m%s\x1b[0m", "🚀 Production mode - Optimized for performance and security");
-  console.log("\x1b[32m%s\x1b[0m", "📅 Appointment booking with production-grade security enabled");
+  ConsoleStyler.logCustom("Production mode active - Optimized for performance", "🚀", "success");
+  ConsoleStyler.logInfo("Security headers and caching enabled");
 }
 
-// Show initial metrics after 2 seconds
+// Final success message
+ConsoleStyler.logSuccess("DenoGenesis Framework initialization complete!");
+
+// Display middleware status
+middlewareManager.logStatus();
+
+// ================================================================================
+// 📊 INITIAL METRICS & MONITORING
+// ================================================================================
+
+// Show initial metrics after server stabilization
 setTimeout(() => {
+  ConsoleStyler.logSection('📊 System Status', 'cyan');
+  
   const metrics = monitor.getMetrics();
-  console.log("\x1b[33m%s\x1b[0m", `📊 Initial metrics: ${metrics.requests} requests, ${metrics.uptime} uptime, ${metrics.successRate} success rate`);
-  console.log("\x1b[36m%s\x1b[0m", "✨ DenoGenesis Framework - Local-First Digital Sovereignty Platform - Ready! 🚀");
-  console.log("\x1b[35m%s\x1b[0m", "🎓 Cambridge validation data ready - Framework performance validated ⚡");
+  
+  ConsoleStyler.logMetrics({
+    uptime: `${metrics.uptime}`,
+    requests: metrics.requests,
+    errors: metrics.errors || 0,
+    successRate: `${metrics.successRate}%`,
+    memory: Deno.memoryUsage ? {
+      heapUsed: `${Math.round(Deno.memoryUsage().heapUsed / 1024 / 1024)}MB`,
+      heapTotal: `${Math.round(Deno.memoryUsage().heapTotal / 1024 / 1024)}MB`
+    } : undefined
+  });
+
+  // Final ready message with ASCII art
+  console.log('\n');
+  ConsoleStyler.asciiArt('DENOGENESIS');
+  console.log('\n');
+  
+  ConsoleStyler.logCustom(
+    "Local-First Digital Sovereignty Platform - Ready! 🚀", 
+    "✨", 
+    "success"
+  );
+  
+  // Cambridge validation note
+  ConsoleStyler.logCustom(
+    "Framework validated for academic research collaboration", 
+    "🎓", 
+    "info"
+  );
+  
 }, 2000);
 
-await app.listen({ port });
+// ================================================================================
+// 🎯 ERROR HANDLING & GRACEFUL SHUTDOWN
+// ================================================================================
+
+// Handle graceful shutdown
+const handleShutdown = (signal: string) => {
+  ConsoleStyler.logWarning(`Received ${signal}, shutting down gracefully...`);
+  
+  // Log final metrics
+  const finalMetrics = monitor.getMetrics();
+  ConsoleStyler.logInfo(`Final metrics: ${finalMetrics.requests} requests processed`);
+  
+  ConsoleStyler.logSuccess("DenoGenesis Framework shutdown complete");
+  Deno.exit(0);
+};
+
+// Register signal handlers
+Deno.addSignalListener("SIGINT", () => handleShutdown("SIGINT"));
+Deno.addSignalListener("SIGTERM", () => handleShutdown("SIGTERM"));
+
+// Handle uncaught errors
+globalThis.addEventListener("error", (event) => {
+  ConsoleStyler.logError(`Uncaught error: ${event.error?.message || event.error}`);
+  if (event.error?.stack) {
+    ConsoleStyler.logDebug(`Stack trace: ${event.error.stack}`);
+  }
+});
+
+globalThis.addEventListener("unhandledrejection", (event) => {
+  ConsoleStyler.logError(`Unhandled promise rejection: ${event.reason}`);
+  event.preventDefault();
+});
+
+// ================================================================================
+// 🌟 SERVER LISTENER
+// ================================================================================
+
+try {
+  await app.listen({ port });
+} catch (error) {
+  ConsoleStyler.logError(`Failed to start server: ${error.message}`);
+  ConsoleStyler.logError("Check if port is already in use or permissions are correct");
+  Deno.exit(1);
+}
