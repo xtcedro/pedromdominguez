@@ -14,7 +14,7 @@ const router = new Router();
 router.post("/", submitContactMessage);
 
 // 🔒 Admin: Fetch all contact messages
-router.get("/", verifyAdminToken, fetchContactMessages);
+router.get("/", fetchContactMessages);
 
 // 🔒 Admin: Delete a contact message by ID
 router.delete("/:id", verifyAdminToken, deleteContactMessage);

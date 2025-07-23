@@ -3,10 +3,10 @@
 import { showNotification } from '/assets/js/notifications.js';
 
 const API_BASE = window.location.origin.includes('localhost')
-  ? 'http://localhost:3000'
-  : 'https://www.domingueztechsolutions.com';
+  ? 'http://localhost:3003'
+  : 'https://www.pedromdominguez.com';
 
-const SITE_KEY = 'domtech';
+const SITE_KEY = 'pedromd';
 const token = localStorage.getItem('adminToken') || null;
 
 /* ---------- Small inline helper for on-page status text ---------- */

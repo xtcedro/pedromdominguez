@@ -7,7 +7,7 @@ let socket = null;
 /**
  * Initialize the WebSocket connection
  */
-export function initializeWebSocket(url = "wss://domingueztechsolutions.com/api/ws") {
+export function initializeWebSocket(url = "wss://pedromdominguez.com/api/ws") {
   socket = new WebSocket(url);
 
   socket.onopen = () => {

@@ -46,8 +46,7 @@ const middlewareConfig: MiddlewareConfig = {
       "https://www.pedromdominguez.com"
     ],
     developmentOrigins: [
-      "http://localhost:3000",
-      "http://localhost:3004", 
+      "http://localhost:3004",
       "http://127.0.0.1:3000",
       "https://cdn.skypack.dev",
       "https://cdnjs.cloudflare.com",
@@ -60,7 +59,7 @@ const middlewareConfig: MiddlewareConfig = {
   },
   security: {
     enableHSTS: environment === 'production',
-    contentSecurityPolicy: environment === 'production' 
+    contentSecurityPolicy: environment === 'production'
       ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';"
       : "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.skypack.dev https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self';",
     frameOptions: 'SAMEORIGIN'
@@ -89,7 +88,7 @@ middlewares.forEach((middleware, index) => {
 const middlewareNames = [
   "Performance Monitor",
   "Error Handler",
-  "Request Logger", 
+  "Request Logger",
   "Security Headers",
   "CORS Handler",
   "Health Check"
@@ -110,7 +109,7 @@ app.use(async (ctx, next) => {
     try {
       // Set proper MIME types BEFORE sending the file
       const extension = filePath.substring(filePath.lastIndexOf('.')).toLowerCase();
-      
+
       switch (extension) {
         case '.css':
           ctx.response.headers.set('Content-Type', 'text/css; charset=utf-8');

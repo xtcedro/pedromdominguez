@@ -8,20 +8,22 @@
 // 🎨 NOTIFICATION CONFIGURATION
 // ================================================================================
 
+import anime from 'https://cdn.skypack.dev/animejs@3.2.1';
+
 const NOTIFICATION_CONFIG = {
   // Timing configuration
   displayDuration: 6000,      // 6 seconds display time
   fadeOutDuration: 500,       // 0.5 second fade out
   stackLimit: 3,              // Maximum visible notifications
-  
+
   // Animation configuration
   slideDistance: '120%',      // Distance for slide animation
   bounceDistance: '-12px',    // Bounce back distance
-  
+
   // Auto-close configuration
   autoClose: true,
   pauseOnHover: true,
-  
+
   // Icon configuration
   icons: {
     success: '✅',
@@ -59,21 +61,21 @@ export function showNotification(message, type = "info", options = {}) {
 
     // Create enhanced notification element
     const notification = createNotificationElement(message, type, config);
-    
+
     // Add to container with premium animations
     container.appendChild(notification);
-    
+
     // Trigger entrance animation
     triggerEntranceAnimation(notification);
-    
+
     // Setup auto-close with enhanced effects
     if (config.autoClose) {
       setupAutoClose(notification, config);
     }
-    
+
     // Add interaction handlers
     addNotificationInteractions(notification, config);
-    
+
     console.log(`🔔 Notification displayed: ${type.toUpperCase()} - ${message}`);
   });
 }
@@ -84,18 +86,18 @@ export function showNotification(message, type = "info", options = {}) {
 
 function createNotificationElement(message, type, config) {
   const notification = document.createElement("div");
-  
+
   // Enhanced class structure for premium styling
   notification.className = `notification ${getNotificationClass(type)}`;
-  
+
   // Add unique ID for tracking
   notification.id = `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  
+
   // Set ARIA attributes for accessibility
   notification.setAttribute('role', 'alert');
   notification.setAttribute('aria-live', 'polite');
   notification.setAttribute('tabindex', '0');
-  
+
   // Create enhanced HTML structure
   notification.innerHTML = `
     <div class="notification-content">
@@ -113,7 +115,7 @@ function createNotificationElement(message, type, config) {
     </div>
     <div class="notification-progress"></div>
   `;
-  
+
   // Set initial state for animation
   notification.style.cssText = `
     opacity: 0;
@@ -121,7 +123,7 @@ function createNotificationElement(message, type, config) {
     filter: blur(12px);
     pointer-events: none;
   `;
-  
+
   return notification;
 }
 
@@ -132,11 +134,11 @@ function createNotificationElement(message, type, config) {
 function getNotificationClass(type) {
   const classMap = {
     success: "notification-success",
-    warning: "notification-warning", 
+    warning: "notification-warning",
     error: "notification-error",
     info: "notification-info"
   };
-  
+
   return classMap[type] || classMap.info;
 }
 
@@ -154,7 +156,7 @@ function triggerEntranceAnimation(notification) {
 
   // Enable pointer events after animation starts
   notification.style.pointerEvents = 'auto';
-  
+
   // Premium entrance animation with Anime.js
   const timeline = anime.timeline({
     easing: 'easeOutElastic(1, .8)',
@@ -272,7 +274,7 @@ function fallbackExitAnimation(notification, callback) {
     pointer-events: none;
     transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   `;
-  
+
   setTimeout(() => {
     if (callback) callback();
   }, 500);
@@ -287,31 +289,31 @@ function setupAutoClose(notification, config) {
   let remainingTime = config.displayDuration;
   let startTime = Date.now();
   let isPaused = false;
-  
+
   function startTimer() {
     if (isPaused) return;
-    
+
     timeoutId = setTimeout(() => {
       closeNotification(notification);
     }, remainingTime);
   }
-  
+
   function pauseTimer() {
     if (!config.pauseOnHover || isPaused) return;
-    
+
     clearTimeout(timeoutId);
     remainingTime -= (Date.now() - startTime);
     isPaused = true;
   }
-  
+
   function resumeTimer() {
     if (!config.pauseOnHover || !isPaused) return;
-    
+
     isPaused = false;
     startTime = Date.now();
     startTimer();
   }
-  
+
   // Setup hover pause/resume
   if (config.pauseOnHover) {
     notification.addEventListener('mouseenter', pauseTimer);
@@ -319,10 +321,10 @@ function setupAutoClose(notification, config) {
     notification.addEventListener('focus', pauseTimer);
     notification.addEventListener('blur', resumeTimer);
   }
-  
+
   // Start the timer
   startTimer();
-  
+
   // Store timer functions for external access
   notification._notificationTimer = {
     pause: pauseTimer,
@@ -341,7 +343,7 @@ function addNotificationInteractions(notification, config) {
   if (closeButton) {
     closeButton.addEventListener('click', (e) => {
       e.stopPropagation();
-      
+
       // Animate close button before closing
       if (typeof anime !== 'undefined') {
         anime({
@@ -356,7 +358,7 @@ function addNotificationInteractions(notification, config) {
         closeNotification(notification);
       }
     });
-    
+
     // Close button hover effects
     closeButton.addEventListener('mouseenter', () => {
       if (typeof anime !== 'undefined') {
@@ -369,7 +371,7 @@ function addNotificationInteractions(notification, config) {
         });
       }
     });
-    
+
     closeButton.addEventListener('mouseleave', () => {
       if (typeof anime !== 'undefined') {
         anime({
@@ -382,12 +384,12 @@ function addNotificationInteractions(notification, config) {
       }
     });
   }
-  
+
   // Click to close functionality
   notification.addEventListener('click', () => {
     closeNotification(notification);
   });
-  
+
   // Keyboard accessibility
   notification.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
@@ -395,7 +397,7 @@ function addNotificationInteractions(notification, config) {
       closeNotification(notification);
     }
   });
-  
+
   // Enhanced hover effects with Anime.js
   notification.addEventListener('mouseenter', () => {
     if (typeof anime !== 'undefined') {
@@ -406,7 +408,7 @@ function addNotificationInteractions(notification, config) {
         duration: 300,
         easing: 'easeOutQuad'
       });
-      
+
       // Animate indicator on hover
       anime({
         targets: notification.querySelector('.notification-indicator'),
@@ -418,7 +420,7 @@ function addNotificationInteractions(notification, config) {
       notification.style.transform = 'translateX(-8px) scale(1.02)';
     }
   });
-  
+
   notification.addEventListener('mouseleave', () => {
     if (typeof anime !== 'undefined') {
       anime({
@@ -428,7 +430,7 @@ function addNotificationInteractions(notification, config) {
         duration: 300,
         easing: 'easeOutQuad'
       });
-      
+
       // Animate indicator back
       anime({
         targets: notification.querySelector('.notification-indicator'),
@@ -440,7 +442,7 @@ function addNotificationInteractions(notification, config) {
       notification.style.transform = 'translateX(0) scale(1)';
     }
   });
-  
+
   // Focus animations
   notification.addEventListener('focus', () => {
     if (typeof anime !== 'undefined') {
@@ -452,7 +454,7 @@ function addNotificationInteractions(notification, config) {
       });
     }
   });
-  
+
   notification.addEventListener('blur', () => {
     if (typeof anime !== 'undefined') {
       anime({
@@ -474,14 +476,14 @@ function closeNotification(notification) {
   if (notification._notificationTimer) {
     notification._notificationTimer.clear();
   }
-  
+
   // Trigger exit animation
   triggerExitAnimation(notification, () => {
     // Remove from DOM
     if (notification.parentNode) {
       notification.parentNode.removeChild(notification);
     }
-    
+
     // Restack remaining notifications
     restackNotifications();
   });
@@ -489,7 +491,7 @@ function closeNotification(notification) {
 
 function manageNotificationStack(container, stackLimit) {
   const notifications = container.querySelectorAll('.notification');
-  
+
   // Remove excess notifications from the bottom
   if (notifications.length >= stackLimit) {
     const excess = notifications.length - stackLimit + 1;
@@ -504,16 +506,16 @@ function manageNotificationStack(container, stackLimit) {
 function restackNotifications() {
   const container = document.getElementById("globalNotifications");
   if (!container) return;
-  
+
   const notifications = container.querySelectorAll('.notification');
-  
+
   // Use Anime.js for smooth restacking animation
   if (typeof anime !== 'undefined') {
     notifications.forEach((notification, index) => {
       const offset = index * 8;
       const scale = Math.max(0.92, 1 - (index * 0.04));
       const opacity = Math.max(0.7, 1 - (index * 0.15));
-      
+
       anime({
         targets: notification,
         marginTop: index > 0 ? `-${offset}px` : '0px',
@@ -522,7 +524,7 @@ function restackNotifications() {
         duration: 400,
         easing: 'easeOutQuart'
       });
-      
+
       // Set z-index for proper stacking
       notification.style.zIndex = 10000 - index;
     });
@@ -531,7 +533,7 @@ function restackNotifications() {
     notifications.forEach((notification, index) => {
       const offset = index * 8;
       const scale = Math.max(0.95, 1 - (index * 0.05));
-      
+
       if (index > 0) {
         notification.style.marginTop = `-${offset}px`;
         notification.style.transform = `scale(${scale})`;
@@ -580,7 +582,7 @@ export function showQuickNotification(message, type = 'info', options = {}) {
 export function clearAllNotifications() {
   const container = document.getElementById("globalNotifications");
   if (!container) return;
-  
+
   const notifications = container.querySelectorAll('.notification');
   notifications.forEach(notification => {
     closeNotification(notification);
@@ -591,7 +593,7 @@ export function clearAllNotifications() {
 export function getNotificationCount() {
   const container = document.getElementById("globalNotifications");
   if (!container) return 0;
-  
+
   return container.querySelectorAll('.notification').length;
 }
 
@@ -605,17 +607,17 @@ async function ensureNotificationsComponent() {
 
   try {
     console.log('📦 Loading notifications component...');
-    
+
     // Try multiple possible paths for the component
     const possiblePaths = [
       "/components/notifications.html",
       "../../components/notifications.html",
       "./components/notifications.html"
     ];
-    
+
     let html = null;
     let loadedFrom = null;
-    
+
     for (const path of possiblePaths) {
       try {
         const res = await fetch(path);
@@ -628,27 +630,27 @@ async function ensureNotificationsComponent() {
         console.log(`⚠️ Failed to load from ${path}, trying next...`);
       }
     }
-    
+
     if (!html) {
       throw new Error('Could not load notifications.html from any path');
     }
-    
+
     // Create and inject the component
     const container = document.createElement("div");
     container.innerHTML = html;
     document.body.appendChild(container);
-    
+
     console.log(`✅ Notifications component loaded from: ${loadedFrom}`);
-    
+
     // Ensure the container has proper styling
     const notificationsContainer = document.getElementById("globalNotifications");
     if (notificationsContainer) {
       notificationsContainer.className = "notifications-container";
     }
-    
+
   } catch (err) {
     console.error("❌ Failed to load notifications component:", err);
-    
+
     // Fallback: create minimal notifications container
     const fallbackContainer = document.createElement("div");
     fallbackContainer.id = "globalNotifications";
@@ -666,7 +668,7 @@ async function ensureNotificationsComponent() {
       max-width: 420px;
     `;
     document.body.appendChild(fallbackContainer);
-    
+
     console.log('🔧 Created fallback notifications container');
   }
 }
@@ -687,7 +689,7 @@ if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
     showQuick: showQuickNotification,
     clear: clearAllNotifications,
     count: getNotificationCount,
-    
+
     // Test functions
     test: () => {
       showSuccessNotification('✅ Success notification test');
@@ -695,10 +697,10 @@ if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
       setTimeout(() => showWarningNotification('⚠️ Warning notification test'), 1000);
       setTimeout(() => showErrorNotification('❌ Error notification test'), 1500);
     },
-    
+
     config: NOTIFICATION_CONFIG
   };
-  
+
   console.log('🔧 DenoGenesis Notifications available at window.DenoGenesisNotifications');
 }
 

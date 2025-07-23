@@ -5,7 +5,7 @@ import { showNotification } from './notifications.js';
  * Only injects global elements — no hero headline (page-specific).
  */
 
-export async function injectSiteSettings(siteKey = "domtech") {
+export async function injectSiteSettings(siteKey = "pedromd") {
   try {
     const res = await fetch(`/api/settings?site=${siteKey}`);
     const data = await res.json();

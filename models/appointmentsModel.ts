@@ -6,7 +6,7 @@ import { AppointmentInput, AppointmentRecord } from "../types/appointments.d.ts"
 export class AppointmentsModel {
   static async insertAppointment(data: AppointmentInput): Promise<number> {
     const result = await db.execute(
-      `INSERT INTO appointments 
+      `INSERT INTO appointments
         (name, phone, email, service, appointment_date, appointment_time, message, created_at, site_key)
        VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?)`,
       [
