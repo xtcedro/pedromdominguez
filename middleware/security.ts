@@ -29,30 +29,30 @@ export function createSecurityMiddleware(config: SecurityConfig) {
     // ================================================================================
     // 🔒 BASIC SECURITY HEADERS
     // ================================================================================
-    
+
     // X-Frame-Options - Prevent clickjacking
     ctx.response.headers.set('X-Frame-Options', config.frameOptions || 'DENY');
-    
+
     // X-Content-Type-Options - Prevent MIME type sniffing
     if (config.enableNoSniff !== false) {
       ctx.response.headers.set('X-Content-Type-Options', 'nosniff');
     }
-    
+
     // X-XSS-Protection - Enable XSS filtering (legacy, but still useful)
     if (config.enableXSSProtection !== false) {
       ctx.response.headers.set('X-XSS-Protection', '1; mode=block');
     }
-    
+
     // Referrer-Policy - Control referrer information
     ctx.response.headers.set(
       'Referrer-Policy', 
       config.referrerPolicy || 'strict-origin-when-cross-origin'
     );
-    
+
     // ================================================================================
     // 🎯 PERMISSIONS POLICY
     // ================================================================================
-    
+
     const defaultPermissionsPolicy = [
       'accelerometer=()',
       'ambient-light-sensor=()',
@@ -82,56 +82,58 @@ export function createSecurityMiddleware(config: SecurityConfig) {
       'web-share=()',
       'xr-spatial-tracking=()'
     ].join(', ');
-    
+
     ctx.response.headers.set(
       'Permissions-Policy', 
       config.permissionsPolicy || defaultPermissionsPolicy
     );
-    
+
     // ================================================================================
-    // 🔐 CONTENT SECURITY POLICY
+    // 🔐 CONTENT SECURITY POLICY - ENHANCED FOR APPOINTMENT BOOKING
     // ================================================================================
-    
+
     if (config.contentSecurityPolicy) {
+      // Use the CSP from main.ts configuration
       ctx.response.headers.set('Content-Security-Policy', config.contentSecurityPolicy);
     } else if (config.environment === 'production') {
-      // Default production CSP
+      // Enhanced production CSP with appointment booking support
       const defaultCSP = [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.skypack.dev https://cdn.jsdelivr.net",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
+        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:",
         "img-src 'self' data: https: blob:",
         "media-src 'self' data: https:",
+        "connect-src 'self' https://pedromdominguez.com https://www.pedromdominguez.com",
         "object-src 'none'",
         "base-uri 'self'",
         "form-action 'self'",
         "frame-ancestors 'none'",
         "upgrade-insecure-requests"
       ].join('; ');
-      
+
       ctx.response.headers.set('Content-Security-Policy', defaultCSP);
     } else {
-      // Development CSP (more permissive)
+      // Enhanced development CSP with appointment booking support
       const devCSP = [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.skypack.dev https://cdn.jsdelivr.net",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
+        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:",
         "img-src 'self' data: https: blob:",
         "media-src 'self' data: https:",
-        "connect-src 'self' ws: wss:",
+        "connect-src 'self' ws: wss: http://localhost:* http://127.0.0.1:* https://pedromdominguez.com https://www.pedromdominguez.com",
         "object-src 'none'",
         "base-uri 'self'"
       ].join('; ');
-      
+
       ctx.response.headers.set('Content-Security-Policy', devCSP);
     }
-    
+
     // ================================================================================
     // 🚀 HSTS (HTTP Strict Transport Security)
     // ================================================================================
-    
+
     if (config.environment === 'production' && config.enableHSTS !== false) {
       // HSTS with 1 year max-age, includeSubDomains, and preload
       ctx.response.headers.set(
@@ -139,38 +141,45 @@ export function createSecurityMiddleware(config: SecurityConfig) {
         'max-age=31536000; includeSubDomains; preload'
       );
     }
-    
+
     // ================================================================================
     // 🔧 ADDITIONAL SECURITY HEADERS
     // ================================================================================
-    
+
     // Remove or mask server information
     ctx.response.headers.delete('Server');
-    ctx.response.headers.set('Server', 'DenoGenesis/3.0');
-    
-    // Add security-focused headers
+    ctx.response.headers.set('Server', 'DenoGenesis/4.0');
+
+    // Add security-focused headers (relaxed for appointment booking)
     ctx.response.headers.set('X-Permitted-Cross-Domain-Policies', 'none');
-    ctx.response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
-    ctx.response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
-    ctx.response.headers.set('Cross-Origin-Resource-Policy', 'same-origin');
     
+    // Relaxed CORP for appointment booking functionality
+    if (ctx.request.url.pathname.includes('/api/appointment')) {
+      ctx.response.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    } else {
+      ctx.response.headers.set('Cross-Origin-Resource-Policy', 'same-origin');
+    }
+    
+    ctx.response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+    ctx.response.headers.set('Cross-Origin-Embedder-Policy', 'unsafe-none'); // Relaxed for compatibility
+
     // Prevent DNS prefetching
     ctx.response.headers.set('X-DNS-Prefetch-Control', 'off');
-    
+
     // ================================================================================
     // 🎯 CUSTOM SECURITY HEADERS
     // ================================================================================
-    
+
     if (config.customHeaders) {
       Object.entries(config.customHeaders).forEach(([key, value]) => {
         ctx.response.headers.set(key, value);
       });
     }
-    
+
     // ================================================================================
     // 🔒 REQUEST SECURITY VALIDATION
     // ================================================================================
-    
+
     // Check for potentially malicious requests
     const userAgent = ctx.request.headers.get('User-Agent') || '';
     const suspiciousPatterns = [
@@ -183,17 +192,17 @@ export function createSecurityMiddleware(config: SecurityConfig) {
       /masscan/i,
       /zap/i
     ];
-    
+
     // Log suspicious requests but don't block (to avoid false positives)
     if (suspiciousPatterns.some(pattern => pattern.test(userAgent))) {
       console.warn(`🚨 Suspicious request detected: ${userAgent} from ${ctx.request.ip || 'unknown'}`);
       ctx.response.headers.set('X-Security-Warning', 'Request flagged for review');
     }
-    
+
     // ================================================================================
     // 🛡️ PATH TRAVERSAL PROTECTION
     // ================================================================================
-    
+
     const path = ctx.request.url.pathname;
     const maliciousPathPatterns = [
       /\.\./,           // Directory traversal
@@ -204,7 +213,7 @@ export function createSecurityMiddleware(config: SecurityConfig) {
       /\/proc\//i,      // Process information access
       /\\windows\\system32/i // Windows system access
     ];
-    
+
     if (maliciousPathPatterns.some(pattern => pattern.test(path))) {
       console.error(`🚨 Path traversal attempt detected: ${path} from ${ctx.request.ip || 'unknown'}`);
       ctx.response.status = 400;
@@ -216,11 +225,11 @@ export function createSecurityMiddleware(config: SecurityConfig) {
       ctx.response.headers.set('Content-Type', 'application/json');
       return; // Block the request
     }
-    
+
     // ================================================================================
     // 🔍 SECURITY MONITORING
     // ================================================================================
-    
+
     // Add security context to request state
     ctx.state.security = {
       userAgent,
@@ -230,14 +239,14 @@ export function createSecurityMiddleware(config: SecurityConfig) {
       method: ctx.request.method,
       headers: Object.fromEntries(ctx.request.headers.entries())
     };
-    
+
     // Continue to next middleware
     await next();
-    
+
     // ================================================================================
     // 🔒 POST-PROCESSING SECURITY
     // ================================================================================
-    
+
     // Remove sensitive headers that might leak information
     const sensitiveHeaders = [
       'X-Powered-By',
@@ -246,11 +255,11 @@ export function createSecurityMiddleware(config: SecurityConfig) {
       'X-Framework',
       'X-Version'
     ];
-    
+
     sensitiveHeaders.forEach(header => {
       ctx.response.headers.delete(header);
     });
-    
+
     // Add final security timestamp
     ctx.response.headers.set('X-Security-Processed', new Date().toISOString());
   };
@@ -267,12 +276,12 @@ export class SecurityValidator {
   static isValidRedirectUrl(url: string, allowedDomains: string[] = []): boolean {
     try {
       const parsedUrl = new URL(url);
-      
+
       // Only allow HTTPS in production
       if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
         return false;
       }
-      
+
       // Check against allowed domains
       if (allowedDomains.length > 0) {
         return allowedDomains.some(domain => 
@@ -280,13 +289,13 @@ export class SecurityValidator {
           parsedUrl.hostname.endsWith('.' + domain)
         );
       }
-      
+
       return true;
     } catch {
       return false;
     }
   }
-  
+
   /**
    * Sanitize input to prevent XSS
    */
@@ -303,7 +312,7 @@ export class SecurityValidator {
         return entities[char] || char;
       });
   }
-  
+
   /**
    * Validate Content-Type for file uploads
    */
@@ -319,10 +328,10 @@ export class SecurityValidator {
         'application/pdf'
       ];
     }
-    
+
     return allowedTypes.includes(contentType.toLowerCase());
   }
-  
+
   /**
    * Generate a secure random token
    */
@@ -331,7 +340,7 @@ export class SecurityValidator {
     crypto.getRandomValues(array);
     return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
   }
-  
+
   /**
    * Validate API key format
    */
@@ -348,28 +357,28 @@ export class SecurityValidator {
 export class SecurityMonitor {
   private static suspiciousActivity: Map<string, number> = new Map();
   private static blockedIPs: Set<string> = new Set();
-  
+
   /**
    * Track suspicious activity from an IP
    */
   static trackSuspiciousActivity(ip: string): void {
     const current = this.suspiciousActivity.get(ip) || 0;
     this.suspiciousActivity.set(ip, current + 1);
-    
+
     // Auto-block IPs with too many suspicious requests
     if (current + 1 >= 10) {
       this.blockedIPs.add(ip);
       console.error(`🚨 IP ${ip} has been auto-blocked due to suspicious activity`);
     }
   }
-  
+
   /**
    * Check if an IP is blocked
    */
   static isBlocked(ip: string): boolean {
     return this.blockedIPs.has(ip);
   }
-  
+
   /**
    * Get security statistics
    */
@@ -384,7 +393,7 @@ export class SecurityMonitor {
       timestamp: new Date().toISOString()
     };
   }
-  
+
   /**
    * Unblock an IP (manual intervention)
    */
@@ -393,7 +402,7 @@ export class SecurityMonitor {
     this.suspiciousActivity.delete(ip);
     console.log(`🔓 IP ${ip} has been unblocked`);
   }
-  
+
   /**
    * Clear old security data (cleanup)
    */
@@ -405,7 +414,7 @@ export class SecurityMonitor {
       const sorted = Array.from(this.suspiciousActivity.entries())
         .sort(([,a], [,b]) => b - a)
         .slice(0, 500);
-      
+
       this.suspiciousActivity.clear();
       sorted.forEach(([ip, count]) => this.suspiciousActivity.set(ip, count));
     }
@@ -413,7 +422,7 @@ export class SecurityMonitor {
 }
 
 // ================================================================================
-// 🔧 SECURITY CONFIGURATION PRESETS
+// 🔧 SECURITY CONFIGURATION PRESETS - UPDATED FOR APPOINTMENT BOOKING
 // ================================================================================
 
 export const SecurityPresets = {
@@ -427,12 +436,12 @@ export const SecurityPresets = {
     enableXSSProtection: true,
     referrerPolicy: 'no-referrer',
     contentSecurityPolicy: [
-      "default-src 'none'",
-      "script-src 'self'",
-      "style-src 'self'",
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline'",
+      "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data:",
       "font-src 'self'",
-      "connect-src 'self'",
+      "connect-src 'self' https://pedromdominguez.com https://www.pedromdominguez.com",
       "media-src 'none'",
       "object-src 'none'",
       "child-src 'none'",
@@ -445,9 +454,9 @@ export const SecurityPresets = {
       "upgrade-insecure-requests"
     ].join('; ')
   },
-  
+
   /**
-   * Balanced security for most applications
+   * Balanced security for most applications with appointment booking
    */
   BALANCED: {
     enableHSTS: true,
@@ -457,20 +466,21 @@ export const SecurityPresets = {
     referrerPolicy: 'strict-origin-when-cross-origin',
     contentSecurityPolicy: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+      "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.skypack.dev",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
+      "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:",
       "img-src 'self' data: https:",
       "media-src 'self' data:",
+      "connect-src 'self' https://pedromdominguez.com https://www.pedromdominguez.com",
       "object-src 'none'",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'"
     ].join('; ')
   },
-  
+
   /**
-   * Development-friendly configuration
+   * Development-friendly configuration with appointment booking
    */
   DEVELOPMENT: {
     enableHSTS: false,
@@ -482,10 +492,10 @@ export const SecurityPresets = {
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
       "style-src 'self' 'unsafe-inline' https:",
-      "font-src 'self' https:",
+      "font-src 'self' https: data:",
       "img-src 'self' data: https: blob:",
       "media-src 'self' data: https:",
-      "connect-src 'self' ws: wss: https:",
+      "connect-src 'self' ws: wss: https: http://localhost:* http://127.0.0.1:* https://pedromdominguez.com https://www.pedromdominguez.com",
       "object-src 'none'",
       "base-uri 'self'"
     ].join('; ')
