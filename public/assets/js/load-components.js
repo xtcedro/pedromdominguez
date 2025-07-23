@@ -388,7 +388,7 @@ export async function loadBootScreen() {
 // 🌐 WEBSOCKET INTEGRATION
 // ================================================================================
 
-export function loadWebSocket(wsUrl = "wss://domingueztechsolutions.com/api/ws") {
+export function loadWebSocket(wsUrl = "wss://pedromdominguez.com/api/ws") {
   try {
     console.log(`🔌 Initializing WebSocket: ${wsUrl}`);
     initializeWebSocket(wsUrl);

@@ -70,14 +70,8 @@ const middlewareConfig: MiddlewareConfig = {
       "https://www.pedromdominguez.com"
     ],
     developmentOrigins: [
-<<<<<<< HEAD
       "http://localhost:3003",
       "http://127.0.0.1:3003",
-=======
-      "http://localhost:3000",
-      "http://localhost:3004", 
-      "http://127.0.0.1:3000",
->>>>>>> refs/remotes/origin/main
       "https://cdn.skypack.dev",
       "https://cdnjs.cloudflare.com",
       "https://cdn.jsdelivr.net",
@@ -115,7 +109,7 @@ middlewares.forEach((middleware, index) => {
 
 const middlewareNames = [
   "Performance Monitor",
-  "Error Handler", 
+  "Error Handler",
   "Request Logger",
   "Enhanced Security Headers",
   "CORS Handler",
@@ -186,7 +180,7 @@ app.use(async (ctx, next) => {
 
       // Add caching headers for static assets
       if (environment === 'production') {
-        const cacheTime = ['.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.ttf', '.woff2'].includes(extension) 
+        const cacheTime = ['.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.ttf', '.woff2'].includes(extension)
           ? 86400 // 24 hours for assets
           : 3600; // 1 hour for HTML
         ctx.response.headers.set('Cache-Control', `public, max-age=${cacheTime}`);
@@ -222,14 +216,14 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     ctx.response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
     ctx.response.headers.set('Access-Control-Allow-Credentials', 'true');
-    
+
     // Handle preflight requests
     if (ctx.request.method === 'OPTIONS') {
       ctx.response.status = 200;
       return;
     }
   }
-  
+
   await next();
 });
 
@@ -249,7 +243,7 @@ app.use(async (ctx) => {
   ctx.response.status = 404;
   ctx.response.headers.set('Content-Type', 'text/html; charset=utf-8');
   ctx.response.headers.set('Content-Security-Policy', createCSPPolicy(environment));
-  
+
   try {
     await send(ctx, "/pages/errors/404.html", {
       root: `${Deno.cwd()}/public`,
