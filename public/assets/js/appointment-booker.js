@@ -7,9 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("phone");
   const responseMsg = document.getElementById("responseMessage");
 
-  // ✅ Site key for appointment routing
-  const SITE_KEY = "pedromd";
-
   // 🧼 Format phone input to 10 digits only
   phoneInput.addEventListener("input", () => {
     let cleaned = phoneInput.value.replace(/\D/g, "");
@@ -26,9 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
-    // Normalize phone and add site key
+    // Normalize phone number
     payload.phone = payload.phone.replace(/\D/g, "");
-    payload.siteKey = SITE_KEY;
 
     // ✅ Validate phone number
     if (payload.phone.length !== 10) {
@@ -47,8 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       showNotification("📡 Sending appointment data...", "info");
 
-      // ✅ Use relative URL (same pattern as contact form)
-      const res = await fetch(`/api/appointments?site=${SITE_KEY}`, {
+      // ✅ Backend handles site key resolution from domain/request context
+      const res = await fetch("/api/appointments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -71,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ✅ Message display function (same pattern as contact form)
+  // ✅ Message display function
   function displayMessage(text, type) {
     responseMsg.style.display = "block";
     responseMsg.textContent = text;
