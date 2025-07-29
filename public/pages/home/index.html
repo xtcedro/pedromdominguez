@@ -249,77 +249,6 @@
       --hover-transition: all 0.3s ease;
     }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-
-    .navbar {
-      background: var(--primary-color);
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 4rem 2rem;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/okc-skyline.jpg') no-repeat center/cover;
-    }
-
-    .hero-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--accent-color);
-    }
-
-    .hero-subheading {
-      font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto 2rem;
-      color: var(--text-color);
-    }
-
-    .impact-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-
-    .impact-box {
-      background: var(--card-background);
-      padding: 2rem;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      transition: var(--hover-transition);
-    }
-
-    .impact-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .impact-box h2 {
-      font-size: 1.5rem;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-    }
-
     .research-achievements {
       background: var(--card-background);
       padding: 2rem;
@@ -347,51 +276,7 @@
       border-left: 4px solid var(--accent-color);
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: var(--accent-color);
-      color: var(--primary-color);
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: var(--hover-transition);
-    }
-
-    .cta-button:hover {
-      background: #e6c200;
-      transform: scale(1.05);
-    }
-
-    .contact-info {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-    }
-
-    .profile-frame {
-      text-align: center;
-      margin: 2rem 0;
-    }
-
-    .profile-photo {
-      max-width: 200px;
-      border-radius: 50%;
-      border: 3px solid var(--accent-color);
-    }
-
-    .profile-caption {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-      color: var(--text-color);
-    }
-
-    .caption-role {
-      font-weight: 600;
-      color: var(--accent-color);
-    }
-
-    .caption-location {
+   .caption-location {
       font-size: 0.9rem;
       color: rgba(255, 215, 0, 0.8);
       font-style: italic;
@@ -478,67 +363,6 @@
       text-align: center;
     }
 
-    .contact-details {
-      background: var(--card-background);
-      padding: 2rem;
-      border-radius: 12px;
-      margin-top: 2rem;
-      border: 1px solid var(--card-border);
-    }
-
-    .contact-details ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .contact-details li {
-      margin: 1rem 0;
-      font-size: 1.1rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: var(--primary-color);
-      color: var(--text-color);
-      border-top: 1px solid var(--card-border);
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero-subheading {
-        font-size: 1rem;
-      }
-
-      .principles-grid, .technical-grid, .outcome-grid, .research-grid, .performance-metrics ul, .academic-links ul {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-button {
-        padding: 0.8rem 1.5rem;
-      }
-
-      .profile-photo {
-        max-width: 150px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero {
-        padding: 2rem 1rem;
-      }
-
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-
-      .impact-box, .principle-card, .tech-component, .outcome-card, .research-card {
-        padding: 1rem;
-      }
-    }
   </style>
 </body>
 </html>
