@@ -1,5 +1,5 @@
 // /models/projectsModel.ts
-import { db } from "../config/db.ts";
+import { db } from "../database/client.ts";
 import { SITE_KEY } from "../config/env.ts";
 import { ProjectInput, ProjectUpdateInput, ProjectRecord } from "../types/projects.d.ts";
 

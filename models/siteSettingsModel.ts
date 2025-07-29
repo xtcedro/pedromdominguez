@@ -1,12 +1,12 @@
 // /models/siteSettingsModel.ts
-import { db } from "../config/db.ts";
+import { db } from "../database/client.ts";
 import { SITE_KEY } from "../config/env.ts";
 import { SiteSettings, SiteSettingsInput } from "../types/siteSettings.d.ts";
 
 export class SiteSettingsModel {
   static async getSettings(): Promise<SiteSettings | null> {
     const rows = await db.query(
-      `SELECT 
+      `SELECT
         hero_headline, contact_email, business_phone, footer_text,
         primary_color, secondary_color, about_us_text,
         facebook_url, instagram_url, twitter_url, tracking_code
