@@ -27,10 +27,10 @@ const environment = env.DENO_ENV || "development";
 // DenoGenesis Framework Configuration
 const frameworkConfig: DenoGenesisConfig = {
   version: "v1.4.0-enterprise",
-  buildDate: new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  buildDate: new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   }),
   environment,
   port,
@@ -78,7 +78,7 @@ const middlewareConfig: MiddlewareConfig = {
     ],
     developmentOrigins: [
       "http://localhost:3000",
-      "http://localhost:3001", 
+      "http://localhost:3001",
       "http://localhost:3002",
       "http://localhost:3003",
       "http://localhost:3004",
@@ -176,7 +176,7 @@ app.use(async (ctx, next) => {
     try {
       // Set proper MIME type
       ctx.response.headers.set('Content-Type', mimeTypes[extension as keyof typeof mimeTypes]);
-      
+
       // Add caching headers for production
       if (environment === 'production' && ['.css', '.js', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.ico', '.ttf', '.woff', '.woff2'].includes(extension)) {
         ctx.response.headers.set('Cache-Control', 'public, max-age=86400'); // 24 hours
@@ -213,7 +213,7 @@ ConsoleStyler.logRoute('/api/ws', 'WebSocket connection endpoint');
 ConsoleStyler.logSuccess("WebSocket routes configured successfully");
 
 // ================================================================================
-// 🛣️ API ROUTE CONFIGURATION  
+// 🛣️ API ROUTE CONFIGURATION
 // ================================================================================
 
 ConsoleStyler.logSection('🛣️ API Route Configuration', 'yellow');
@@ -247,7 +247,7 @@ ConsoleStyler.logSuccess("API routes configured successfully");
 app.use(async (ctx) => {
   ConsoleStyler.logWarning(`404 Not Found: ${ctx.request.url.pathname}`);
   ctx.response.status = 404;
-  
+
   try {
     await send(ctx, "/pages/errors/404.html", {
       root: `${Deno.cwd()}/public`,
@@ -312,9 +312,9 @@ middlewareManager.logStatus();
 // Show initial metrics after server stabilization
 setTimeout(() => {
   ConsoleStyler.logSection('📊 System Status', 'cyan');
-  
+
   const metrics = monitor.getMetrics();
-  
+
   ConsoleStyler.logMetrics({
     uptime: `${metrics.uptime}`,
     requests: metrics.requests,
@@ -330,20 +330,20 @@ setTimeout(() => {
   console.log('\n');
   ConsoleStyler.asciiArt('DENOGENESIS');
   console.log('\n');
-  
+
   ConsoleStyler.logCustom(
-    "Local-First Digital Sovereignty Platform - Ready! 🚀", 
-    "✨", 
+    "Local-First Digital Sovereignty Platform - Ready! 🚀",
+    "✨",
     "success"
   );
-  
+
   // Cambridge validation note
   ConsoleStyler.logCustom(
-    "Framework validated for academic research collaboration", 
-    "🎓", 
+    "Framework validated for academic research collaboration",
+    "🎓",
     "info"
   );
-  
+
 }, 2000);
 
 // ================================================================================
@@ -353,11 +353,11 @@ setTimeout(() => {
 // Handle graceful shutdown
 const handleShutdown = (signal: string) => {
   ConsoleStyler.logWarning(`Received ${signal}, shutting down gracefully...`);
-  
+
   // Log final metrics
   const finalMetrics = monitor.getMetrics();
   ConsoleStyler.logInfo(`Final metrics: ${finalMetrics.requests} requests processed`);
-  
+
   ConsoleStyler.logSuccess("DenoGenesis Framework shutdown complete");
   Deno.exit(0);
 };
