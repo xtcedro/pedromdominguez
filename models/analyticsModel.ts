@@ -1,5 +1,5 @@
 // /models/analyticsModel.ts
-import { db } from "../config/db.ts";
+import { db } from "../database/client.ts";
 import { SITE_KEY } from "../config/env.ts";
 import { SiteAnalytics } from "../types/analytics.d.ts";
 
