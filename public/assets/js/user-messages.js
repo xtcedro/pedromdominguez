@@ -1,10 +1,6 @@
 // File: /assets/js/user-messages.js
 import { showNotification } from '../../public/js/notifications.js';
 
-const API_BASE = window.location.origin.includes("localhost")
-  ? "http://localhost:3003"
-  : "https://www.pedromdominguez.com";
-
 const token = localStorage.getItem("adminToken");
 const status = document.getElementById("status-message");
 
@@ -14,7 +10,7 @@ async function fetchContactMessages() {
   status.textContent = "";
 
   try {
-    const res = await fetch(`${API_BASE}/api/contact`, {
+    const res = await fetch("/api/contact", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
@@ -69,7 +65,7 @@ async function fetchContactMessages() {
 async function deleteContactMessage(id) {
   status.textContent = "";
   try {
-    const res = await fetch(`${API_BASE}/api/contact/${id}`, {
+    const res = await fetch(`/api/contact/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
