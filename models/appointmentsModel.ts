@@ -1,5 +1,5 @@
 // /models/appointmentsModel.ts
-import { db } from "../config/db.ts";
+import { db } from "../database/client.ts";
 import { SITE_KEY } from "../config/env.ts";
 import { AppointmentInput, AppointmentRecord } from "../types/appointments.d.ts";
 

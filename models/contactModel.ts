@@ -1,5 +1,5 @@
 // /models/contactModel.ts
-import { db } from "../config/db.ts";
+import { db } from "../database/client.ts";
 import { SITE_KEY } from "../config/env.ts";
 import { ContactMessageInput, ContactMessageRecord } from "../types/contact.d.ts";
 
@@ -20,8 +20,8 @@ export class ContactModel {
 
   static async getAllMessages(): Promise<ContactMessageRecord[]> {
     const result = await db.execute(
-      `SELECT * FROM contact_messages 
-       WHERE site_key = ? 
+      `SELECT * FROM contact_messages
+       WHERE site_key = ?
        ORDER BY submitted_at DESC`,
       [SITE_KEY],
     );
