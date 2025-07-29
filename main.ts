@@ -73,16 +73,10 @@ const middlewareConfig: MiddlewareConfig = {
     allowedOrigins: [
       "https://pedromdominguez.com",
       "https://www.pedromdominguez.com",
-      "https://domingueztechsolutions.com",
-      "https://okdevs.xyz"
     ],
     developmentOrigins: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://localhost:3002",
       "http://localhost:3003",
-      "http://localhost:3004",
-      "http://127.0.0.1:3000",
+      "http://127.0.0.1:3003",
       "https://cdn.skypack.dev",
       "https://cdnjs.cloudflare.com",
       "https://cdn.jsdelivr.net",
