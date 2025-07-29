@@ -267,8 +267,7 @@
 
 /* Enhanced mobile hover and active states */
 .nav-links a:hover,
-.nav-links a:focus,
-.nav-links a.active {
+.nav-links a:focus {
   color: #ffffff;
   background: 
     linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%),
@@ -283,6 +282,24 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 
   text-shadow: 0 1px 4px rgba(59, 130, 246, 0.4);
+}
+
+/* Active state - ONLY apply when link has .active class */
+.nav-links a.active {
+  color: #ffffff;
+  background: 
+    linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%),
+    rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateX(8px) scale(1.02);
+
+  /* Enhanced active glow */
+  box-shadow:
+    0 8px 24px rgba(59, 130, 246, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  text-shadow: 0 1px 4px rgba(59, 130, 246, 0.5);
 }
 
 /* Active state indicator */
@@ -585,16 +602,23 @@ body.no-scroll {
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .nav-links li {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
   
   .nav-links a:hover,
   .nav-title:hover,
   .hamburger-menu:hover {
     transform: none !important;
+  }
+  
+  /* Keep essential transitions for usability */
+  .sidebar,
+  .overlay,
+  .hamburger-menu .bar {
+    transition: transform 0.2s ease, opacity 0.2s ease !important;
   }
 }
 
@@ -613,6 +637,11 @@ body.no-scroll {
   .nav-button:hover,
   .hamburger-menu:hover {
     transform: none;
+    background: inherit;
+    border-color: inherit;
+    box-shadow: inherit;
+    color: inherit;
+    text-shadow: inherit;
   }
   
   /* Ensure all interactive elements have proper touch targets */
@@ -625,11 +654,26 @@ body.no-scroll {
   
   /* Add active states for touch feedback */
   .nav-links a:active {
-    background: rgba(59, 130, 246, 0.15);
-    transform: scale(0.98);
+    background: rgba(59, 130, 246, 0.15) !important;
+    transform: scale(0.98) !important;
   }
   
   .nav-button:active {
-    transform: scale(0.98);
+    transform: scale(0.98) !important;
+  }
+  
+  /* Keep active state styling for .active class */
+  .nav-links a.active {
+    color: #ffffff !important;
+    background: 
+      linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(99, 102, 241, 0.2) 100%),
+      rgba(59, 130, 246, 0.15) !important;
+    border-color: rgba(59, 130, 246, 0.5) !important;
+    transform: translateX(8px) scale(1.02) !important;
+    box-shadow:
+      0 8px 24px rgba(59, 130, 246, 0.4),
+      0 4px 12px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+    text-shadow: 0 1px 4px rgba(59, 130, 246, 0.5) !important;
   }
 }
