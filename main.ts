@@ -4,26 +4,26 @@ import router from "./routes/index.ts";
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 // Import DenoGenesis Middleware System
-import { 
-  createMiddlewareStack, 
-  MiddlewareManager, 
-  type MiddlewareConfig 
+import {
+  createMiddlewareStack,
+  MiddlewareManager,
+  type MiddlewareConfig
 } from "./middleware/index.ts";
 
 // Import database connection for status checking
 import { db, getDatabaseStatus } from "./database/client.ts";
 
 // Import environment configuration
-import { 
-  PORT, 
-  DENO_ENV, 
+import {
+  PORT,
+  DENO_ENV,
   SITE_KEY,
   SERVER_HOST,
   CORS_ORIGINS,
   VERSION,
   BUILD_DATE,
   BUILD_HASH,
-  frameworkConfig 
+  frameworkConfig
 } from "./config/env.ts";
 
 const env = await loadEnv();
@@ -67,8 +67,8 @@ const middlewareConfig: MiddlewareConfig = {
     maxAge: DENO_ENV === 'production' ? 86400 : 300
   },
   cors: {
-    allowedOrigins: DENO_ENV === 'production' ? 
-      CORS_ORIGINS.filter(origin => !origin.includes('localhost')) : 
+    allowedOrigins: DENO_ENV === 'production' ?
+      CORS_ORIGINS.filter(origin => !origin.includes('localhost')) :
       CORS_ORIGINS,
     developmentOrigins: CORS_ORIGINS.filter(origin => origin.includes('localhost')),
     credentials: true,
@@ -182,8 +182,8 @@ console.log("\x1b[32m%s\x1b[0m", `✅ Enhanced static file handler configured ($
 // === ENHANCED CORS CONFIGURATION ===
 // The CORS is now handled by the middleware stack, but we keep this for backward compatibility
 app.use(oakCors({
-  origin: DENO_ENV === 'production' 
-    ? ["https://efficientmoversllc.com"] 
+  origin: DENO_ENV === 'production'
+    ? ["https://efficientmoversllc.com"]
     : [...CORS_ORIGINS, "https://efficientmoversllc.com"],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
@@ -335,9 +335,9 @@ console.log("\x1b[33m%s\x1b[0m", "🔗 Health check: http://localhost:" + port +
 console.log("\x1b[33m%s\x1b[0m", "📊 System info: http://localhost:" + port + "/api/system/info");
 
 try {
-  await app.listen({ 
-    port, 
-    hostname: SERVER_HOST === 'localhost' ? '0.0.0.0' : SERVER_HOST 
+  await app.listen({
+    port,
+    hostname: SERVER_HOST === 'localhost' ? '0.0.0.0' : SERVER_HOST
   });
 } catch (error) {
   console.log("\x1b[31m%s\x1b[0m", `❌ Failed to start DenoGenesis ${version}: ${error.message}`);

@@ -9,9 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <script type="module" src="/assets/js/script.js"></script>
 </head>
 <body>
 
+	<nav class="navbar"></nav>
 
     <div class="page-container">
         <!-- Hero Section -->
@@ -26,8 +29,8 @@
                     <span class="gradient-text">Performance Validation</span>
                 </h1>
                 <p class="hero-description">
-                    Independent open-source testing suite that validates our DenoGenesis framework 
-                    against Cambridge University's local-first software research standards. 
+                    Independent open-source testing suite that validates our DenoGenesis framework
+                    against Cambridge University's local-first software research standards.
                     Demonstrating <strong>5-20x faster response times</strong> with enterprise-grade reliability.
                 </p>
                 <div class="hero-stats">
@@ -93,7 +96,7 @@
                     <h2>Built on Cambridge University Research</h2>
                     <p>Our architecture accidentally validated Martin Kleppmann's theoretical work on local-first software, discovered through AI-assisted analysis.</p>
                 </div>
-                
+
                 <div class="research-grid">
                     <div class="research-card featured">
                         <div class="card-icon">📑</div>
@@ -105,7 +108,7 @@
                             <span class="metric">Data Sovereignty</span>
                         </div>
                     </div>
-                    
+
                     <div class="research-card">
                         <div class="card-icon">⚡</div>
                         <h3>DenoGenesis Framework</h3>
@@ -116,7 +119,7 @@
                             <span class="metric">AI-augmented</span>
                         </div>
                     </div>
-                    
+
                     <div class="research-card">
                         <div class="card-icon">🤖</div>
                         <h3>AI-Discovered Validation</h3>
@@ -180,7 +183,7 @@
                             <h3>Clone & Test (Full Suite)</h3>
                         </div>
                         <p>Download the complete test repository with all validation tools and historical data analysis.</p>
-                        
+
                         <div class="code-block">
                             <div class="code-header">
                                 <span class="code-title">Terminal Commands</span>
@@ -198,7 +201,7 @@ cd cambridge-performance-test
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge
                             </code>
                         </div>
-                        
+
                         <div class="option-features">
                             <span class="feature">✅ Complete test suite</span>
                             <span class="feature">✅ Historical analysis</span>
@@ -211,7 +214,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                             <h3>Direct Download (Quick Test)</h3>
                         </div>
                         <p>Download and run the core performance test script directly for immediate validation.</p>
-                        
+
                         <div class="code-block">
                             <div class="code-header">
                                 <span class="code-title">Terminal Commands</span>
@@ -228,7 +231,7 @@ curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/mai
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge
                             </code>
                         </div>
-                        
+
                         <div class="option-features">
                             <span class="feature">⚡ Quick setup</span>
                             <span class="feature">⚡ Core validation</span>
@@ -249,7 +252,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                                 <p>5-20x faster than traditional cloud architectures</p>
                             </div>
                         </div>
-                        
+
                         <div class="result-card success">
                             <div class="result-icon">🎯</div>
                             <div class="result-content">
@@ -258,7 +261,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                                 <p>Enterprise-grade reliability and consistency</p>
                             </div>
                         </div>
-                        
+
                         <div class="result-card success">
                             <div class="result-icon">✅</div>
                             <div class="result-content">
@@ -268,7 +271,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="validation-note">
                         <div class="note-icon">📊</div>
                         <p><strong>Production Validated:</strong> These results represent 8+ months of real-world production data, demonstrating consistent superior performance of our local-first architecture implementation.</p>
@@ -288,7 +291,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                     <h2>How Local-First Achieves Superior Performance</h2>
                     <p>Understanding the technical principles that make local-first architecture fundamentally faster and more reliable.</p>
                 </div>
-                
+
                 <div class="architecture-comparison">
                     <div class="arch-column">
                         <h3>Traditional Cloud Architecture</h3>
@@ -309,7 +312,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                             <span>Single Point of Failure</span>
                         </div>
                     </div>
-                    
+
                     <div class="arch-column highlighted">
                         <h3>Local-First Architecture</h3>
                         <div class="arch-flow">
@@ -354,10 +357,12 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
         </section>
     </div>
 
+	<footer id="footer"></footer>
+
     <script>
         function copyToClipboard(type) {
             let text = '';
-            
+
             if (type === 'clone-test') {
                 text = `git clone https://github.com/xtcedro/cambridge-performance-test.git
 cd cambridge-performance-test
@@ -366,15 +371,15 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                 text = `curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/main/performanceTest.ts
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge`;
             }
-            
+
             navigator.clipboard.writeText(text).then(() => {
                 const btn = event.target.closest('.copy-btn');
                 const copyText = btn.querySelector('.copy-text');
                 const originalText = copyText.textContent;
-                
+
                 btn.setAttribute('data-copied', 'true');
                 copyText.textContent = 'Copied!';
-                
+
                 setTimeout(() => {
                     btn.setAttribute('data-copied', 'false');
                     copyText.textContent = originalText;
@@ -388,7 +393,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                
+
                 const btn = event.target.closest('.copy-btn');
                 const copyText = btn.querySelector('.copy-text');
                 copyText.textContent = 'Copied!';
@@ -401,7 +406,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
-                section.scrollIntoView({ 
+                section.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
