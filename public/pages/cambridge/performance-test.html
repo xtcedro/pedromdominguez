@@ -6,6 +6,8 @@
     <title>Cambridge Performance Test</title>
 </head>
 <body>
+	<nav class="navbar"></nav>
+
     <div class="performance-test-section">
         <h2>🚀 Test Cambridge Performance Validation</h2>
         <p>Run the open-source performance test that validates our local-first architecture against Cambridge University research.</p>
@@ -18,7 +20,7 @@
         </ul>
 
         <h3>Quick Test Instructions</h3>
-        
+
         <h4>Option 1: Clone and Test</h4>
         <div class="code-block">
             <code>
@@ -53,11 +55,12 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
 
         <p><em>Test validates 8+ months of production performance data demonstrating superior local-first architecture.</em></p>
     </div>
+	<footer id="footer"></nav>
 
     <script>
     function copyToClipboard(type) {
         let text = '';
-        
+
         if (type === 'clone-test') {
             text = `git clone https://github.com/xtcedro/cambridge-performance-test.git
 cd cambridge-performance-test
@@ -66,7 +69,7 @@ deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.co
             text = `curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/main/performanceTest.ts
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge`;
         }
-        
+
         navigator.clipboard.writeText(text).then(() => {
             // Find the button that was clicked and show feedback
             event.target.textContent = 'Copied!';
