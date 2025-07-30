@@ -3,425 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambridge Performance Validation | Pedro M. Dominguez</title>
-    <meta name="description" content="Independent validation of local-first architecture performance against Cambridge University research standards. Real-world testing demonstrates 5-20x faster response times.">
-    <link rel="stylesheet" href="cambridge-test.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css" />
-    <script type="module" src="/assets/js/script.js"></script>
+    <title>Cambridge Performance Test</title>
 </head>
 <body>
+    <div class="performance-test-section">
+        <h2>🚀 Test Cambridge Performance Validation</h2>
+        <p>Run the open-source performance test that validates our local-first architecture against Cambridge University research.</p>
 
-	<nav class="navbar"></nav>
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Install <a href="https://deno.land/" target="_blank">Deno runtime</a></li>
+            <li>Basic command line knowledge</li>
+            <li>Internet connection</li>
+        </ul>
 
-    <div class="page-container">
-        <!-- Hero Section -->
-        <header class="hero-section">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="badge-icon">🎓</span>
-                    <span>Cambridge University Research Validation</span>
-                </div>
-                <h1 class="hero-title">
-                    Local-First Architecture
-                    <span class="gradient-text">Performance Validation</span>
-                </h1>
-                <p class="hero-description">
-                    Independent open-source testing suite that validates our DenoGenesis framework
-                    against Cambridge University's local-first software research standards.
-                    Demonstrating <strong>5-20x faster response times</strong> with enterprise-grade reliability.
-                </p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">&lt;50ms</div>
-                        <div class="stat-label">Average Response</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label">Success Rate</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">8+</div>
-                        <div class="stat-label">Months Validated</div>
-                    </div>
-                </div>
-                <div class="hero-actions">
-                    <button class="cta-primary" onclick="scrollToSection('test-section')">
-                        <span>🚀</span>
-                        Run Performance Test
-                    </button>
-                    <button class="cta-secondary" onclick="scrollToSection('research-section')">
-                        <span>📊</span>
-                        View Research Data
-                    </button>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="performance-chart">
-                    <div class="chart-header">Real-time Performance Metrics</div>
-                    <div class="chart-bars">
-                        <div class="bar-group">
-                            <div class="bar local-first" style="height: 15%;">
-                                <span class="bar-value">~20ms</span>
-                            </div>
-                            <div class="bar-label">Local-First</div>
-                        </div>
-                        <div class="bar-group">
-                            <div class="bar cloud-native" style="height: 60%;">
-                                <span class="bar-value">~200ms</span>
-                            </div>
-                            <div class="bar-label">Cloud-Native</div>
-                        </div>
-                        <div class="bar-group">
-                            <div class="bar traditional" style="height: 100%;">
-                                <span class="bar-value">~400ms</span>
-                            </div>
-                            <div class="bar-label">Traditional</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <h3>Quick Test Instructions</h3>
+        
+        <h4>Option 1: Clone and Test</h4>
+        <div class="code-block">
+            <code>
+# Clone the performance test repository<br>
+git clone https://github.com/xtcedro/cambridge-performance-test.git<br>
+cd cambridge-performance-test<br><br>
 
-        <!-- Research Context Section -->
-        <section id="research-section" class="research-section">
-            <div class="section-container">
-                <div class="section-header">
-                    <div class="section-badge">
-                        <span>🔬</span>
-                        Research Foundation
-                    </div>
-                    <h2>Built on Cambridge University Research</h2>
-                    <p>Our architecture accidentally validated Martin Kleppmann's theoretical work on local-first software, discovered through AI-assisted analysis.</p>
-                </div>
-
-                <div class="research-grid">
-                    <div class="research-card featured">
-                        <div class="card-icon">📑</div>
-                        <h3>Martin Kleppmann's Local-First Software</h3>
-                        <p>Cambridge University research defining the principles of software that prioritizes local data and offline-first capabilities.</p>
-                        <div class="card-metrics">
-                            <span class="metric">CRDTs</span>
-                            <span class="metric">Offline-First</span>
-                            <span class="metric">Data Sovereignty</span>
-                        </div>
-                    </div>
-
-                    <div class="research-card">
-                        <div class="card-icon">⚡</div>
-                        <h3>DenoGenesis Framework</h3>
-                        <p>Our production implementation achieving the theoretical performance benchmarks through innovative architecture.</p>
-                        <div class="card-metrics">
-                            <span class="metric">Multi-tenant</span>
-                            <span class="metric">Edge-optimized</span>
-                            <span class="metric">AI-augmented</span>
-                        </div>
-                    </div>
-
-                    <div class="research-card">
-                        <div class="card-icon">🤖</div>
-                        <h3>AI-Discovered Validation</h3>
-                        <p>Claude AI identified the connection between our work and Kleppmann's research, validating 8+ months of development.</p>
-                        <div class="card-metrics">
-                            <span class="metric">Serendipitous</span>
-                            <span class="metric">Validated</span>
-                            <span class="metric">Academic-grade</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Performance Test Section -->
-        <section id="test-section" class="test-section">
-            <div class="section-container">
-                <div class="section-header">
-                    <div class="section-badge">
-                        <span>🧪</span>
-                        Interactive Testing
-                    </div>
-                    <h2>Run Cambridge Performance Validation</h2>
-                    <p>Execute the open-source test suite that validates our local-first architecture against Cambridge research standards.</p>
-                </div>
-
-                <!-- Prerequisites -->
-                <div class="prerequisites-card">
-                    <h3>Prerequisites</h3>
-                    <div class="prereq-grid">
-                        <div class="prereq-item">
-                            <div class="prereq-icon">🦕</div>
-                            <div class="prereq-content">
-                                <h4>Deno Runtime</h4>
-                                <p>Modern, secure runtime for JavaScript and TypeScript</p>
-                                <a href="https://deno.land/" target="_blank" class="prereq-link">Install Deno →</a>
-                            </div>
-                        </div>
-                        <div class="prereq-item">
-                            <div class="prereq-icon">💻</div>
-                            <div class="prereq-content">
-                                <h4>Command Line</h4>
-                                <p>Basic terminal/command prompt knowledge</p>
-                            </div>
-                        </div>
-                        <div class="prereq-item">
-                            <div class="prereq-icon">🌐</div>
-                            <div class="prereq-content">
-                                <h4>Internet Connection</h4>
-                                <p>Required for downloading test suite and running validation</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Test Options -->
-                <div class="test-options">
-                    <div class="test-option recommended">
-                        <div class="option-header">
-                            <div class="option-badge">Recommended</div>
-                            <h3>Clone & Test (Full Suite)</h3>
-                        </div>
-                        <p>Download the complete test repository with all validation tools and historical data analysis.</p>
-
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span class="code-title">Terminal Commands</span>
-                                <button class="copy-btn" onclick="copyToClipboard('clone-test')" data-copied="false">
-                                    <span class="copy-icon">📋</span>
-                                    <span class="copy-text">Copy</span>
-                                </button>
-                            </div>
-                            <code id="clone-test-code">
-# Clone the performance test repository
-git clone https://github.com/xtcedro/cambridge-performance-test.git
-cd cambridge-performance-test
-
-# Run Cambridge validation test
+# Run Cambridge validation test<br>
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge
-                            </code>
-                        </div>
+            </code>
+            <button onclick="copyToClipboard('clone-test')">Copy Commands</button>
+        </div>
 
-                        <div class="option-features">
-                            <span class="feature">✅ Complete test suite</span>
-                            <span class="feature">✅ Historical analysis</span>
-                            <span class="feature">✅ Detailed reporting</span>
-                        </div>
-                    </div>
+        <h4>Option 2: Direct Download</h4>
+        <div class="code-block">
+            <code>
+# Download test script directly<br>
+curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/main/performanceTest.ts<br><br>
 
-                    <div class="test-option">
-                        <div class="option-header">
-                            <h3>Direct Download (Quick Test)</h3>
-                        </div>
-                        <p>Download and run the core performance test script directly for immediate validation.</p>
-
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span class="code-title">Terminal Commands</span>
-                                <button class="copy-btn" onclick="copyToClipboard('direct-test')" data-copied="false">
-                                    <span class="copy-icon">📋</span>
-                                    <span class="copy-text">Copy</span>
-                                </button>
-                            </div>
-                            <code id="direct-test-code">
-# Download test script directly
-curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/main/performanceTest.ts
-
-# Run the test
+# Run the test<br>
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge
-                            </code>
-                        </div>
+            </code>
+            <button onclick="copyToClipboard('direct-test')">Copy Commands</button>
+        </div>
 
-                        <div class="option-features">
-                            <span class="feature">⚡ Quick setup</span>
-                            <span class="feature">⚡ Core validation</span>
-                            <span class="feature">⚡ Minimal download</span>
-                        </div>
-                    </div>
-                </div>
+        <h3>Expected Results</h3>
+        <div class="expected-results">
+            <p><strong>✅ Average Response Time:</strong> &lt;50ms (5-20x faster than cloud)</p>
+            <p><strong>✅ Success Rate:</strong> 100% (Enterprise reliability)</p>
+            <p><strong>✅ Cambridge Validation:</strong> Local-first architecture proven</p>
+        </div>
 
-                <!-- Expected Results -->
-                <div class="results-section">
-                    <h3>Expected Test Results</h3>
-                    <div class="results-grid">
-                        <div class="result-card success">
-                            <div class="result-icon">⚡</div>
-                            <div class="result-content">
-                                <h4>Average Response Time</h4>
-                                <div class="result-value">&lt; 50ms</div>
-                                <p>5-20x faster than traditional cloud architectures</p>
-                            </div>
-                        </div>
-
-                        <div class="result-card success">
-                            <div class="result-icon">🎯</div>
-                            <div class="result-content">
-                                <h4>Success Rate</h4>
-                                <div class="result-value">100%</div>
-                                <p>Enterprise-grade reliability and consistency</p>
-                            </div>
-                        </div>
-
-                        <div class="result-card success">
-                            <div class="result-icon">✅</div>
-                            <div class="result-content">
-                                <h4>Cambridge Validation</h4>
-                                <div class="result-value">Proven</div>
-                                <p>Local-first architecture principles validated</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="validation-note">
-                        <div class="note-icon">📊</div>
-                        <p><strong>Production Validated:</strong> These results represent 8+ months of real-world production data, demonstrating consistent superior performance of our local-first architecture implementation.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Deep Dive -->
-        <section class="technical-section">
-            <div class="section-container">
-                <div class="section-header">
-                    <div class="section-badge">
-                        <span>🔧</span>
-                        Technical Architecture
-                    </div>
-                    <h2>How Local-First Achieves Superior Performance</h2>
-                    <p>Understanding the technical principles that make local-first architecture fundamentally faster and more reliable.</p>
-                </div>
-
-                <div class="architecture-comparison">
-                    <div class="arch-column">
-                        <h3>Traditional Cloud Architecture</h3>
-                        <div class="arch-flow">
-                            <div class="flow-step slow">User Request</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step slow">Network Round-trip</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step slow">Server Processing</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step slow">Database Query</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step slow">Response (~400ms)</div>
-                        </div>
-                        <div class="arch-metrics bad">
-                            <span>High Latency</span>
-                            <span>Network Dependent</span>
-                            <span>Single Point of Failure</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-column highlighted">
-                        <h3>Local-First Architecture</h3>
-                        <div class="arch-flow">
-                            <div class="flow-step fast">User Request</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step fast">Local Processing</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step fast">Memory/Cache Access</div>
-                            <div class="flow-arrow">↓</div>
-                            <div class="flow-step fast">Immediate Response (~20ms)</div>
-                            <div class="flow-arrow optional">↓</div>
-                            <div class="flow-step optional">Background Sync</div>
-                        </div>
-                        <div class="arch-metrics good">
-                            <span>Ultra-Low Latency</span>
-                            <span>Offline Capable</span>
-                            <span>Edge Distributed</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <div class="section-container">
-                <div class="cta-content">
-                    <h2>Ready to Experience Local-First Performance?</h2>
-                    <p>Join the growing number of developers validating the future of software architecture.</p>
-                    <div class="cta-actions">
-                        <button class="cta-primary large" onclick="scrollToSection('test-section')">
-                            <span>🚀</span>
-                            Run Performance Test Now
-                        </button>
-                        <a href="https://github.com/xtcedro/cambridge-performance-test" target="_blank" class="cta-secondary large">
-                            <span>📂</span>
-                            View Source Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <p><em>Test validates 8+ months of production performance data demonstrating superior local-first architecture.</em></p>
     </div>
 
-	<footer id="footer"></footer>
-
     <script>
-        function copyToClipboard(type) {
-            let text = '';
-
-            if (type === 'clone-test') {
-                text = `git clone https://github.com/xtcedro/cambridge-performance-test.git
+    function copyToClipboard(type) {
+        let text = '';
+        
+        if (type === 'clone-test') {
+            text = `git clone https://github.com/xtcedro/cambridge-performance-test.git
 cd cambridge-performance-test
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge`;
-            } else if (type === 'direct-test') {
-                text = `curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/main/performanceTest.ts
+        } else if (type === 'direct-test') {
+            text = `curl -O https://raw.githubusercontent.com/xtcedro/cambridge-performance-test/main/performanceTest.ts
 deno run --allow-net --allow-write performanceTest.ts https://pedromdominguez.com cambridge`;
-            }
-
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target.closest('.copy-btn');
-                const copyText = btn.querySelector('.copy-text');
-                const originalText = copyText.textContent;
-
-                btn.setAttribute('data-copied', 'true');
-                copyText.textContent = 'Copied!';
-
-                setTimeout(() => {
-                    btn.setAttribute('data-copied', 'false');
-                    copyText.textContent = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-
-                const btn = event.target.closest('.copy-btn');
-                const copyText = btn.querySelector('.copy-text');
-                copyText.textContent = 'Copied!';
-                setTimeout(() => {
-                    copyText.textContent = 'Copy';
-                }, 2000);
-            });
         }
-
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-
-        // Animate performance chart on load
-        document.addEventListener('DOMContentLoaded', () => {
-            const bars = document.querySelectorAll('.bar');
-            bars.forEach((bar, index) => {
-                setTimeout(() => {
-                    bar.style.animation = 'barGrow 0.8s ease-out forwards';
-                }, index * 200);
-            });
+        
+        navigator.clipboard.writeText(text).then(() => {
+            // Find the button that was clicked and show feedback
+            event.target.textContent = 'Copied!';
+            setTimeout(() => {
+                event.target.textContent = 'Copy Commands';
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
         });
+    }
     </script>
 </body>
 </html>
