@@ -1,0 +1,1211 @@
+/* ================================================================================
+   🚀 DenoGenesis Framework - Complete Tailwind CSS Input
+   Enterprise Digital Sovereignty Platform - Local-First Architecture
+   Author: Pedro M. Dominguez | Location: Oklahoma City, Oklahoma
+   ================================================================================ */
+
+@tailwind base;
+@tailwind components; 
+@tailwind utilities;
+
+/* ================================================================================
+   🎨 BASE LAYER - Global Styles & Variables
+   ================================================================================ */
+
+@layer base {
+  /* Enhanced CSS Custom Properties for DenoGenesis Theme */
+  :root {
+    /* === Digital Sovereignty Color Palette === */
+    --dg-sovereignty-gold: #ffd700;
+    --dg-sovereignty-gold-light: #ffed4e;
+    --dg-sovereignty-gold-dark: #b8860b;
+    
+    /* === Enterprise Blues === */
+    --dg-enterprise-blue: #3b82f6;
+    --dg-enterprise-blue-light: #60a5fa;
+    --dg-enterprise-blue-dark: #1e40af;
+    
+    /* === Research Purple === */
+    --dg-research-purple: #8b5cf6;
+    --dg-research-purple-light: #a78bfa;
+    --dg-research-purple-dark: #7c3aed;
+    
+    /* === Academic Neutrals === */
+    --dg-slate-50: #f8fafc;
+    --dg-slate-100: #f1f5f9;
+    --dg-slate-200: #e2e8f0;
+    --dg-slate-300: #cbd5e1;
+    --dg-slate-400: #94a3b8;
+    --dg-slate-500: #64748b;
+    --dg-slate-600: #475569;
+    --dg-slate-700: #334155;
+    --dg-slate-800: #1e293b;
+    --dg-slate-900: #0f172a;
+    
+    /* === DenoGenesis Gradient Backgrounds === */
+    --dg-hero-gradient: 
+      radial-gradient(ellipse at 25% 15%, rgba(59, 130, 246, 0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 75% 85%, rgba(147, 51, 234, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 70%),
+      linear-gradient(145deg,
+        rgba(3, 7, 18, 0.98) 0%,
+        rgba(8, 14, 31, 0.96) 25%,
+        rgba(15, 23, 42, 0.94) 50%,
+        rgba(20, 30, 55, 0.95) 75%,
+        rgba(6, 10, 25, 0.98) 100%
+      );
+    
+    --dg-footer-gradient:
+      radial-gradient(ellipse at top, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+      linear-gradient(135deg, 
+        #050f1e 0%, 
+        #0a1a2f 25%, 
+        #142040 50%, 
+        #0a1a2f 75%, 
+        #050f1e 100%
+      );
+    
+    /* === Performance & Animation Variables === */
+    --dg-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --dg-transition-smooth: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    --dg-transition-enterprise: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    
+    /* === Typography Enhancement === */
+    --dg-font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --dg-font-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Cascadia Code', monospace;
+    
+    /* === Shadows & Depth === */
+    --dg-shadow-enterprise: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --dg-shadow-sovereignty: 0 25px 60px rgba(59, 130, 246, 0.12), 0 15px 35px rgba(0, 0, 0, 0.15);
+    --dg-shadow-glow-blue: 0 0 30px rgba(59, 130, 246, 0.3);
+    --dg-shadow-glow-purple: 0 0 30px rgba(139, 92, 246, 0.3);
+    --dg-shadow-glow-gold: 0 0 30px rgba(255, 215, 0, 0.4);
+  }
+  
+  /* Enhanced Global Base Styles */
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply font-sans text-slate-100 bg-slate-900;
+    font-family: var(--dg-font-display);
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Enhanced Scrollbar for DenoGenesis Theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
+    background: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple));
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+  
+  /* Selection Enhancement */
+  ::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: white;
+  }
+  
+  ::-moz-selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: white;
+  }
+}
+
+/* ================================================================================
+   🏗️ COMPONENTS LAYER - DenoGenesis UI Components
+   ================================================================================ */
+
+@layer components {
+  
+  /* === HERO SECTION COMPONENT === */
+  .dg-hero {
+    @apply relative min-h-screen flex flex-col justify-center items-center text-center px-8 overflow-hidden;
+    background: var(--dg-hero-gradient);
+    box-shadow: inset 0 0 200px rgba(59, 130, 246, 0.03);
+  }
+  
+  .dg-hero-headline {
+    @apply text-5xl md:text-7xl font-bold mb-8 leading-tight;
+    background: linear-gradient(135deg, 
+      #60a5fa 0%, 
+      #a78bfa 25%, 
+      #60a5fa 50%, 
+      #c084fc 75%, 
+      #60a5fa 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: dg-gradient-shift 8s ease-infinite infinite;
+    filter: drop-shadow(0 4px 12px rgba(96, 165, 250, 0.3));
+  }
+  
+  .dg-hero-subheading {
+    @apply text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed p-8 rounded-2xl border;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+    border-color: rgba(100, 116, 139, 0.3);
+    transition: var(--dg-transition-enterprise);
+  }
+  
+  .dg-hero-subheading:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: var(--dg-shadow-sovereignty);
+  }
+  
+  /* === CARD COMPONENTS === */
+  .dg-card {
+    @apply p-8 rounded-2xl border transition-all duration-300;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+    border-color: rgba(100, 116, 139, 0.3);
+  }
+  
+  .dg-card:hover {
+    @apply -translate-y-2;
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: var(--dg-shadow-enterprise);
+  }
+  
+  .dg-card-research {
+    @apply dg-card;
+  }
+  
+  .dg-card-research:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: var(--dg-shadow-glow-purple);
+  }
+  
+  .dg-card-sovereignty {
+    @apply dg-card;
+  }
+  
+  .dg-card-sovereignty:hover {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: var(--dg-shadow-glow-gold);
+  }
+  
+  /* === NAVIGATION COMPONENTS === */
+  .dg-navbar {
+    @apply fixed top-0 left-0 right-0 z-50 border-b;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(16px);
+    border-color: rgba(100, 116, 139, 0.2);
+    transition: var(--dg-transition-smooth);
+  }
+  
+  .dg-nav-link {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+    color: var(--dg-slate-300);
+  }
+  
+  .dg-nav-link:hover {
+    @apply text-blue-300;
+    background: rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  .dg-nav-link.active {
+    @apply text-blue-300;
+    background: rgba(59, 130, 246, 0.2);
+  }
+  
+  /* === BUTTON COMPONENTS === */
+  .dg-btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+    transition: var(--dg-transition-smooth);
+  }
+  
+  .dg-btn-primary {
+    @apply dg-btn text-white;
+    background: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple));
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+  }
+  
+  .dg-btn-primary:hover {
+    @apply scale-105;
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  .dg-btn-sovereignty {
+    @apply dg-btn text-slate-900 font-bold;
+    background: linear-gradient(135deg, var(--dg-sovereignty-gold), var(--dg-sovereignty-gold-light));
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
+  }
+  
+  .dg-btn-sovereignty:hover {
+    @apply scale-105;
+    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  .dg-btn-outline {
+    @apply dg-btn border-2 bg-transparent;
+    border-color: var(--dg-enterprise-blue);
+    color: var(--dg-enterprise-blue);
+  }
+  
+  .dg-btn-outline:hover {
+    @apply text-white;
+    background: var(--dg-enterprise-blue);
+    transform: translateY(-2px);
+  }
+  
+  /* === FOOTER COMPONENT === */
+  .dg-footer {
+    @apply relative py-16 px-8 text-center overflow-hidden border-t;
+    background: var(--dg-footer-gradient);
+    color: var(--dg-sovereignty-gold);
+    font-family: var(--dg-font-display);
+    font-weight: 600;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, 
+      transparent 0%, 
+      var(--dg-sovereignty-gold) 20%, 
+      var(--dg-sovereignty-gold-light) 50%, 
+      var(--dg-sovereignty-gold) 80%, 
+      transparent 100%
+    ) 1;
+    box-shadow: 
+      0 -12px 40px rgba(0, 0, 0, 0.3),
+      0 -4px 16px rgba(255, 215, 0, 0.15),
+      inset 0 3px 0 rgba(255, 215, 0, 0.1);
+    backdrop-filter: blur(8px);
+  }
+  
+  .dg-footer-brand {
+    @apply text-2xl md:text-4xl font-bold mb-4 uppercase tracking-wider;
+    background: linear-gradient(135deg, 
+      var(--dg-sovereignty-gold) 0%, 
+      var(--dg-sovereignty-gold-light) 25%, 
+      #fff5a0 50%, 
+      var(--dg-sovereignty-gold) 75%, 
+      var(--dg-sovereignty-gold-light) 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: dg-gold-shimmer 4s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.4));
+  }
+  
+  .dg-footer-text {
+    @apply text-lg md:text-xl leading-relaxed max-w-4xl mx-auto mb-8 p-6 rounded-xl border;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 215, 0, 0.1);
+    backdrop-filter: blur(8px);
+    text-shadow: 
+      0 2px 8px rgba(255, 215, 0, 0.3),
+      0 4px 16px rgba(255, 215, 0, 0.1);
+    transition: var(--dg-transition-enterprise);
+  }
+  
+  .dg-footer-text:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 215, 0, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(255, 215, 0, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.1);
+    text-shadow: 
+      0 4px 16px rgba(255, 215, 0, 0.5),
+      0 8px 24px rgba(255, 215, 0, 0.3);
+  }
+  
+  /* === TECHNICAL ARCHITECTURE COMPONENTS === */
+  .dg-tech-component {
+    @apply dg-card p-6 text-center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .dg-tech-component h4 {
+    @apply text-xl font-bold mb-3;
+  }
+  
+  .dg-tech-component:nth-child(1) h4 { @apply text-blue-300; }
+  .dg-tech-component:nth-child(2) h4 { @apply text-purple-300; }
+  .dg-tech-component:nth-child(3) h4 { @apply text-green-300; }
+  .dg-tech-component:nth-child(4) h4 { @apply text-yellow-300; }
+  
+  .dg-tech-component:nth-child(1):hover { border-color: rgba(59, 130, 246, 0.5); }
+  .dg-tech-component:nth-child(2):hover { border-color: rgba(139, 92, 246, 0.5); }
+  .dg-tech-component:nth-child(3):hover { border-color: rgba(34, 197, 94, 0.5); }
+  .dg-tech-component:nth-child(4):hover { border-color: rgba(245, 158, 11, 0.5); }
+  
+  /* === PERFORMANCE METRICS COMPONENTS === */
+  .dg-metrics-container {
+    @apply dg-card p-8;
+    background: rgba(30, 41, 59, 0.8);
+  }
+  
+  .dg-metric-item {
+    @apply flex items-center space-x-3 text-slate-300;
+  }
+  
+  .dg-metric-check {
+    @apply text-green-400 text-xl;
+  }
+  
+  /* === RESEARCH COLLABORATION COMPONENTS === */
+  .dg-collaboration-list {
+    @apply grid md:grid-cols-2 gap-4 text-slate-300;
+  }
+  
+  .dg-collaboration-item {
+    @apply flex items-start space-x-3;
+  }
+  
+  .dg-collaboration-bullet {
+    @apply font-bold text-lg;
+  }
+  
+  .dg-collaboration-bullet:nth-child(odd) { @apply text-blue-400; }
+  .dg-collaboration-bullet:nth-child(even) { @apply text-purple-400; }
+  
+  /* === PROFILE COMPONENT === */
+  .dg-profile-image {
+    @apply w-80 h-80 rounded-full object-cover mx-auto border-4 shadow-2xl relative;
+    border-image: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple)) 1;
+  }
+  
+  .dg-profile-image::before {
+    content: '';
+    @apply absolute -inset-1 rounded-full blur opacity-75;
+    background: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple));
+    z-index: -1;
+  }
+  
+  /* === GLASS MORPHISM UTILITIES === */
+  .dg-glass {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(100, 116, 139, 0.2);
+  }
+  
+  .dg-glass-strong {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(100, 116, 139, 0.3);
+  }
+  
+  /* === SECTION LAYOUTS === */
+  .dg-section {
+    @apply py-24 px-6;
+  }
+  
+  .dg-section-container {
+    @apply max-w-6xl mx-auto;
+  }
+  
+  .dg-section-title {
+    @apply text-4xl md:text-5xl font-bold text-center mb-16;
+    background: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* === RESPONSIVE GRID LAYOUTS === */
+  .dg-grid-2 {
+    @apply grid md:grid-cols-2 gap-8;
+  }
+  
+  .dg-grid-3 {
+    @apply grid lg:grid-cols-3 gap-8;
+  }
+  
+  .dg-grid-4 {
+    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-8;
+  }
+  
+  /* === NOTIFICATION COMPONENTS === */
+  .dg-notification {
+    @apply p-4 rounded-lg border shadow-lg max-w-md;
+    backdrop-filter: blur(8px);
+  }
+  
+  .dg-notification-success {
+    @apply dg-notification bg-green-900/80 border-green-400/50 text-green-100;
+  }
+  
+  .dg-notification-error {
+    @apply dg-notification bg-red-900/80 border-red-400/50 text-red-100;
+  }
+  
+  .dg-notification-info {
+    @apply dg-notification bg-blue-900/80 border-blue-400/50 text-blue-100;
+  }
+  
+  .dg-notification-warning {
+    @apply dg-notification bg-yellow-900/80 border-yellow-400/50 text-yellow-100;
+  }
+}
+
+/* ================================================================================
+   ⚡ UTILITIES LAYER - Custom Utilities & Effects
+   ================================================================================ */
+
+@layer utilities {
+  
+  /* === TEXT UTILITIES === */
+  .text-gradient-blue-purple {
+    background: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-sovereignty {
+    background: linear-gradient(135deg, var(--dg-sovereignty-gold), var(--dg-sovereignty-gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-shadow-enterprise {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-glow-blue {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  
+  .text-shadow-glow-purple {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+  
+  .text-shadow-glow-gold {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  
+  /* === BACKGROUND UTILITIES === */
+  .bg-hero-gradient {
+    background: var(--dg-hero-gradient);
+  }
+  
+  .bg-footer-gradient {
+    background: var(--dg-footer-gradient);
+  }
+  
+  .bg-glass {
+    @apply dg-glass;
+  }
+  
+  .bg-glass-strong {
+    @apply dg-glass-strong;
+  }
+  
+  /* === ANIMATION UTILITIES === */
+  .animate-float {
+    animation: dg-float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow-blue {
+    animation: dg-glow-blue 3s ease-in-out infinite alternate;
+  }
+  
+  .animate-glow-purple {
+    animation: dg-glow-purple 3s ease-in-out infinite alternate;
+  }
+  
+  .animate-glow-gold {
+    animation: dg-glow-gold 3s ease-in-out infinite alternate;
+  }
+  
+  .animate-gradient-shift {
+    animation: dg-gradient-shift 8s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    animation: dg-gold-shimmer 4s ease-in-out infinite;
+  }
+  
+  /* === HOVER UTILITIES === */
+  .hover-lift {
+    transition: var(--dg-transition-smooth);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+  
+  .hover-glow-blue:hover {
+    box-shadow: var(--dg-shadow-glow-blue);
+  }
+  
+  .hover-glow-purple:hover {
+    box-shadow: var(--dg-shadow-glow-purple);
+  }
+  
+  .hover-glow-gold:hover {
+    box-shadow: var(--dg-shadow-glow-gold);
+  }
+  
+  /* === POSITION & LAYOUT UTILITIES === */
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+  
+  .center-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* === BORDER UTILITIES === */
+  .border-gradient-blue-purple {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--dg-slate-800), var(--dg-slate-800)) padding-box,
+                linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple)) border-box;
+  }
+  
+  .border-gradient-sovereignty {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--dg-slate-800), var(--dg-slate-800)) padding-box,
+                linear-gradient(135deg, var(--dg-sovereignty-gold), var(--dg-sovereignty-gold-light)) border-box;
+  }
+  
+  /* === CUSTOM FILTERS === */
+  .filter-enterprise {
+    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.3));
+  }
+  
+  .filter-sovereignty {
+    filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.4));
+  }
+  
+  /* === SCROLL BEHAVIOR === */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  .scroll-snap-y {
+    scroll-snap-type: y mandatory;
+  }
+  
+  .scroll-snap-start {
+    scroll-snap-align: start;
+  }
+  
+  /* === PERFORMANCE OPTIMIZATIONS === */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 300px;
+  }
+}
+
+/* ================================================================================
+   🎬 ANIMATIONS & KEYFRAMES
+   ================================================================================ */
+
+@keyframes dg-float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}
+
+@keyframes dg-glow-blue {
+  from { 
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); 
+  }
+  to { 
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); 
+  }
+}
+
+@keyframes dg-glow-purple {
+  from { 
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); 
+  }
+  to { 
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); 
+  }
+}
+
+@keyframes dg-glow-gold {
+  from { 
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); 
+  }
+  to { 
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); 
+  }
+}
+
+@keyframes dg-gradient-shift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+@keyframes dg-gold-shimmer {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+@keyframes dg-particle-drift {
+  0% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-20px) translateX(-20px);
+    opacity: 0.3;
+  }
+}
+
+@keyframes dg-border-flow {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+/* ================================================================================
+   📱 RESPONSIVE DESIGN & ACCESSIBILITY
+   ================================================================================ */
+
+/* === REDUCED MOTION PREFERENCES === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .scroll-smooth {
+    scroll-behavior: auto;
+  }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  :root {
+    --dg-sovereignty-gold: #ffff00;
+    --dg-enterprise-blue: #0066ff;
+    --dg-research-purple: #9900ff;
+    --dg-slate-800: #000000;
+    --dg-slate-900: #000000;
+  }
+  
+  .dg-hero-headline,
+  .dg-footer-brand,
+  .dg-section-title {
+    -webkit-text-fill-color: #ffffff;
+    background: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  .dg-card,
+  .dg-glass,
+  .dg-glass-strong {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: #ffffff;
+  }
+  
+  .dg-btn-primary {
+    background: #0066ff;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+  }
+  
+  .dg-btn-sovereignty {
+    background: #ffff00;
+    color: #000000;
+    border: 2px solid #000000;
+  }
+}
+
+/* === PRINT STYLES === */
+@media print {
+  .dg-hero,
+  .dg-footer {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  .dg-hero-headline,
+  .dg-footer-brand,
+  .dg-section-title {
+    -webkit-text-fill-color: black !important;
+    background: none !important;
+    text-shadow: none !important;
+  }
+  
+  .dg-card {
+    background: white !important;
+    border: 2px solid #333 !important;
+    color: black !important;
+  }
+  
+  .dg-btn-primary,
+  .dg-btn-sovereignty,
+  .dg-btn-outline {
+    background: white !important;
+    color: black !important;
+    border: 2px solid #333 !important;
+  }
+  
+  /* Hide interactive elements */
+  .dg-navbar,
+  button,
+  .dg-notification {
+    display: none !important;
+  }
+}
+
+/* === MOBILE OPTIMIZATIONS === */
+@media (max-width: 768px) {
+  .dg-hero {
+    @apply px-4 py-16;
+    min-height: 90vh;
+  }
+  
+  .dg-hero-headline {
+    @apply text-4xl mb-6;
+  }
+  
+  .dg-hero-subheading {
+    @apply text-lg p-6 mb-8;
+  }
+  
+  .dg-section {
+    @apply py-16 px-4;
+  }
+  
+  .dg-section-title {
+    @apply text-3xl mb-12;
+  }
+  
+  .dg-card {
+    @apply p-6;
+  }
+  
+  .dg-grid-2,
+  .dg-grid-3,
+  .dg-grid-4 {
+    @apply grid-cols-1 gap-6;
+  }
+  
+  .dg-footer {
+    @apply py-12 px-4;
+  }
+  
+  .dg-footer-brand {
+    @apply text-2xl mb-6;
+  }
+  
+  .dg-footer-text {
+    @apply text-base p-4 mb-6;
+  }
+  
+  .dg-btn {
+    @apply w-full justify-center py-4;
+  }
+  
+  .dg-profile-image {
+    @apply w-64 h-64;
+  }
+  
+  .dg-tech-component {
+    min-height: 150px;
+  }
+  
+  .dg-collaboration-list {
+    @apply grid-cols-1 gap-3;
+  }
+}
+
+/* === TABLET OPTIMIZATIONS === */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dg-hero-headline {
+    @apply text-6xl;
+  }
+  
+  .dg-hero-subheading {
+    @apply text-xl;
+  }
+  
+  .dg-grid-4 {
+    @apply grid-cols-2;
+  }
+  
+  .dg-collaboration-list {
+    @apply grid-cols-1;
+  }
+}
+
+/* === LARGE SCREEN OPTIMIZATIONS === */
+@media (min-width: 1440px) {
+  .dg-section-container {
+    @apply max-w-7xl;
+  }
+  
+  .dg-hero-headline {
+    @apply text-8xl;
+  }
+  
+  .dg-hero-subheading {
+    @apply text-3xl;
+  }
+  
+  .dg-section-title {
+    @apply text-6xl;
+  }
+  
+  .dg-card {
+    @apply p-12;
+  }
+  
+  .dg-footer-brand {
+    @apply text-5xl;
+  }
+  
+  .dg-footer-text {
+    @apply text-2xl p-8;
+  }
+}
+
+/* === ULTRA-WIDE SCREEN SUPPORT === */
+@media (min-width: 1920px) {
+  .dg-section-container {
+    @apply max-w-screen-2xl;
+  }
+}
+
+/* ================================================================================
+   🔧 COMPONENT-SPECIFIC CUSTOM STYLES
+   ================================================================================ */
+
+/* === WEBSOCKET NOTIFICATION STYLES === */
+.dg-websocket-notification {
+  @apply fixed bottom-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-sm;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: var(--dg-slate-100);
+  animation: dg-slide-in-right 0.3s ease-out;
+}
+
+@keyframes dg-slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* === CHATBOT INTEGRATION STYLES === */
+.dg-chatbot-container {
+  @apply fixed bottom-6 right-6 z-40;
+}
+
+.dg-chatbot-toggle {
+  @apply w-16 h-16 rounded-full shadow-lg flex items-center justify-center cursor-pointer;
+  background: linear-gradient(135deg, var(--dg-enterprise-blue), var(--dg-research-purple));
+  transition: var(--dg-transition-smooth);
+}
+
+.dg-chatbot-toggle:hover {
+  @apply scale-110;
+  box-shadow: var(--dg-shadow-glow-blue);
+}
+
+.dg-chatbot-window {
+  @apply absolute bottom-20 right-0 w-96 h-96 rounded-2xl shadow-2xl overflow-hidden;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+/* === SEARCH WIDGET STYLES === */
+.dg-search-widget {
+  @apply fixed top-24 right-6 w-80 z-30;
+}
+
+.dg-search-input {
+  @apply w-full p-4 rounded-xl border bg-transparent text-white placeholder-slate-400;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(12px);
+  border-color: rgba(100, 116, 139, 0.3);
+  transition: var(--dg-transition-smooth);
+}
+
+.dg-search-input:focus {
+  @apply outline-none;
+  border-color: var(--dg-enterprise-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dg-search-results {
+  @apply mt-2 rounded-xl border overflow-hidden;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(16px);
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+.dg-search-result-item {
+  @apply p-4 border-b cursor-pointer transition-colors;
+  border-color: rgba(100, 116, 139, 0.2);
+}
+
+.dg-search-result-item:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.dg-search-result-item:last-child {
+  @apply border-b-0;
+}
+
+/* === PERFORMANCE MONITORING STYLES === */
+.dg-performance-indicator {
+  @apply fixed top-6 left-6 z-50 px-4 py-2 rounded-lg text-sm font-mono;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--dg-sovereignty-gold);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.dg-performance-good {
+  @apply text-green-400;
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.dg-performance-warning {
+  @apply text-yellow-400;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.dg-performance-error {
+  @apply text-red-400;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* === SYSTEM INFO FAB STYLES === */
+.dg-system-fab {
+  @apply fixed bottom-24 right-6 w-12 h-12 rounded-full shadow-lg flex items-center justify-center cursor-pointer z-30;
+  background: linear-gradient(135deg, var(--dg-sovereignty-gold), var(--dg-sovereignty-gold-light));
+  color: var(--dg-slate-900);
+  transition: var(--dg-transition-smooth);
+}
+
+.dg-system-fab:hover {
+  @apply scale-110;
+  box-shadow: var(--dg-shadow-glow-gold);
+}
+
+.dg-system-info-panel {
+  @apply absolute bottom-16 right-0 w-80 p-6 rounded-2xl shadow-2xl;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: var(--dg-slate-100);
+}
+
+/* === TECH STACK SLIDER STYLES === */
+.dg-tech-stack-slider {
+  @apply py-8 overflow-hidden;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.dg-tech-stack-track {
+  @apply flex animate-pulse;
+  animation: dg-slide-infinite 30s linear infinite;
+}
+
+@keyframes dg-slide-infinite {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.dg-tech-stack-item {
+  @apply flex-shrink-0 px-8 py-4 mx-4 rounded-lg border;
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(100, 116, 139, 0.3);
+  min-width: 200px;
+  text-align: center;
+}
+
+/* === LOADING STATES === */
+.dg-loading-spinner {
+  @apply w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full;
+  animation: dg-spin 1s linear infinite;
+}
+
+@keyframes dg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dg-loading-skeleton {
+  @apply bg-slate-700 rounded animate-pulse;
+}
+
+.dg-loading-dots {
+  @apply flex space-x-1;
+}
+
+.dg-loading-dot {
+  @apply w-2 h-2 bg-blue-400 rounded-full;
+  animation: dg-bounce 1.4s ease-in-out infinite both;
+}
+
+.dg-loading-dot:nth-child(1) { animation-delay: -0.32s; }
+.dg-loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes dg-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* === ERROR BOUNDARY STYLES === */
+.dg-error-boundary {
+  @apply p-8 rounded-2xl border text-center;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.dg-error-title {
+  @apply text-2xl font-bold mb-4 text-red-300;
+}
+
+.dg-error-message {
+  @apply text-lg mb-6 text-red-200;
+}
+
+.dg-error-details {
+  @apply text-sm font-mono bg-black/50 p-4 rounded-lg text-red-100;
+  white-space: pre-wrap;
+}
+
+/* ================================================================================
+   🎯 FRAMEWORK-SPECIFIC INTEGRATIONS
+   ================================================================================ */
+
+/* === MULTI-TENANT THEME VARIABLES === */
+.tenant-okdevs {
+  --dg-primary: var(--dg-enterprise-blue);
+  --dg-secondary: var(--dg-research-purple);
+  --dg-accent: var(--dg-sovereignty-gold);
+}
+
+.tenant-heavenly-roofing {
+  --dg-primary: #dc2626; /* Red for roofing */
+  --dg-secondary: #475569; /* Slate gray */
+  --dg-accent: var(--dg-sovereignty-gold);
+}
+
+.tenant-efficient-movers {
+  --dg-primary: #059669; /* Green for moving */
+  --dg-secondary: #1e40af; /* Blue */
+  --dg-accent: var(--dg-sovereignty-gold);
+}
+
+/* === TENANT-SPECIFIC COMPONENT OVERRIDES === */
+.tenant-okdevs .dg-btn-primary {
+  background: linear-gradient(135deg, var(--dg-primary), var(--dg-secondary));
+}
+
+.tenant-heavenly-roofing .dg-btn-primary {
+  background: linear-gradient(135deg, #dc2626, #475569);
+}
+
+.tenant-efficient-movers .dg-btn-primary {
+  background: linear-gradient(135deg, #059669, #1e40af);
+}
+
+/* === DATABASE CONNECTIVITY INDICATORS === */
+.dg-db-status {
+  @apply fixed top-6 right-6 z-50 px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.dg-db-connected {
+  @apply bg-green-900/80 text-green-200 border border-green-400/50;
+}
+
+.dg-db-disconnected {
+  @apply bg-red-900/80 text-red-200 border border-red-400/50;
+}
+
+.dg-db-connecting {
+  @apply bg-yellow-900/80 text-yellow-200 border border-yellow-400/50;
+}
+
+/* === VERSION INDICATOR === */
+.dg-version-badge {
+  @apply fixed bottom-4 left-4 z-50 px-3 py-1 rounded-lg text-xs font-mono;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--dg-sovereignty-gold);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* ================================================================================
+   🔚 END OF DENOGENESIS FRAMEWORK STYLES
+   Framework Status: Production-Ready | Local-First Validated | Multi-Tenant Active
+   Next Phase: Academic Collaboration and Global Adoption
+   ================================================================================ */
