@@ -6,357 +6,233 @@
   <meta name="description" content="Pedro M. Dominguez — Independent Researcher & Framework Architect. Empirical validation of Cambridge local-first software principles through DenoGenesis framework implementation."/>
   <meta name="author" content="Pedro M. Dominguez" />
   <title>Pedro M. Dominguez | Independent Systems Research & Local-First Computing</title>
-  <link rel="stylesheet" href="/assets/css/tailwind.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
   <script type="module" src="/assets/js/script.js"></script>
   <script type="module" src="/assets/js/injectSettings.js"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 overflow-x-hidden scroll-smooth">
+<body>
   <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50" role="navigation" aria-label="Main navigation">
-    <!-- Navigation content dynamically injected or static -->
-  </nav>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <!-- Navigation content dynamically injected or static -->
+    </nav>
 
   <!-- Academic Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center bg-hero-gradient" id="hero" aria-labelledby="hero-headline">
-    <img src="/assets/images/okc-skyline.jpg" alt="Oklahoma City - Independent Research Location" class="absolute inset-0 w-full h-full object-cover opacity-10" />
-
-    <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center">
-      <h1 id="hero-headline" class="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 text-gradient-blue-purple animate-fade-in">
+  <section class="hero scroll-trigger" id="hero" aria-labelledby="hero-headline">
+    <img src="/assets/images/okc-skyline.jpg" alt="Oklahoma City - Independent Research Location" class="hero-banner" />
+    <div class="hero-content scroll-trigger">
+      <h1 id="hero-headline">
         Empirical Validation of Local-First Software Principles
       </h1>
-
-      <p class="text-lg md:text-xl lg:text-2xl text-slate-300 mb-12 max-w-5xl mx-auto leading-relaxed">
-        <strong class="text-sovereignty-gold">Independent Researcher</strong> delivering real-world validation of Cambridge University's local-first software principles through the production deployment of the <strong class="text-enterprise-blue">DenoGenesis Framework</strong> — showcasing the commercial viability of advanced distributed systems theory.
+      <p class="hero-subheading">
+        <strong>Independent Researcher</strong> delivering real-world validation of Cambridge University's local-first software principles through the production deployment of the <strong>DenoGenesis Framework</strong> — showcasing the commercial viability of advanced distributed systems theory.
       </p>
 
       <!-- Research Validation Boxes -->
-      <div class="grid md:grid-cols-2 gap-8 mb-16">
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30 hover-lift">
-          <h2 class="text-2xl font-bold mb-4 text-enterprise-blue">📚 Cambridge Research Validation</h2>
-          <p class="text-slate-300 leading-relaxed">
-            Validating <strong class="text-research-purple">Martin Kleppmann's local-first principles</strong> through over 8 months of production deployment. The DenoGenesis framework proves that <em>"Local-First Software: You Own Your Data, in spite of the Cloud"</em> is both academically robust and commercially viable.
+      <div class="impact-container scroll-trigger">
+        <div class="impact-box">
+          <h2>📚 Cambridge Research Validation</h2>
+          <p>
+            Validating <strong>Martin Kleppmann's local-first principles</strong> through over 8 months of production deployment. The DenoGenesis framework proves that <em>"Local-First Software: You Own Your Data, in spite of the Cloud"</em> is both academically robust and commercially viable.
           </p>
         </div>
-
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30 hover-lift">
-          <h2 class="text-2xl font-bold mb-4 text-research-purple">🔬 Empirical Research Contribution</h2>
-          <p class="text-slate-300 leading-relaxed">
+        <div class="impact-box scroll-trigger">
+          <h2>🔬 Empirical Research Contribution</h2>
+          <p>
             Advancing academic understanding of local-first systems through comprehensive performance metrics, real-world deployment insights, and practical implementation strategies that bridge theoretical research with practical application.
           </p>
         </div>
       </div>
 
       <!-- Research Achievements -->
-      <div class="dg-glass rounded-2xl p-8 mb-12 border border-slate-600/30">
-        <h3 class="text-3xl font-bold mb-8 text-sovereignty-gold">Key Research Contributions</h3>
-        <ul class="grid md:grid-cols-2 gap-6 text-left">
-          <li class="flex items-start space-x-3">
-            <span class="text-enterprise-blue font-bold text-xl">•</span>
-            <span><strong class="text-enterprise-blue">Extended Principles:</strong> Introduced Business Sovereignty (Principle 8) and Developer Accessibility (Principle 9) to complement the original 7 Cambridge principles.</span>
-          </li>
-          <li class="flex items-start space-x-3">
-            <span class="text-research-purple font-bold text-xl">•</span>
-            <span><strong class="text-research-purple">Performance Validation:</strong> Achieved sub-100ms response times, meeting the "No Spinners" ideal in a production environment.</span>
-          </li>
-          <li class="flex items-start space-x-3">
-            <span class="text-green-400 font-bold text-xl">•</span>
-            <span><strong class="text-green-400">Enterprise Implementation:</strong> Multi-tenant architecture ensuring complete data sovereignty for multiple businesses.</span>
-          </li>
-          <li class="flex items-start space-x-3">
-            <span class="text-sovereignty-gold font-bold text-xl">•</span>
-            <span><strong class="text-sovereignty-gold">Geographic Independence:</strong> Demonstrated innovation capacity from Oklahoma City, beyond traditional tech hubs.</span>
-          </li>
+      <div class="research-achievements scroll-trigger">
+        <h3>Key Research Contributions</h3>
+        <ul>
+          <li><strong>Extended Principles:</strong> Introduced Business Sovereignty (Principle 8) and Developer Accessibility (Principle 9) to complement the original 7 Cambridge principles.</li>
+          <li><strong>Performance Validation:</strong> Achieved sub-100ms response times, meeting the "No Spinners" ideal in a production environment.</li>
+          <li><strong>Enterprise Implementation:</strong> Multi-tenant architecture ensuring complete data sovereignty for multiple businesses.</li>
+          <li><strong>Geographic Independence:</strong> Demonstrated innovation capacity from Oklahoma City, beyond traditional tech hubs.</li>
         </ul>
       </div>
 
-      <p class="text-xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-        My research bridges <strong class="text-enterprise-blue">academic distributed systems theory</strong> with practical business applications, proving that local-first software principles deliver technical excellence and commercial success outside conventional tech ecosystems.
+      <p class="mission-statement" data-typed>
+        My research bridges <strong>academic distributed systems theory</strong> with practical business applications, proving that local-first software principles deliver technical excellence and commercial success outside conventional tech ecosystems.
       </p>
 
-      <a href="/pages/contact/contact.html" class="inline-flex items-center space-x-3 bg-gradient-to-r from-enterprise-blue to-research-purple text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25" aria-label="Contact for research collaboration">
-        <span>📧</span>
-        <span>Research Collaboration Inquiry</span>
+      <a href="/pages/contact/contact.html" class="cta-button" aria-label="Contact for research collaboration">
+        📧 Research Collaboration Inquiry
       </a>
     </div>
   </section>
 
   <!-- Academic Background Section -->
-  <section id="about" class="py-20 px-6 bg-slate-800/50" aria-labelledby="about-heading">
-    <div class="max-w-7xl mx-auto">
-      <h2 id="about-heading" class="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient-sovereignty">👨‍🔬 Research Profile</h2>
+  <section id="about" class="contact-info scroll-trigger" aria-labelledby="about-heading">
+    <h2 id="about-heading" class="scroll-trigger">👨‍🔬 Research Profile</h2>
+    <figure class="profile-frame scroll-trigger">
+      <img
+        src="/assets/images/profile.jpg"
+        alt="Pedro M. Dominguez - Independent Systems Researcher"
+        class="profile-photo scroll-trigger"
+      />
+      <figcaption class="profile-caption scroll-trigger">
+        Pedro M. Dominguez<br>
+        <span class="caption-role">Independent Systems Researcher</span><br>
+        <span class="caption-location">Oklahoma City, Oklahoma</span>
+      </figcaption>
+    </figure>
 
-      <div class="grid lg:grid-cols-3 gap-12 items-center">
-        <figure class="lg:col-span-1 text-center">
-          <div class="relative inline-block">
-            <img
-              src="/assets/images/profile.jpg"
-              alt="Pedro M. Dominguez - Independent Systems Researcher"
-              class="w-80 h-80 rounded-full object-cover mx-auto border-4 border-gradient-blue-purple shadow-2xl"
-            />
-            <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-enterprise-blue to-research-purple opacity-75 blur -z-10"></div>
-          </div>
-          <figcaption class="mt-6 text-center">
-            <div class="text-2xl font-bold text-sovereignty-gold">Pedro M. Dominguez</div>
-            <div class="text-lg text-slate-300 mt-2">Independent Systems Researcher</div>
-            <div class="text-slate-400 mt-1">Oklahoma City, Oklahoma</div>
-          </figcaption>
-        </figure>
+    <div class="academic-credentials scroll-trigger">
+      <h3>Research Background</h3>
+      <ul>
+        <li>🎯 <strong>Research Focus:</strong> Empirical validation of local-first software principles in production environments.</li>
+        <li>🏗️ <strong>Implementation Method:</strong> Self-taught systems architecture delivering enterprise-grade results through AI-assisted development.</li>
+        <li>📍 <strong>Geographic Significance:</strong> Proving breakthrough software research can thrive outside traditional tech hubs.</li>
+        <li>⚡ <strong>Technical Achievement:</strong> 8-month development cycle from zero coding experience to production-ready framework.</li>
+      </ul>
+    </div>
 
-        <div class="lg:col-span-2 space-y-8">
-          <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-            <h3 class="text-2xl font-bold mb-6 text-enterprise-blue">Research Background</h3>
-            <ul class="space-y-4">
-              <li class="flex items-start space-x-3">
-                <span class="text-xl">🎯</span>
-                <span><strong class="text-enterprise-blue">Research Focus:</strong> Empirical validation of local-first software principles in production environments.</span>
-              </li>
-              <li class="flex items-start space-x-3">
-                <span class="text-xl">🏗️</span>
-                <span><strong class="text-research-purple">Implementation Method:</strong> Self-taught systems architecture delivering enterprise-grade results through AI-assisted development.</span>
-              </li>
-              <li class="flex items-start space-x-3">
-                <span class="text-xl">📍</span>
-                <span><strong class="text-sovereignty-gold">Geographic Significance:</strong> Proving breakthrough software research can thrive outside traditional tech hubs.</span>
-              </li>
-              <li class="flex items-start space-x-3">
-                <span class="text-xl">⚡</span>
-                <span><strong class="text-green-400">Technical Achievement:</strong> 8-month development cycle from zero coding experience to production-ready framework.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-            <h3 class="text-2xl font-bold mb-6 text-research-purple">Cambridge Principle Validation</h3>
-            <div class="grid md:grid-cols-3 gap-6">
-              <div class="text-center p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-                <h4 class="text-lg font-bold text-green-400 mb-3">✅ All 7 Original Principles</h4>
-                <p class="text-sm text-slate-300">Successfully implemented and validated in production deployment.</p>
-              </div>
-              <div class="text-center p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-                <h4 class="text-lg font-bold text-enterprise-blue mb-3">🆕 Business Sovereignty</h4>
-                <p class="text-sm text-slate-300">Extended framework enabling complete organizational digital independence.</p>
-              </div>
-              <div class="text-center p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-                <h4 class="text-lg font-bold text-sovereignty-gold mb-3">🧑‍💻 Developer Accessibility</h4>
-                <p class="text-sm text-slate-300">Demonstrated individual capability to build enterprise systems with AI assistance.</p>
-              </div>
-            </div>
-          </div>
+    <div class="research-validation scroll-trigger">
+      <h3>Cambridge Principle Validation</h3>
+      <div class="principles-grid">
+        <div class="principle-card">
+          <h4>✅ All 7 Original Principles</h4>
+          <p>Successfully implemented and validated in production deployment.</p>
+        </div>
+        <div class="principle-card">
+          <h4>🆕 Business Sovereignty</h4>
+          <p>Extended framework enabling complete organizational digital independence.</p>
+        </div>
+        <div class="principle-card">
+          <h4>🧑‍💻 Developer Accessibility</h4>
+          <p>Demonstrated individual capability to build enterprise systems with AI assistance.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Technical Architecture Section -->
-  <section class="py-20 px-6 bg-slate-900/50" aria-labelledby="architecture-heading">
-    <div class="max-w-7xl mx-auto">
-      <h2 id="architecture-heading" class="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient-blue-purple">🏗️ DenoGenesis Framework Architecture</h2>
+  <section class="research-details scroll-trigger" aria-labelledby="architecture-heading">
+    <h2 id="architecture-heading" class="scroll-trigger">🏗️ DenoGenesis Framework Architecture</h2>
 
-      <div class="space-y-16">
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-3xl font-bold mb-8 text-sovereignty-gold">System Components</h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30 text-center hover-lift min-h-[200px] flex flex-col justify-center">
-              <h4 class="text-xl font-bold mb-3 text-blue-300">🗄️ Data Layer</h4>
-              <p class="text-sm text-slate-300">Multi-tenant MySQL architecture with a universal schema design, ensuring business-specific data isolation while optimizing shared infrastructure efficiency.</p>
-            </div>
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30 text-center hover-lift min-h-[200px] flex flex-col justify-center">
-              <h4 class="text-xl font-bold mb-3 text-purple-300">⚡ Runtime</h4>
-              <p class="text-sm text-slate-300">Deno-based TypeScript execution environment, leveraging modern JavaScript features with robust security and dependency management.</p>
-            </div>
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30 text-center hover-lift min-h-[200px] flex flex-col justify-center">
-              <h4 class="text-xl font-bold mb-3 text-green-300">🌐 Network Layer</h4>
-              <p class="text-sm text-slate-300">Oak framework with an enterprise-grade middleware stack, including performance monitoring, security headers, and an innovative WebSocket-based transparency system for mobile debugging.</p>
-            </div>
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30 text-center hover-lift min-h-[200px] flex flex-col justify-center">
-              <h4 class="text-xl font-bold mb-3 text-yellow-300">🔧 Infrastructure</h4>
-              <p class="text-sm text-slate-300">AWS EC2 Debian deployment serves as a research platform, with the framework designed for on-premise deployment to achieve true digital sovereignty.</p>
-            </div>
-          </div>
+    <div class="architecture-overview scroll-trigger">
+      <h3>System Components</h3>
+      <div class="technical-grid">
+        <div class="tech-component">
+          <h4>🗄️ Data Layer</h4>
+          <p>Multi-tenant MySQL architecture with a universal schema design, ensuring business-specific data isolation while optimizing shared infrastructure efficiency.</p>
         </div>
-
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-3xl font-bold mb-8 text-enterprise-blue">Validated Performance Metrics</h3>
-          <ul class="space-y-4">
-            <li class="flex items-center space-x-3 text-slate-300">
-              <span class="text-green-400 text-xl">✓</span>
-              <span><strong>Response Time:</strong> <100ms for local operations, achieving the "No Spinners" principle.</span>
-            </li>
-            <li class="flex items-center space-x-3 text-slate-300">
-              <span class="text-green-400 text-xl">✓</span>
-              <span><strong>Success Rate:</strong> 100% for 100 test requests, demonstrating exceptional reliability.</span>
-            </li>
-            <li class="flex items-center space-x-3 text-slate-300">
-              <span class="text-green-400 text-xl">✓</span>
-              <span><strong>Multi-Device Access:</strong> Universal web interface compatible with all modern devices.</span>
-            </li>
-            <li class="flex items-center space-x-3 text-slate-300">
-              <span class="text-green-400 text-xl">✓</span>
-              <span><strong>WebSocket Transparency:</strong> Real-time notifications replace console logs for mobile debugging and system transparency.</span>
-            </li>
-            <li class="flex items-center space-x-3 text-slate-300">
-              <span class="text-green-400 text-xl">✓</span>
-              <span><strong>Research Infrastructure:</strong> AWS EC2 Debian deployment for research accessibility, with production framework designed for on-premise sovereignty.</span>
-            </li>
-          </ul>
+        <div class="tech-component">
+          <h4>⚡ Runtime</h4>
+          <p>Deno-based TypeScript execution environment, leveraging modern JavaScript features with robust security and dependency management.</p>
         </div>
+        <div class="tech-component">
+          <h4>🌐 Network Layer</h4>
+          <p>Oak framework with an enterprise-grade middleware stack, including performance monitoring, security headers, and an innovative WebSocket-based transparency system for mobile debugging.</p>
+        </div>
+        <div class="tech-component">
+          <h4>🔧 Infrastructure</h4>
+          <p>AWS EC2 Debian deployment serves as a research platform, with the framework designed for on-premise deployment to achieve true digital sovereignty.</p>
+        </div>
+      </div>
+    </div>
 
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-3xl font-bold mb-8 text-research-purple">Active Research Areas</h3>
-          <div class="grid md:grid-cols-3 gap-6">
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-              <h4 class="text-lg font-bold text-enterprise-blue mb-3">🔄 Emergent CRDT-Like Behavior</h4>
-              <p class="text-sm text-slate-300"><strong class="text-sovereignty-gold">Groundbreaking Discovery:</strong> DenoGenesis exhibits CRDT-like conflict resolution and collaboration patterns without formal CRDT algorithms, suggesting simpler approaches to local-first collaboration.</p>
-            </div>
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-              <h4 class="text-lg font-bold text-research-purple mb-3">🌐 WebSocket-Based Collaboration</h4>
-              <p class="text-sm text-slate-300"><strong class="text-sovereignty-gold">Innovation:</strong> WebSocket notifications provide a transparent debugging layer for mobile devices, replacing traditional console logs with real-time system visibility.</p>
-            </div>
-            <div class="p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-              <h4 class="text-lg font-bold text-green-400 mb-3">🏗️ Infrastructure Sovereignty Research</h4>
-              <p class="text-sm text-slate-300"><strong class="text-sovereignty-gold">Research Platform:</strong> AWS EC2 Debian instance for research accessibility, with the framework designed for on-premise deployment to achieve true digital sovereignty.</p>
-            </div>
-          </div>
+    <div class="performance-metrics scroll-trigger">
+      <h3>Validated Performance Metrics</h3>
+      <ul>
+        <li><strong>Response Time:</strong> <100ms for local operations, achieving the "No Spinners" principle.</li>
+        <li><strong>Success Rate:</strong> 100% for 100 test requests, demonstrating exceptional reliability.</li>
+        <li><strong>Multi-Device Access:</strong> Universal web interface compatible with all modern devices.</li>
+        <li><strong>WebSocket Transparency:</strong> Real-time notifications replace console logs for mobile debugging and system transparency.</li>
+        <li><strong>Research Infrastructure:</strong> AWS EC2 Debian deployment for research accessibility, with production framework designed for on-premise sovereignty.</li>
+      </ul>
+    </div>
+
+    <div class="research-opportunities scroll-trigger">
+      <h3>Active Research Areas</h3>
+      <div class="research-grid">
+        <div class="research-card">
+          <h4>🔄 Emergent CRDT-Like Behavior</h4>
+          <p><strong>Groundbreaking Discovery:</strong> DenoGenesis exhibits CRDT-like conflict resolution and collaboration patterns without formal CRDT algorithms, suggesting simpler approaches to local-first collaboration.</p>
+        </div>
+        <div class="research-card">
+          <h4>🌐 WebSocket-Based Collaboration</h4>
+          <p><strong>Innovation:</strong> WebSocket notifications provide a transparent debugging layer for mobile devices, replacing traditional console logs with real-time system visibility.</p>
+        </div>
+        <div class="research-card">
+          <h4>🏗️ Infrastructure Sovereignty Research</h4>
+          <p><strong>Research Platform:</strong> AWS EC2 Debian instance for research accessibility, with the framework designed for on-premise deployment to achieve true digital sovereignty.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Research Impact Section -->
-  <section class="py-20 px-6 bg-slate-800/50" aria-labelledby="impact-heading">
-    <div class="max-w-7xl mx-auto">
-      <h2 id="impact-heading" class="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient-sovereignty">📈 Research Impact & Future Collaboration</h2>
+  <section class="research-impact scroll-trigger" aria-labelledby="impact-heading">
+    <h2 id="impact-heading" class="scroll-trigger">📈 Research Impact & Future Collaboration</h2>
 
-      <div class="space-y-12">
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-3xl font-bold mb-8 text-enterprise-blue">Demonstrated Outcomes</h3>
-          <div class="grid md:grid-cols-3 gap-6">
-            <div class="text-center p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-              <h4 class="text-lg font-bold text-enterprise-blue mb-3">🎯 Academic Validation</h4>
-              <p class="text-sm text-slate-300">Real-world confirmation of the practical and commercial viability of Cambridge local-first principles.</p>
-            </div>
-            <div class="text-center p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-              <h4 class="text-lg font-bold text-research-purple mb-3">🚀 Development Efficiency</h4>
-              <p class="text-sm text-slate-300">80% reduction in development time compared to traditional cloud-native approaches through local-first architecture.</p>
-            </div>
-            <div class="text-center p-6 rounded-xl bg-slate-700/30 border border-slate-600/30">
-              <h4 class="text-lg font-bold text-sovereignty-gold mb-3">🏠 True Infrastructure Sovereignty</h4>
-              <p class="text-sm text-slate-300">Framework designed for on-premise deployment, with cloud hosting used solely for research purposes.</p>
-            </div>
-          </div>
+    <div class="impact-metrics scroll-trigger">
+      <h3>Demonstrated Outcomes</h3>
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <h4>🎯 Academic Validation</h4>
+          <p>Real-world confirmation of the practical and commercial viability of Cambridge local-first principles.</p>
         </div>
-
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-3xl font-bold mb-8 text-research-purple">Potential Research Collaboration Areas</h3>
-          <div class="grid md:grid-cols-2 gap-4 text-slate-300">
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-blue-400">•</span>
-              <span><strong>Emergent Fault Isolation Patterns:</strong> Exploring router architectures for natural fault tolerance.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-purple-400">•</span>
-              <span><strong>Architectural Resilience Theory:</strong> Investigating system design patterns for reliability through structural properties.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-blue-400">•</span>
-              <span><strong>Pluggable Component Safety:</strong> Researching modular architectures to prevent cascading failures.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-purple-400">•</span>
-              <span><strong>Infrastructure Sovereignty Research:</strong> Studying deployment patterns for transitioning from cloud to on-premise infrastructure.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-blue-400">•</span>
-              <span><strong>Cloud-to-Local Migration:</strong> Developing strategies for moving from cloud-based research to sovereign on-premise production.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-purple-400">•</span>
-              <span><strong>Hybrid Development Methodology:</strong> Leveraging cloud infrastructure for research while designing for local-first deployment.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-blue-400">•</span>
-              <span><strong>CRDT Implementation:</strong> Testing Conflict-free Replicated Data Types in production environments.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-purple-400">•</span>
-              <span><strong>Developer Experience:</strong> Studying AI-assisted development methodologies for complex systems.</span>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="font-bold text-lg text-blue-400">•</span>
-              <span><strong>Economic Models:</strong> Analyzing local-first business models versus traditional SaaS approaches.</span>
-            </div>
-          </div>
+        <div class="outcome-card">
+          <h4>🚀 Development Efficiency</h4>
+          <p>80% reduction in development time compared to traditional cloud-native approaches through local-first architecture.</p>
+        </div>
+        <div class="outcome-card">
+          <h4>🏠 True Infrastructure Sovereignty</h4>
+          <p>Framework designed for on-premise deployment, with cloud hosting used solely for research purposes.</p>
         </div>
       </div>
+    </div>
+
+    <div class="collaboration-opportunities scroll-trigger">
+      <h3>Potential Research Collaboration Areas</h3>
+      <ul>
+        <li><strong>Emergent Fault Isolation Patterns:</strong> Exploring router architectures for natural fault tolerance.</li>
+        <li><strong>Architectural Resilience Theory:</strong> Investigating system design patterns for reliability through structural properties.</li>
+        <li><strong>Pluggable Component Safety:</strong> Researching modular architectures to prevent cascading failures.</li>
+        <li><strong>Infrastructure Sovereignty Research:</strong> Studying deployment patterns for transitioning from cloud to on-premise infrastructure.</li>
+        <li><strong>Cloud-to-Local Migration:</strong> Developing strategies for moving from cloud-based research to sovereign on-premise production.</li>
+        <li><strong>Hybrid Development Methodology:</strong> Leveraging cloud infrastructure for research while designing for local-first deployment.</li>
+        <li><strong>CRDT Implementation:</strong> Testing Conflict-free Replicated Data Types in production environments.</li>
+        <li><strong>Developer Experience:</strong> Studying AI-assisted development methodologies for complex systems.</li>
+        <li><strong>Economic Models:</strong> Analyzing local-first business models versus traditional SaaS approaches.</li>
+      </ul>
     </div>
   </section>
 
   <!-- Academic Contact Section -->
-  <section class="py-20 px-6 bg-slate-900/50" aria-labelledby="contact-heading">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 id="contact-heading" class="text-4xl md:text-5xl font-bold mb-8 text-gradient-blue-purple">📧 Research Collaboration</h2>
+  <section class="contact-info scroll-trigger" aria-labelledby="contact-heading">
+    <h2 id="contact-heading" class="scroll-trigger">📧 Research Collaboration</h2>
+    <p class="mb-4 scroll-trigger">
+      Open to academic collaboration, peer review, and advancing local-first software research. Available to discuss findings, methodologies, and joint research opportunities.
+    </p>
 
-      <p class="text-xl text-slate-300 mb-12 leading-relaxed">
-        Open to academic collaboration, peer review, and advancing local-first software research. Available to discuss findings, methodologies, and joint research opportunities.
-      </p>
+    <div class="academic-links scroll-trigger">
+      <h3>Research Documentation</h3>
+      <ul>
+        <li>📊 <strong>Performance Reports:</strong> Detailed metrics and benchmarking data available.</li>
+        <li>🏗️ <strong>Architecture Documentation:</strong> Comprehensive system design and implementation notes.</li>
+        <li>📈 <strong>Case Studies:</strong> Multi-business deployment experiences and lessons learned.</li>
+        <li>🔬 <strong>Methodology:</strong> Documented AI-assisted development processes and learning curves.</li>
+      </ul>
+    </div>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-2xl font-bold mb-6 text-sovereignty-gold">Research Documentation</h3>
-          <ul class="space-y-3 text-left">
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">📊</span>
-              <span><strong class="text-enterprise-blue">Performance Reports:</strong> Detailed metrics and benchmarking data available.</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">🏗️</span>
-              <span><strong class="text-research-purple">Architecture Documentation:</strong> Comprehensive system design and implementation notes.</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">📈</span>
-              <span><strong class="text-green-400">Case Studies:</strong> Multi-business deployment experiences and lessons learned.</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">🔬</span>
-              <span><strong class="text-sovereignty-gold">Methodology:</strong> Documented AI-assisted development processes and learning curves.</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="dg-glass rounded-2xl p-8 border border-slate-600/30">
-          <h3 class="text-2xl font-bold mb-6 text-enterprise-blue">Contact Information</h3>
-          <ul class="space-y-3 text-left">
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">✉️</span>
-              <span>Email: <a href="mailto:" id="contact-email" class="text-sovereignty-gold hover:text-sovereignty-gold-light transition-colors" aria-label="Email Pedro M. Dominguez">loading...</a></span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">📞</span>
-              <span>Phone: <a href="tel:" id="business-phone" class="text-sovereignty-gold hover:text-sovereignty-gold-light transition-colors" aria-label="Call Pedro M. Dominguez">loading...</a></span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">📍</span>
-              <span>Location: Oklahoma City, Oklahoma, USA</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <span class="text-lg">🔬</span>
-              <span>Research Status: Independent, Open to Academic Collaboration</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div class="contact-details scroll-trigger">
+      <h3>Contact Information</h3>
+      <ul>
+        <li>Email: <a href="mailto:" id="contact-email" aria-label="Email Pedro M. Dominguez">loading...</a></li>
+        <li>Phone: <a href="tel:" id="business-phone" aria-label="Call Pedro M. Dominguez">loading...</a></li>
+        <li>Location: Oklahoma City, Oklahoma, USA</li>
+        <li>Research Status: Independent, Open to Academic Collaboration</li>
+      </ul>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer id="footer" class="py-12 px-6 bg-footer-gradient border-t border-slate-700/50" role="contentinfo">
-    <div class="max-w-7xl mx-auto text-center">
-      <div class="text-slate-400">
-        <p class="mb-2">© 2025 Pedro M. Dominguez - Independent Systems Research</p>
-        <p class="text-sm">Advancing Local-First Software Through Empirical Validation</p>
-      </div>
-    </div>
+  <footer id="footer" role="contentinfo">
   </footer>
 
 </body>
