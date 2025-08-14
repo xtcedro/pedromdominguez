@@ -1,4 +1,4 @@
-// /assets/js/manage-appointments.js  →  v2.1  (relative-urls + notifications-first)
+// /assets/js/public-appointments.js  →  v2.1  (relative-urls + notifications-first)
 
 import { showNotification } from '/assets/js/notifications.js';
 
