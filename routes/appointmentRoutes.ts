@@ -14,7 +14,7 @@ const router = new Router();
 router.post("/", submitAppointment);
 
 // 🔒 Admin: Fetch all appointments
-router.get("/", fetchAppointments);
+router.get("/", verifyAdminToken, fetchAppointments);
 
 // 🔒 Admin: Delete an appointment by ID
 router.delete("/:id", verifyAdminToken, deleteAppointment);

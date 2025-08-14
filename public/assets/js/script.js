@@ -44,9 +44,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     initAnimations()
 
-    showNotification('✅ All components & animations loaded for PedroMDominguez.com', 'success');
-  } catch (err) {
-    console.error('❌ Error during initialization:', err);
-    showNotification('❌ Something went wrong. Please refresh.', 'error');
   }
 });
