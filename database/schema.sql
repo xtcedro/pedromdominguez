@@ -1,7 +1,7 @@
 -- ========================================================
---  Dominguez Tech Solutions Universal Schema (Multi-Tenant)
+--  Deno Genesis Universal Schema (Multi-Tenant)
 --  Database: universal_db
---  Last Updated: 2025-04-18
+--  Last Updated: 2025-08-16
 -- ========================================================
 
 CREATE DATABASE IF NOT EXISTS universal_db;
@@ -23,17 +23,7 @@ CREATE TABLE IF NOT EXISTS appointments (
   INDEX idx_site_email (site_key, email)
 );
 
--- ======================
--- Chat History
--- ======================
-CREATE TABLE IF NOT EXISTS chat_history (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  site_key VARCHAR(50) NOT NULL,
-  user_id INT NULL,
-  user_message TEXT NOT NULL,
-  bot_reply TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+
 
 -- ======================
 -- Admin Users
@@ -119,17 +109,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ======================
--- Notifications
--- ======================
-CREATE TABLE IF NOT EXISTS notifications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  site_key VARCHAR(50) NOT NULL,
-  message TEXT NOT NULL,
-  type ENUM('info', 'success', 'warning', 'error') DEFAULT 'info',
-  is_broadcast BOOLEAN DEFAULT TRUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+
 
 -- ========================================================
 -- User & Privileges
