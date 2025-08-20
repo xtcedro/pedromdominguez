@@ -1340,3 +1340,630 @@ class SimpleABTest {
   }
 }
 
+// Example usage
+const abTest = new SimpleABTest();
+
+// Define CTA button test
+abTest.defineTest('cta_button_text', {
+  A: 'Call Now for Free Estimate',
+  B: 'Get Your Free Quote Today'
+});
+
+// Apply test variation
+document.addEventListener('DOMContentLoaded', () => {
+  const ctaButton = document.querySelector('.primary-cta');
+  if (ctaButton) {
+    const buttonText = abTest.getVariation('cta_button_text');
+    ctaButton.textContent = buttonText;
+    
+    // Track clicks
+    ctaButton.addEventListener('click', () => {
+      abTest.trackConversion('cta_button_text', 'click');
+    });
+  }
+});
+```
+
+---
+
+## 🎨 Advanced Styling Patterns
+
+### CSS Custom Properties for Theming
+
+#### Dynamic Theme System
+```css
+/* Base theme variables */
+:root {
+  /* Color system */
+  --color-primary-50: #f8fafc;
+  --color-primary-100: #f1f5f9;
+  --color-primary-200: #e2e8f0;
+  --color-primary-300: #cbd5e1;
+  --color-primary-400: #94a3b8;
+  --color-primary-500: #64748b;
+  --color-primary-600: #475569;
+  --color-primary-700: #334155;
+  --color-primary-800: #1e293b;
+  --color-primary-900: #0f172a;
+  
+  /* Semantic color assignments */
+  --bg-primary: var(--color-primary-900);
+  --bg-secondary: var(--color-primary-800);
+  --bg-tertiary: var(--color-primary-700);
+  
+  --text-primary: var(--color-primary-100);
+  --text-secondary: var(--color-primary-300);
+  --text-tertiary: var(--color-primary-400);
+  
+  /* Spacing system */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Border radius system */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  
+  /* Shadow system */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Industry-specific theme overrides */
+[data-theme="healthcare"] {
+  --accent-primary: #3b82f6;
+  --accent-secondary: #1d4ed8;
+  --accent-tertiary: #60a5fa;
+}
+
+[data-theme="construction"] {
+  --accent-primary: #f59e0b;
+  --accent-secondary: #d97706;
+  --accent-tertiary: #fbbf24;
+}
+
+[data-theme="legal"] {
+  --accent-primary: #dc2626;
+  --accent-secondary: #b91c1c;
+  --accent-tertiary: #fbbf24;
+}
+```
+
+#### Component-Level Theming
+```css
+/* Card component with theme support */
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(var(--accent-primary-rgb), 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(var(--accent-primary-rgb), 0.4);
+}
+
+/* Button variants */
+.btn {
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--text-tertiary);
+}
+```
+
+### Advanced Animation Patterns
+
+#### Entrance Animations
+```css
+/* Scroll-triggered entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation classes */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+}
+
+.animate-fade-up.animated {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fade-left.animated {
+  animation: fadeInLeft 0.6s ease forwards;
+}
+
+.animate-scale-in.animated {
+  animation: scaleIn 0.6s ease forwards;
+}
+
+/* Staggered animation delays */
+.animate-on-scroll:nth-child(1) { animation-delay: 0.1s; }
+.animate-on-scroll:nth-child(2) { animation-delay: 0.2s; }
+.animate-on-scroll:nth-child(3) { animation-delay: 0.3s; }
+.animate-on-scroll:nth-child(4) { animation-delay: 0.4s; }
+```
+
+#### Micro-Interactions
+```css
+/* Button press feedback */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Loading states */
+.btn-loading {
+  pointer-events: none;
+  position: relative;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Form input focus animations */
+.form-group {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--space-md);
+  border: 2px solid var(--text-tertiary);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.1);
+}
+
+.form-label {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  color: var(--text-tertiary);
+  font-size: var(--text-base);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label {
+  top: -10px;
+  left: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--accent-primary);
+  background: var(--bg-secondary);
+  padding: 0 var(--space-sm);
+}
+```
+
+---
+
+## 🚀 Deployment & Optimization
+
+### Build Process for Local-First Applications
+
+#### Webpack Configuration Example
+```javascript
+// webpack.config.js for local-first business sites
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
+module.exports = {
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+    clean: true
+  },
+  
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name].[contenthash][ext]'
+        }
+      }
+    ]
+  },
+  
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      inject: 'body',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true
+      }
+    }),
+    
+    new MiniCssExtractPlugin({
+      filename: 'styles/[name].[contenthash].css'
+    }),
+    
+    // Service Worker for offline functionality
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'google-fonts-stylesheets'
+          }
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'google-fonts-webfonts',
+            expiration: {
+              maxEntries: 30,
+              maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+            }
+          }
+        }
+      ]
+    })
+  ],
+  
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        },
+        components: {
+          test: /[\\/]components[\\/]/,
+          name: 'components',
+          chunks: 'all'
+        }
+      }
+    }
+  }
+};
+```
+
+### Performance Monitoring
+
+#### Core Web Vitals Tracking
+```javascript
+// Performance monitoring for local business sites
+class PerformanceMonitor {
+  constructor() {
+    this.metrics = {};
+    this.init();
+  }
+  
+  init() {
+    // Largest Contentful Paint
+    this.observeLCP();
+    
+    // First Input Delay
+    this.observeFID();
+    
+    // Cumulative Layout Shift
+    this.observeCLS();
+    
+    // Custom business metrics
+    this.observeBusinessMetrics();
+  }
+  
+  observeLCP() {
+    const observer = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      const lastEntry = entries[entries.length - 1];
+      
+      this.metrics.lcp = lastEntry.startTime;
+      this.reportMetric('LCP', lastEntry.startTime);
+    });
+    
+    observer.observe({ entryTypes: ['largest-contentful-paint'] });
+  }
+  
+  observeFID() {
+    const observer = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach(entry => {
+        this.metrics.fid = entry.processingStart - entry.startTime;
+        this.reportMetric('FID', this.metrics.fid);
+      });
+    });
+    
+    observer.observe({ entryTypes: ['first-input'] });
+  }
+  
+  observeCLS() {
+    let clsValue = 0;
+    const observer = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach(entry => {
+        if (!entry.hadRecentInput) {
+          clsValue += entry.value;
+        }
+      });
+      
+      this.metrics.cls = clsValue;
+      this.reportMetric('CLS', clsValue);
+    });
+    
+    observer.observe({ entryTypes: ['layout-shift'] });
+  }
+  
+  observeBusinessMetrics() {
+    // Time to first phone number visible
+    const phoneObserver = new MutationObserver(() => {
+      const phoneElement = document.querySelector('a[href^="tel:"]');
+      if (phoneElement && !this.metrics.timeToPhone) {
+        this.metrics.timeToPhone = performance.now();
+        this.reportMetric('TimeToPhone', this.metrics.timeToPhone);
+        phoneObserver.disconnect();
+      }
+    });
+    
+    phoneObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    
+    // Contact form interaction
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('a[href^="tel:"], a[href^="mailto:"]')) {
+        this.reportInteraction('contact_click', e.target.href);
+      }
+    });
+  }
+  
+  reportMetric(name, value) {
+    // Send to analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'web_vital', {
+        name: name,
+        value: Math.round(value),
+        metric_id: this.generateMetricId()
+      });
+    }
+    
+    // Store locally
+    const metrics = JSON.parse(localStorage.getItem('performanceMetrics') || '{}');
+    metrics[name] = value;
+    metrics.timestamp = Date.now();
+    localStorage.setItem('performanceMetrics', JSON.stringify(metrics));
+  }
+  
+  reportInteraction(action, target) {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'user_interaction', {
+        action: action,
+        target: target
+      });
+    }
+  }
+  
+  generateMetricId() {
+    return `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  }
+  
+  getMetricsSummary() {
+    return {
+      lcp: this.metrics.lcp,
+      fid: this.metrics.fid,
+      cls: this.metrics.cls,
+      timeToPhone: this.metrics.timeToPhone,
+      timestamp: Date.now()
+    };
+  }
+}
+
+// Initialize performance monitoring
+const perfMonitor = new PerformanceMonitor();
+```
+
+---
+
+## 📖 Implementation Checklist
+
+### Pre-Launch Checklist
+
+#### Technical Requirements
+- [ ] **Responsive Design**: Works on all device sizes
+- [ ] **Performance**: Core Web Vitals in green zone
+- [ ] **Accessibility**: WCAG AA compliance
+- [ ] **SEO**: Proper meta tags and structured data
+- [ ] **Offline Support**: Service worker implemented
+- [ ] **Local Storage**: Business data cached locally
+- [ ] **Contact Methods**: Multiple ways to contact business
+- [ ] **Call Tracking**: Phone calls tracked for analytics
+- [ ] **Form Validation**: Client-side and server-side validation
+- [ ] **Error Handling**: Graceful error states and messages
+
+#### Business Requirements
+- [ ] **Brand Consistency**: Colors match business identity
+- [ ] **Trust Indicators**: Licenses, credentials, reviews visible
+- [ ] **Contact Information**: Phone, email, address prominent
+- [ ] **Business Hours**: Clearly displayed with current status
+- [ ] **Service Descriptions**: Clear, benefit-focused copy
+- [ ] **Call-to-Actions**: Multiple, contextual CTAs
+- [ ] **Social Proof**: Reviews, testimonials, credentials
+- [ ] **Emergency Contact**: For urgent service businesses
+- [ ] **Payment Options**: If applicable, clearly stated
+- [ ] **Service Areas**: Geographic coverage clearly defined
+
+#### Testing Checklist
+- [ ] **Cross-Browser**: Chrome, Firefox, Safari, Edge
+- [ ] **Device Testing**: Mobile, tablet, desktop
+- [ ] **Speed Testing**: PageSpeed Insights, GTmetrix
+- [ ] **Accessibility**: Screen reader testing, keyboard navigation
+- [ ] **Contact Forms**: All forms submit correctly
+- [ ] **Phone Links**: All phone numbers clickable and correct
+- [ ] **Email Links**: Email addresses link correctly
+- [ ] **Map Integration**: Address links to correct location
+- [ ] **Image Optimization**: All images compressed and responsive
+- [ ] **Offline Mode**: Site functions without internet connection
+
+---
+
+## 🎓 Best Practices Summary
+
+### Design Principles
+1. **Mobile-First**: Design for small screens, enhance for larger
+2. **Performance-First**: Fast loading is critical for business success
+3. **Accessibility-First**: Ensure everyone can use your site
+4. **Local-First**: Work offline, sync when available
+5. **Trust-First**: Build credibility through design and content
+
+### Color Psychology
+- **Dark themes** convey professionalism and premium service
+- **Industry-appropriate colors** build immediate trust
+- **High contrast** ensures readability across all users
+- **Consistent accent colors** guide user attention to CTAs
+
+### Typography Strategy
+- **System fonts** for performance and familiarity
+- **Clear hierarchy** guides users through content
+- **Readable sizes** ensure accessibility
+- **Proper contrast** meets WCAG standards
+
+### Interaction Design
+- **Touch-friendly** targets for mobile users
+- **Smooth animations** enhance perceived performance
+- **Immediate feedback** for all user actions
+- **Progressive enhancement** ensures core functionality
+
+### Business Focus
+- **Multiple contact methods** increase conversion opportunities
+- **Clear value propositions** answer "why choose us?"
+- **Social proof** builds trust and credibility
+- **Emergency accessibility** for urgent service businesses
+
+---
+
+**© 2025 Pedro M. Dominguez - DenoGenesis Framework**  
+*Empowering local businesses through local-first
