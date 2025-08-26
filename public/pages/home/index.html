@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedro M. Dominguez - AI-Assisted Developer & Local-First Software Pioneer</title>
-    <meta name="description" content="From knowing nothing about runtimes to validating Cambridge research through AI-assisted development. Building the future of local-first software in Oklahoma City.">
-    <meta name="keywords" content="Pedro Dominguez, AI-assisted development, local-first software, DenoGenesis, Martin Kleppmann, Oklahoma developer">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Pedro M. Dominguez - Local-First Software Pioneer">
-    <meta property="og:description" content="Validating Cambridge research through practical implementation of local-first software principles">
+    <title>Pedro M. Dominguez - DenoGenesis Framework | Oklahoma City Tech Innovation</title>
+    <meta name="description" content="Pedro M. Dominguez showcases the DenoGenesis Framework - revolutionary local-first business platform built in Oklahoma City. Enterprise-grade web applications with offline capabilities.">
+    <meta name="keywords" content="Pedro Dominguez, Oklahoma City, web development, Deno, business applications, local-first software, DenoGenesis Framework">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Pedro M. Dominguez - DenoGenesis Framework">
+    <meta property="og:description" content="Revolutionary local-first business platform built in Oklahoma City">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.pedromdominguez.com">
-  <script  type="module" src="/assets/js/script.js"></script>
-  <link rel="stylesheet" href="/assets/css/style.css" />
-
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
     <style>
         * {
             margin: 0;
@@ -23,67 +23,90 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --dark-bg: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.8);
-            --text-muted: rgba(255, 255, 255, 0.6);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-glow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Oklahoma-inspired color palette */
+            --primary-dark: #0f172a;
+            --primary-medium: #1e293b;
+            --primary-light: #334155;
+            --accent-red: #dc2626;
+            --accent-gold: #fbbf24;
+            --accent-blue: #3b82f6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --bg-card: linear-gradient(145deg, #1e293b, #334155);
+            
+            /* Spacing system */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
         }
 
         body {
-            background: var(--dark-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
             color: var(--text-primary);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Animated background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 40% 80%, rgba(120, 200, 255, 0.3) 0%, transparent 50%);
-            z-index: -1;
-            animation: backgroundShift 25s ease-in-out infinite;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
         }
 
-        @keyframes backgroundShift {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scale(1) rotate(0deg);
-            }
-            33% {
-                opacity: 0.6;
-                transform: scale(1.1) rotate(120deg);
-            }
-            66% {
-                opacity: 0.4;
-                transform: scale(0.9) rotate(240deg);
-            }
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), rgba(220, 38, 38, 0.1));
+            padding: var(--space-lg) 0;
+            border-bottom: 3px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Navigation placeholder */
-        .nav {
-            min-height: 80px;
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .logo::before {
+            content: '⚡';
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .oklahoma-badge {
+            background: linear-gradient(135deg, var(--accent-red), #b91c1c);
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 25px;
+            font-weight: bold;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
         }
 
         /* Hero Section */
         .hero {
-            padding: 120px 2rem 80px;
+            background: 
+                linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(251, 191, 36, 0.1)),
+                radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            padding: var(--space-3xl) 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -94,352 +117,445 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            backdrop-filter: blur(10px);
-            z-index: -1;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 50px,
+                rgba(251, 191, 36, 0.05) 50px,
+                rgba(251, 191, 36, 0.05) 51px
+            );
         }
 
         .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
             position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 800;
-            background: var(--primary-gradient);
+            font-size: 3.5rem;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            animation: fadeInUp 0.8s ease 0.4s both;
+            font-weight: 900;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            line-height: 1.2;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xl);
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-weight: 300;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-            max-width: 600px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            animation: fadeInUp 0.8s ease 0.8s both;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 1s both;
-        }
-
-        .primary-btn, .secondary-btn {
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: none;
-            cursor: pointer;
-        }
-
-        .primary-btn {
-            background: var(--primary-gradient);
-            color: white;
-        }
-
-        .primary-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .secondary-btn {
-            background: var(--card-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-        }
-
-        .secondary-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        /* Story Section */
-        .story-section {
-            padding: 100px 2rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .story-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--primary-gradient);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-right: 50%;
-            padding-right: 2rem;
-            text-align: right;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: 50%;
-            padding-left: 2rem;
-            text-align: left;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-gradient);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            border: 4px solid var(--dark-bg);
-            z-index: 2;
-        }
-
-        .timeline-content {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(20px);
-        }
-
-        .timeline-date {
-            color: var(--accent-gradient);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Achievement Section */
-        .achievement-section {
-            padding: 100px 2rem;
-        }
-
-        .achievement-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .achievement-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .achievement-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--success-gradient);
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        .achievement-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .achievement-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-glow);
-            border-color: rgba(0, 242, 254, 0.3);
-        }
-
-        .achievement-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            background: var(--success-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .achievement-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .achievement-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .achievement-stats {
             display: flex;
-            gap: 1rem;
+            justify-content: center;
+            gap: var(--space-xl);
             flex-wrap: wrap;
+            margin: var(--space-xl) 0;
         }
 
         .stat {
-            background: rgba(0, 242, 254, 0.1);
-            color: #00f2fe;
-            padding: 0.3rem 0.8rem;
-            border-radius: 10px;
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Framework Overview */
+        .framework-overview {
+            padding: var(--space-3xl) 0;
+            background: linear-gradient(135deg, var(--primary-medium), var(--primary-light));
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            color: var(--accent-gold);
+            font-weight: bold;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+            border-radius: 2px;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .framework-card {
+            background: var(--bg-card);
+            padding: var(--space-xl);
+            border-radius: 20px;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(251, 191, 36, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .framework-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-gold), var(--accent-blue));
+        }
+
+        .framework-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.5),
+                0 0 40px rgba(251, 191, 36, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: var(--space-lg);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: var(--space-md);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--space-lg);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .tech-tag {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--accent-gold);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(0, 242, 254, 0.2);
+            border: 1px solid rgba(251, 191, 36, 0.4);
         }
 
-        /* Contact Section */
-        .contact-section {
-            padding: 100px 2rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color);
+        /* Business Impact */
+        .business-impact {
+            padding: var(--space-3xl) 0;
+            background: 
+                linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(220, 38, 38, 0.1)),
+                var(--primary-dark);
         }
 
-        .contact-content {
-            max-width: 800px;
-            margin: 0 auto;
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .impact-card {
+            background: var(--bg-card);
+            padding: var(--space-xl);
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateX(10px);
+            border-left-width: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        .impact-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-red);
+            margin-bottom: var(--space-sm);
+        }
+
+        .impact-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .impact-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Technical Architecture */
+        .tech-architecture {
+            padding: var(--space-3xl) 0;
+            background: var(--primary-medium);
+        }
+
+        .architecture-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+            margin: var(--space-2xl) 0;
+            padding: var(--space-xl);
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .flow-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+            border-radius: 15px;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            min-width: 120px;
+            position: relative;
+        }
+
+        .flow-item::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .flow-item:last-child::after {
+            display: none;
+        }
+
+        .flow-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+            color: var(--accent-blue);
+        }
+
+        .flow-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Oklahoma City Connection */
+        .okc-connection {
+            padding: var(--space-3xl) 0;
+            background: 
+                linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(185, 28, 28, 0.1)),
+                var(--primary-dark);
             text-align: center;
         }
 
-        .contact-links {
+        .okc-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .okc-title {
+            font-size: 2.5rem;
+            color: var(--accent-red);
+            margin-bottom: var(--space-lg);
+            font-weight: bold;
+        }
+
+        .okc-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+            line-height: 1.7;
+        }
+
+        .oklahoma-flag {
+            font-size: 4rem;
+            margin: var(--space-lg) 0;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+
+        /* Call to Action */
+        .cta {
+            padding: var(--space-3xl) 0;
+            background: linear-gradient(135deg, var(--accent-red), #b91c1c);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-lg);
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: var(--space-xl);
+            color: #fed7aa;
+        }
+
+        .cta-buttons {
             display: flex;
+            gap: var(--space-lg);
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
             flex-wrap: wrap;
         }
 
-        .contact-link {
-            display: flex;
+        .btn {
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            color: var(--text-primary);
+            gap: var(--space-sm);
+            padding: var(--space-lg) var(--space-xl);
+            border-radius: 30px;
             text-decoration: none;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-link:hover {
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+            color: #92400e;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
         }
 
-        /* Footer placeholder */
-        #footer {
-            min-height: 200px;
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(251, 191, 36, 0.7);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(251, 191, 36, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-tertiary);
+            padding: var(--space-xl) 0;
+            border-top: 3px solid var(--accent-gold);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: var(--space-md);
+            font-size: 1.2rem;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
         }
 
         /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -451,346 +567,785 @@
             }
         }
 
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .hero {
-                padding: 100px 1rem 60px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .timeline::before {
-                left: 2rem;
+            .hero p {
+                font-size: 1.2rem;
             }
 
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                margin-left: 4rem;
-                margin-right: 0;
-                padding-left: 1rem;
-                padding-right: 1rem;
-                text-align: left;
+            .section-title {
+                font-size: 2.2rem;
             }
 
-            .timeline-marker {
-                left: 2rem;
+            .achievement-stats {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .achievement-grid {
+            .framework-grid,
+            .impact-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: var(--space-lg);
             }
 
-            .hero-actions {
+            .architecture-flow {
+                flex-direction: column;
+            }
+
+            .flow-item::after {
+                content: '↓';
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%);
+            }
+
+            .cta-buttons {
                 flex-direction: column;
                 align-items: center;
             }
 
-            .primary-btn, .secondary-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-
-            .contact-links {
+            .header-content {
                 flex-direction: column;
-                align-items: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--space-md);
             }
 
-            .contact-link {
+            .hero {
+                padding: var(--space-2xl) 0;
+            }
+
+            .framework-overview,
+            .business-impact,
+            .tech-architecture,
+            .okc-connection,
+            .cta {
+                padding: var(--space-2xl) 0;
+            }
+
+            .btn {
                 width: 100%;
-                max-width: 300px;
+                max-width: 280px;
                 justify-content: center;
             }
         }
 
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        /* Special Effects */
+        .glitch {
+            position: relative;
+            color: var(--accent-gold);
+            font-size: 2rem;
+            font-weight: bold;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+            10% {
+                transform: translate(-1px, -1px);
+            }
+            20% {
+                transform: translate(1px, 1px);
+            }
+            30% {
+                transform: translate(-1px, 1px);
+            }
+            40% {
+                transform: translate(1px, -1px);
             }
         }
 
-        /* Focus states */
-        .primary-btn:focus,
-        .secondary-btn:focus,
-        .contact-link:focus {
-            outline: 2px solid #667eea;
-            outline-offset: 2px;
+        /* Code highlight */
+        .code-highlight {
+            background: linear-gradient(135deg, var(--primary-dark), rgba(59, 130, 246, 0.1));
+            padding: var(--space-md);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-blue);
+            font-family: 'Courier New', monospace;
+            color: var(--accent-blue);
+            margin: var(--space-md) 0;
         }
     </style>
 </head>
 <body>
-    <!-- Dynamic Navigation -->
-    <nav class="navbar"></nav>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    DenoGenesis Framework
+                </div>
+                <div class="oklahoma-badge">
+                    🌾 Built in Oklahoma City
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>🚀</span>
-                <span>AI-Assisted Developer & Research Validator</span>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">Pedro M. Dominguez</h1>
+                <p class="fade-in">
+                    Revolutionary Local-First Business Platform<br>
+                    <span class="glitch">Democratizing Technology in Oklahoma City</span>
+                </p>
+
+                <div class="achievement-stats fade-in">
+                    <div class="stat">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Live Businesses</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Core Components</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Offline Capable</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3003</div>
+                        <div class="stat-label">Production Port</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Framework Overview -->
+    <section class="framework-overview">
+        <div class="container">
+            <h2 class="section-title">What I Built: DenoGenesis Framework</h2>
+            
+            <div class="framework-grid">
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🏗️</div>
+                    <h3 class="card-title">Enterprise Architecture</h3>
+                    <p class="card-description">
+                        Built a complete MVC architecture with clean separation of concerns. 
+                        Routers → Controllers → Services → Models → Database. 
+                        Professional-grade structure that scales.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">MVC Pattern</span>
+                        <span class="tech-tag">Service Layer</span>
+                        <span class="tech-tag">Clean Architecture</span>
+                        <span class="tech-tag">TypeScript</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Deno Runtime Power</h3>
+                    <p class="card-description">
+                        Leveraged Deno's modern JavaScript runtime with built-in TypeScript, 
+                        secure by default permissions, and no node_modules. 
+                        The future of server-side JavaScript.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Deno</span>
+                        <span class="tech-tag">Oak Framework</span>
+                        <span class="tech-tag">Native TypeScript</span>
+                        <span class="tech-tag">Security First</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🌐</div>
+                    <h3 class="card-title">Local-First Philosophy</h3>
+                    <p class="card-description">
+                        Applications work offline-first, sync when available. 
+                        Business data stays local, giving Oklahoma businesses 
+                        true digital sovereignty over their information.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Offline-First</span>
+                        <span class="tech-tag">Local Storage</span>
+                        <span class="tech-tag">Data Sovereignty</span>
+                        <span class="tech-tag">Progressive Enhancement</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🗄️</div>
+                    <h3 class="card-title">Multi-Tenant Database</h3>
+                    <p class="card-description">
+                        Single database serving multiple businesses securely. 
+                        Each business isolated by site_key. MySQL with connection pooling, 
+                        graceful error handling, and automated migrations.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Multi-Tenant</span>
+                        <span class="tech-tag">Connection Pooling</span>
+                        <span class="tech-tag">Site Isolation</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">Enterprise Security</h3>
+                    <p class="card-description">
+                        HTTPS everywhere, security headers, CORS configuration, 
+                        request logging, performance monitoring, and graceful error handling. 
+                        Production-ready security from day one.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">HTTPS/SSL</span>
+                        <span class="tech-tag">Security Headers</span>
+                        <span class="tech-tag">CORS</span>
+                        <span class="tech-tag">Request Logging</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">📱</div>
+                    <h3 class="card-title">Responsive Components</h3>
+                    <p class="card-description">
+                        Dynamic component loading system with caching, lazy loading, 
+                        and mobile-first design. Components work without JavaScript 
+                        and enhance progressively.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Mobile-First</span>
+                        <span class="tech-tag">Component System</span>
+                        <span class="tech-tag">Lazy Loading</span>
+                        <span class="tech-tag">Progressive Enhancement</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Architecture -->
+    <section class="tech-architecture">
+        <div class="container">
+            <h2 class="section-title">How It All Works Together</h2>
+            
+            <div class="architecture-flow fade-in">
+                <div class="flow-item">
+                    <div class="flow-icon">📨</div>
+                    <div class="flow-label">Request</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">🛣️</div>
+                    <div class="flow-label">Router</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">🎛️</div>
+                    <div class="flow-label">Controller</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">⚙️</div>
+                    <div class="flow-label">Service</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">🗂️</div>
+                    <div class="flow-label">Model</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">🗄️</div>
+                    <div class="flow-label">Database</div>
+                </div>
             </div>
 
-            <h1>Pedro M. Dominguez</h1>
+            <div class="code-highlight fade-in">
+                <strong>Example Request Flow:</strong><br>
+                POST /api/appointments → appointmentController.create() → AppointmentService.create() → AppointmentModel.save() → MySQL Database
+            </div>
 
-            <p class="hero-subtitle">
-                From Zero to Framework Pioneer in 8 Months
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 1.1rem;">
+                Clean separation of concerns ensures maintainable, testable, and scalable code
             </p>
-
-            <p class="hero-description">
-                I went from not knowing what a runtime was to building a meta-framework that accidentally validates Martin Kleppmann's Cambridge research on local-first software. This is the story of AI-assisted exponential learning.
-            </p>
-
-            <div class="hero-actions">
-                <a href="#story" class="primary-btn">
-                    <span>📖</span>
-                    <span>Read My Story</span>
-                </a>
-                <a href="/pages/portfolio/portfolio.html" target="_blank" class="secondary-btn">
-                    <span>💼</span>
-                    <span>View Portfolio</span>
-                </a>
-            </div>
         </div>
     </section>
 
-    <!-- Story Section -->
-    <section id="story" class="story-section">
-        <div class="story-content">
-            <div class="section-header">
-                <h2>The Journey</h2>
-                <p>From complete beginner to accidentally validating Cambridge University research through AI-assisted development</p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">8 Months Ago</div>
-                        <h3 class="timeline-title">The Beginning</h3>
-                        <p class="timeline-description">
-                            Didn't know what a runtime was. Started using AI as a thinking partner with hybrid operational prompts - combining natural language, code, and screenshots for context.
-                        </p>
-                    </div>
+    <!-- Business Impact -->
+    <section class="business-impact">
+        <div class="container">
+            <h2 class="section-title">Real Business Impact in Oklahoma City</h2>
+            
+            <div class="impact-grid">
+                <div class="impact-card fade-in">
+                    <div class="impact-number">5+</div>
+                    <h3 class="impact-title">Local Businesses Online</h3>
+                    <p class="impact-description">
+                        Roofing companies, tech consultants, bail bonds, moving services, 
+                        and developers - all running on the DenoGenesis platform with 
+                        professional web presence and offline capabilities.
+                    </p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">6 Months Ago</div>
-                        <h3 class="timeline-title">First Breakthrough</h3>
-                        <p class="timeline-description">
-                            Built my first working application through AI collaboration. Learned exponentially fast by treating AI as a development partner, not just a tool.
-                        </p>
-                    </div>
+                <div class="impact-card fade-in">
+                    <div class="impact-number">100%</div>
+                    <h3 class="impact-title">Offline Functionality</h3>
+                    <p class="impact-description">
+                        Every business website works completely offline. Customer data, 
+                        contact forms, and business information accessible even without 
+                        internet connection - true digital sovereignty.
+                    </p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">4 Months Ago</div>
-                        <h3 class="timeline-title">DenoGenesis Framework Born</h3>
-                        <p class="timeline-description">
-                            Started building what would become a multi-tenant meta-framework. All code generated and iterated through AI guidance, but with deep human insight and direction.
-                        </p>
-                    </div>
+                <div class="impact-card fade-in">
+                    <div class="impact-number">$0</div>
+                    <h3 class="impact-title">Monthly Platform Fees</h3>
+                    <p class="impact-description">
+                        No monthly subscriptions to third-party platforms. Businesses 
+                        own their technology stack completely. One-time development, 
+                        lifetime digital independence.
+                    </p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2 Months Ago</div>
-                        <h3 class="timeline-title">The Accidental Discovery</h3>
-                        <p class="timeline-description">
-                            Claude AI discovered that my DenoGenesis framework accidentally validates Martin Kleppmann's theoretical work on local-first software. I had never heard of him before this moment.
-                        </p>
-                    </div>
+                <div class="impact-card fade-in">
+                    <div class="impact-number">24/7</div>
+                    <h3 class="impact-title">Always Available</h3>
+                    <p class="impact-description">
+                        Professional web presence that never goes down. Even if the 
+                        server has issues, customer-facing sites continue working 
+                        with cached data and offline capabilities.
+                    </p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Today</div>
-                        <h3 class="timeline-title">Ready for Cambridge</h3>
-                        <p class="timeline-description">
-                            Multiple live deployments, proven business model, and a framework that challenges 50+ years of distributed systems theory. Ready to collaborate with Martin Kleppmann's research team.
-                        </p>
-                    </div>
+                <div class="impact-card fade-in">
+                    <div class="impact-number">⚡</div>
+                    <h3 class="impact-title">Lightning Fast</h3>
+                    <p class="impact-description">
+                        Sites load in milliseconds, not seconds. Modern Deno runtime, 
+                        optimized assets, smart caching, and component-based architecture 
+                        deliver exceptional performance.
+                    </p>
+                </div>
+
+                <div class="impact-card fade-in">
+                    <div class="impact-number">🔒</div>
+                    <h3 class="impact-title">Bank-Level Security</h3>
+                    <p class="impact-description">
+                        HTTPS everywhere, security headers, request validation, 
+                        SQL injection protection, and multi-tenant data isolation. 
+                        Enterprise security for small business budgets.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section class="achievement-section">
-        <div class="section-header">
-            <h2>What I've Built</h2>
-            <p>Real-world implementations that validate theoretical research through practical application</p>
-        </div>
-
-        <div class="achievement-grid">
-            <div class="achievement-card">
-                <div class="achievement-icon">🎯</div>
-                <h3 class="achievement-title">DenoGenesis Meta-Framework</h3>
-                <p class="achievement-description">
-                    Built a complete local-first software framework that implements all 9 principles of digital sovereignty, extending Kleppmann's original 7 with 2 new principles.
+    <!-- Oklahoma City Connection -->
+    <section class="okc-connection">
+        <div class="container">
+            <div class="okc-content">
+                <div class="oklahoma-flag">🌾</div>
+                <h2 class="okc-title">Built Right Here in Oklahoma City</h2>
+                <p class="okc-description">
+                    This isn't just another tech project from Silicon Valley. The DenoGenesis Framework 
+                    was conceived, built, and deployed right here in Oklahoma City. Every line of code 
+                    written with Oklahoma businesses in mind - from our tornado-tested infrastructure 
+                    to our understanding of local business needs.
                 </p>
-                <div class="achievement-stats">
-                    <span class="stat">Multi-Tenant</span>
-                    <span class="stat">Real-Time Sync</span>
-                    <span class="stat">Zero Dependencies</span>
-                </div>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-icon">🚀</div>
-                <h3 class="achievement-title">Live Business Deployments</h3>
-                <p class="achievement-description">
-                    Three production websites running on the framework, generating real revenue and serving actual customers with measurable performance improvements.
+                <p class="okc-description">
+                    <strong>Why This Matters:</strong> Oklahoma businesses deserve world-class technology 
+                    without world-class prices. We're proving that innovative software development 
+                    can happen anywhere, and that local businesses can have enterprise-grade web 
+                    applications built by people who understand our community.
                 </p>
-                <div class="achievement-stats">
-                    <span class="stat">$300+ Revenue</span>
-                    <span class="stat">8+ Months Uptime</span>
-                    <span class="stat">Sub-100ms Response</span>
-                </div>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-icon">🔬</div>
-                <h3 class="achievement-title">Academic Research Validation</h3>
-                <p class="achievement-description">
-                    First practical implementation that validates Cambridge University's theoretical work on local-first software through real-world business applications.
-                </p>
-                <div class="achievement-stats">
-                    <span class="stat">Cambridge Ready</span>
-                    <span class="stat">Research Validated</span>
-                    <span class="stat">Peer Review Ready</span>
-                </div>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-icon">🤖</div>
-                <h3 class="achievement-title">AI-Assisted Methodology</h3>
-                <p class="achievement-description">
-                    Pioneered hybrid operational prompts combining natural language, code, and visual context to enable exponential learning and complex system development.
-                </p>
-                <div class="achievement-stats">
-                    <span class="stat">8 Month Journey</span>
-                    <span class="stat">Zero to Expert</span>
-                    <span class="stat">Reproducible Method</span>
-                </div>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-icon">🏆</div>
-                <h3 class="achievement-title">Emergent Fault Isolation</h3>
-                <p class="achievement-description">
-                    Discovered a new category of fault tolerance through architectural routing that challenges 50+ years of distributed systems theory.
-                </p>
-                <div class="achievement-stats">
-                    <span class="stat">Novel Discovery</span>
-                    <span class="stat">Theory Breaking</span>
-                    <span class="stat">Production Proven</span>
-                </div>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-icon">🌍</div>
-                <h3 class="achievement-title">Digital Sovereignty Platform</h3>
-                <p class="achievement-description">
-                    Created a complete framework for businesses to achieve digital independence, eliminating vendor lock-in and external dependencies.
-                </p>
-                <div class="achievement-stats">
-                    <span class="stat">100% Self-Hosted</span>
-                    <span class="stat">No Vendor Lock-in</span>
-                    <span class="stat">Complete Control</span>
+                
+                <div class="achievement-stats" style="margin-top: 2rem;">
+                    <div class="stat">
+                        <div class="stat-number">405</div>
+                        <div class="stat-label">Oklahoma Area Code</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">73129</div>
+                        <div class="stat-label">Development Zip Code</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">🏈</div>
+                        <div class="stat-label">Sooner Born & Bred</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="contact-content">
-            <div class="section-header">
-                <h2>Let's Connect</h2>
+    <!-- Live Examples -->
+    <section class="framework-overview" style="background: var(--primary-light);">
+        <div class="container">
+            <h2 class="section-title">See It In Action - Live Oklahoma Businesses</h2>
+            
+            <div class="framework-grid">
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🏠</div>
+                    <h3 class="card-title">Heavenly Roofing OK</h3>
+                    <p class="card-description">
+                        Professional roofing company with emergency contact system, 
+                        service area mapping, and storm damage response capabilities. 
+                        Built for Oklahoma weather challenges.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Emergency Services</span>
+                        <span class="tech-tag">Mobile Optimized</span>
+                        <span class="tech-tag">Storm Ready</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">💼</div>
+                    <h3 class="card-title">Dominguez Tech Solutions</h3>
+                    <p class="card-description">
+                        Full-service web development and IT consulting. Showcases 
+                        portfolio, client testimonials, and service packages with 
+                        integrated contact and project management.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Portfolio Showcase</span>
+                        <span class="tech-tag">Client Management</span>
+                        <span class="tech-tag">Service Packages</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">📦</div>
+                    <h3 class="card-title">Efficient Movers LLC</h3>
+                    <p class="card-description">
+                        Moving company with quote calculator, service area coverage, 
+                        and booking system. Handles both local and long-distance 
+                        moving requirements efficiently.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Quote Calculator</span>
+                        <span class="tech-tag">Booking System</span>
+                        <span class="tech-tag">Service Areas</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">👨‍💻</div>
+                    <h3 class="card-title">Pedro M. Dominguez</h3>
+                    <p class="card-description">
+                        Personal portfolio and technical blog running on port 3003. 
+                        Showcases projects, technical writing, and professional 
+                        accomplishments with advanced component system.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Technical Portfolio</span>
+                        <span class="tech-tag">Advanced Components</span>
+                        <span class="tech-tag">Blog System</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">👥</div>
+                    <h3 class="card-title">Oklahoma Developers (OKDevs)</h3>
+                    <p class="card-description">
+                        Community platform for Oklahoma developers. Event listings, 
+                        job board, meetup coordination, and resource sharing for 
+                        the growing Oklahoma tech community.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Community Platform</span>
+                        <span class="tech-tag">Event Management</span>
+                        <span class="tech-tag">Developer Resources</span>
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🍬</div>
+                    <h3 class="card-title">Dulcería El Girasol</h3>
+                    <p class="card-description">
+                        Mexican candy store with bilingual support, product catalog, 
+                        and party supply ordering. Serves Oklahoma City's growing 
+                        Hispanic community with authentic cultural connections.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Bilingual Support</span>
+                        <span class="tech-tag">Product Catalog</span>
+                        <span class="tech-tag">Cultural Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="font-size: 1.2rem; color: var(--text-secondary);">
+                    <strong>All running simultaneously on a single server</strong><br>
+                    Nginx reverse proxy routing each domain to its dedicated port
+                </p>
+                <div class="code-highlight" style="max-width: 600px; margin: 1rem auto; text-align: left;">
+                    domingueztechsolutions.com → :3000<br>
+                    heavenlyroofingok.com → :3001<br>
+                    okdevs.xyz → :3002<br>
+                    pedromdominguez.com → :3003<br>
+                    efficientmoversllc.com → :3004
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Deep Dive -->
+    <section class="tech-architecture" style="background: var(--primary-dark);">
+        <div class="container">
+            <h2 class="section-title">The Technical Innovation</h2>
+            
+            <div class="framework-grid">
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🏗️</div>
+                    <h3 class="card-title">Middleware Orchestration</h3>
+                    <p class="card-description">
+                        Custom middleware stack with performance monitoring, security headers, 
+                        CORS handling, request logging, and error management. Enterprise-grade 
+                        request processing pipeline.
+                    </p>
+                    <div class="code-highlight">
+                        Performance → Error → Logging → Security → CORS → Health → Routes
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">💾</div>
+                    <h3 class="card-title">Database Management</h3>
+                    <p class="card-description">
+                        Multi-tenant MySQL with connection pooling, graceful error handling, 
+                        and automated health checks. Single database serving multiple businesses 
+                        with complete data isolation.
+                    </p>
+                    <div class="code-highlight">
+                        class DatabaseManager {<br>
+                        &nbsp;&nbsp;async connect() { /* retry logic */ }<br>
+                        &nbsp;&nbsp;testConnection() { /* health check */ }<br>
+                        }
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🎨</div>
+                    <h3 class="card-title">Component System</h3>
+                    <p class="card-description">
+                        Dynamic component loading with caching, lazy loading, network awareness, 
+                        and graceful fallbacks. Components work offline and enhance progressively 
+                        when connectivity improves.
+                    </p>
+                    <div class="code-highlight">
+                        loadComponent() → cache check → network fetch → DOM inject → initialize
+                    </div>
+                </div>
+
+                <div class="framework-card fade-in">
+                    <div class="card-icon">🌐</div>
+                    <h3 class="card-title">Nginx Load Balancing</h3>
+                    <p class="card-description">
+                        Professional reverse proxy setup with SSL termination, security headers, 
+                        and domain routing. Multiple businesses, single server, professional 
+                        deployment architecture.
+                    </p>
+                    <div class="code-highlight">
+                        SSL Certificate → Security Headers → Domain Route → Backend App
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="fade-in">Ready to See More?</h2>
+                <p class="fade-in">
+                    Explore the live applications, dive into the code, or let's discuss 
+                    how this technology can help your Oklahoma business thrive in the digital age.
+                </p>
+                
+                <div class="cta-buttons fade-in">
+                    <a href="https://pedromdominguez.com" class="btn btn-primary" target="_blank">
+                        🚀 Visit My Portfolio
+                    </a>
+                    <a href="https://github.com/xtcedro" class="btn btn-secondary" target="_blank">
+                        💻 View Source Code
+                    </a>
+                    <a href="mailto:pedro@domingueztechsolutions.com" class="btn btn-secondary">
+                        📧 Let's Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DenoGenesis Framework</h3>
+                    <p>Revolutionary local-first business platform</p>
+                    <p>Built with ❤️ in Oklahoma City</p>
+                    <p>Democratizing technology for local businesses</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Live Applications</h3>
+                    <a href="https://pedromdominguez.com" target="_blank">Pedro M. Dominguez</a>
+                    <a href="https://domingueztechsolutions.com" target="_blank">Dominguez Tech Solutions</a>
+                    <a href="https://heavenlyroofingok.com" target="_blank">Heavenly Roofing OK</a>
+                    <a href="https://okdevs.xyz" target="_blank">Oklahoma Developers</a>
+                    <a href="https://efficientmoversllc.com" target="_blank">Efficient Movers LLC</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Technology Stack</h3>
+                    <p>Deno Runtime</p>
+                    <p>TypeScript</p>
+                    <p>Oak Framework</p>
+                    <p>MySQL Database</p>
+                    <p>Nginx Reverse Proxy</p>
+                    <p>Progressive Web Apps</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Oklahoma City Impact</h3>
+                    <p>🏢 Local businesses online</p>
+                    <p>💰 Zero monthly platform fees</p>
+                    <p>🔒 Complete data ownership</p>
+                    <p>⚡ Enterprise performance</p>
+                    <p>🌐 Offline-first approach</p>
+                    <p>🤝 Community-driven development</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(251, 191, 36, 0.3); color: var(--text-tertiary);">
                 <p>
-                    Ready to collaborate on the future of local-first software, discuss AI-assisted development methodologies,
-                    or explore academic research partnerships.
+                    &copy; 2025 Pedro M. Dominguez | DenoGenesis Framework<br>
+                    <strong>Proudly built in Oklahoma City, Oklahoma</strong><br>
+                    <em>"This isn't just code — it's a revolution in motion."</em>
                 </p>
             </div>
-
-            <div class="contact-links">
-                <a href="mailto:pedro@domingueztechsolutions.com" class="contact-link">
-                    <span>📧</span>
-                    <span>pedro@domingueztechsolutions.com</span>
-                </a>
-                <a href="https://github.com/xtcedro" target="_blank" class="contact-link">
-                    <span>💻</span>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.domingueztechsolutions.com" target="_blank" class="contact-link">
-                    <span>🌐</span>
-                    <span>Business Website</span>
-                </a>
-                <a href="https://www.okdevs.xyz" target="_blank" class="contact-link">
-                    <span>👥</span>
-                    <span>OK Devs Community</span>
-                </a>
-            </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- Dynamic Footer -->
-    <footer id="footer"></footer>
-
-    <!-- Interactive JavaScript -->
     <script>
-        // Intersection Observer for timeline animations
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        });
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        // Observe timeline items
-        document.querySelectorAll('.timeline-item').forEach((item, index) => {
-            // Stagger the animation delays
-            item.style.transitionDelay = `${index * 0.2}s`;
-            timelineObserver.observe(item);
-        });
-
-        // Achievement cards animation
-        const achievementObserver = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+        }, observerOptions);
 
-        // Initialize achievement cards
+        // Initialize animations
         document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.achievement-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-                achievementObserver.observe(card);
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = `opacity 0.8s ease ${index * 0.1}s, transform 0.8s ease ${index * 0.1}s`;
+                observer.observe(el);
             });
+
+            // Add dynamic stats animation
+            animateStats();
+            
+            // Add floating particles effect
+            createParticles();
         });
 
-        // Smooth scrolling for anchor links
+        // Animate statistics numbers
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number, .impact-number');
+            
+            stats.forEach(stat => {
+                const finalValue = stat.textContent;
+                const isNumeric = !isNaN(finalValue);
+                
+                if (isNumeric && parseInt(finalValue) > 0) {
+                    let currentValue = 0;
+                    const increment = parseInt(finalValue) / 50;
+                    
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= parseInt(finalValue)) {
+                            stat.textContent = finalValue;
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(currentValue);
+                        }
+                    }, 30);
+                }
+            });
+        }
+
+        // Create floating particle effect
+        function createParticles() {
+            const particles = ['⚡', '🚀', '💻', '🏗️', '🌐', '🔒'];
+            
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.cssText = `
+                    position: fixed;
+                    top: -50px;
+                    left: ${Math.random() * window.innerWidth}px;
+                    font-size: 1.5rem;
+                    pointer-events: none;
+                    z-index: 1000;
+                    opacity: 0.7;
+                    animation: float 8s linear forwards;
+                `;
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 8000);
+            }, 2000);
+        }
+
+        // Add floating animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.7;
+                }
+                90% {
+                    opacity: 0.3;
+                }
+                100% {
+                    transform: translateY(${window.innerHeight + 100}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -804,22 +1359,82 @@
             });
         });
 
-        // Add some interactive flair
-        document.querySelectorAll('.achievement-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(-5px) scale(1)';
+        // Track external link clicks for analytics
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', () => {
+                console.log('External link clicked:', link.href);
+                // Add analytics tracking here if needed
             });
         });
 
-        // Track interaction events
-        document.querySelectorAll('.contact-link, .primary-btn, .secondary-btn').forEach(link => {
-            link.addEventListener('click', (e) => {
-                console.log('User interaction:', e.target.href || e.target.textContent);
-            });
+        // Add typing effect for the glitch text
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const glitchElement = document.querySelector('.glitch');
+                if (glitchElement) {
+                    typeWriter(glitchElement, 'Democratizing Technology in Oklahoma City', 80);
+                }
+            }, 1000);
+        });
+
+        // Easter egg: Konami code for special animation
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            konamiCode.splice(-konamiSequence.length - 1, konamiCode.length - konamiSequence.length);
+            
+            if (konamiCode.join('') === konamiSequence.join('')) {
+                // Trigger special Oklahoma animation
+                document.body.style.animation = 'oklahoma-pride 2s ease-in-out';
+                console.log('🌾 Oklahoma pride activated! Boomer Sooner! 🏈');
+                
+                // Add temporary Oklahoma colors
+                document.body.style.background = 'linear-gradient(45deg, #841617, #FDD116)';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                    document.body.style.background = '';
+                }, 2000);
+            }
+        });
+
+        // Add Oklahoma pride animation
+        const oklahomaPrideStyle = document.createElement('style');
+        oklahomaPrideStyle.textContent = `
+            @keyframes oklahoma-pride {
+                0%, 100% { filter: hue-rotate(0deg); }
+                25% { filter: hue-rotate(90deg); }
+                50% { filter: hue-rotate(180deg); }
+                75% { filter: hue-rotate(270deg); }
+            }
+        `;
+        document.head.appendChild(oklahomaPrideStyle);
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const loadTime = performance.now();
+                console.log(`🚀 DenoGenesis Framework loaded in ${Math.round(loadTime)}ms`);
+                console.log('⚡ Built with pride in Oklahoma City');
+                console.log('🌾 Democratizing technology, one business at a time');
+            }
         });
     </script>
 </body>
